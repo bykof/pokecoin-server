@@ -6,9 +6,7 @@ import authenticationRoutes from './authentication/routes'
 
 mongoose.connect('mongodb://localhost/pokecoin')
 
-const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
-  logger: true
-})
+const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({})
 
 server.register(fastifySwagger, {
   exposeRoute: true,
@@ -19,7 +17,7 @@ server.register(fastifySwagger, {
       description: 'Pokecoin documentation',
       version: '1.0.0'
     },
-    host: 'localhost',
+    host: 'localhost:3000',
     schemes: ['http'],
     consumes: ['application/json'],
     produces: ['application/json'],

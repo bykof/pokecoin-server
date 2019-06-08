@@ -4,15 +4,10 @@ export default class UserController {
   async register(request, reply) {
     try {
       const user = await new User({
-        email: request.body.email,
         username: request.body.username,
         password: User.hashPassword(request.body.password),
       }).save()
-      return reply.send({
-        email: request.body.email,
-        username: request.body.username,
-        password: request.body.password
-      })
+      return reply.send(user)
     } catch (error) {
       // Duplicate entry
       if (error.code === '11000') return reply.status(400).send(error)
@@ -21,6 +16,16 @@ export default class UserController {
   }
 
   async login(request, reply) {
+    try {
+      const user = await User.findOne({username: request.body.username, password: User.hashPassword(request.body.password)})
 
+      if (user) {
+        return reply.send({token: user.generateJSONWebToken()})
+      } else {
+        return reply.status(400).send({code: 'LOGIN_FAILED', message: 'User was not found or password incorrect'})
+      }
+    } catch (error) {
+      return reply.status(500).send(error)
+    }
   }
 }

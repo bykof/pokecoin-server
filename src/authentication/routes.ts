@@ -1,13 +1,14 @@
 import fastify = require("fastify")
 import { Server, IncomingMessage, ServerResponse } from "http"
 import UserController from "./controller"
+import ErrorSchema from '../core/schemas/Error'
 
 export default async function routes(
   fastify: fastify.FastifyInstance,
   options: fastify.RegisterOptions<Server, IncomingMessage, ServerResponse>
 ) {
   fastify.route({
-    method: 'GET',
+    method: 'POST',
     url: '/login',
     schema: {
       body: {
@@ -23,7 +24,8 @@ export default async function routes(
           properties: {
             token: { type: 'string' },
           }
-        }
+        },
+        400: ErrorSchema
       }
     },
     handler: new UserController().login
@@ -47,14 +49,7 @@ export default async function routes(
             username: { type: 'string' },
           }
         },
-        400: {
-          type: 'object',
-          properties: {
-            code: { type: 'string' },
-            message: { type: 'string' },
-            payload: { type: 'object' }
-          }
-        }
+        400: ErrorSchema
       }
     },
     handler: new UserController().register
