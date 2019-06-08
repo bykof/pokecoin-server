@@ -1,15 +1,20 @@
-import {Schema, model} from 'mongoose'
+import { prop, Typegoose, ModelType, InstanceType, staticMethod } from 'typegoose'
+import * as crypto from 'crypto'
 
-const UserSchema = new Schema({
-    username: String,
-    email: String,
-    password: String,
-})
+class User extends Typegoose {
+    @prop({required: true, unique: true})
+    username: String
 
-class User {
+    @prop({required: true, unique: true})
+    email: String
 
+    @prop({required: true})
+    password: String
+
+    @staticMethod
+    static hashPassword(this: ModelType<User> & typeof User, password: crypto.BinaryLike): String {
+        return crypto.createHash('sha256').update(password).digest('hex')
+    }
 }
 
-UserSchema.loadClass(User)
-const userModel = model('User', UserSchema)
-export default userModel
+export default new User().getModelForClass(User)

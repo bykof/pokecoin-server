@@ -1,6 +1,6 @@
 import fastify = require("fastify")
 import { Server, IncomingMessage, ServerResponse } from "http"
-import User from './models/User'
+import UserController from "./controller"
 
 export default async function routes(
   fastify: fastify.FastifyInstance,
@@ -8,24 +8,55 @@ export default async function routes(
 ) {
   fastify.route({
     method: 'GET',
-    url: '/',
+    url: '/login',
     schema: {
-      querystring: {
-        name: { type: 'string' },
-        test: { type: 'integer' },
+      body: {
+        type: 'object',
+        properties: {
+          username: { type: 'string' },
+          password: { type: 'string' },
+        }
       },
       response: {
         200: {
-          type: 'array',
-          items: {
-            type: 'string'
+          type: 'object',
+          properties: {
+            token: { type: 'string' },
           }
         }
       }
     },
-    handler: async (request, reply) => {
-      const user = await User.find()
-      reply.send(user)
-    }
+    handler: new UserController().login
+  })
+
+  fastify.route({
+    method: 'POST',
+    url: '/register',
+    schema: {
+      body: {
+        type: 'object',
+        properties: {
+          username: { type: 'string' },
+          password: { type: 'string' },
+        },
+      },
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            username: { type: 'string' },
+          }
+        },
+        400: {
+          type: 'object',
+          properties: {
+            code: { type: 'string' },
+            message: { type: 'string' },
+            payload: { type: 'object' }
+          }
+        }
+      }
+    },
+    handler: new UserController().register
   })
 }
