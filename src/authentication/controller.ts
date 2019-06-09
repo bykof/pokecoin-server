@@ -19,7 +19,6 @@ export default class UserController {
   }
 
   static async login(request, reply) {
-    console.log(request.headers)
     try {
       const user = await User.findOne({username: request.body.username})
 
