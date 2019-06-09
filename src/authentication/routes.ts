@@ -1,7 +1,8 @@
 import fastify = require("fastify")
 import { Server, IncomingMessage, ServerResponse } from "http"
 import UserController from "./controller"
-import ErrorSchema from '../core/schemas/Error'
+import UserNotFoundError from "./errors/UserNotFoundError";
+import UserAlreadyExistsError from "./errors/UserAlreadyExistsError";
 
 export default async function routes(
   fastify: fastify.FastifyInstance,
@@ -16,7 +17,8 @@ export default async function routes(
         properties: {
           username: { type: 'string' },
           password: { type: 'string' },
-        }
+        },
+        required: ['username', 'password'],
       },
       response: {
         200: {
@@ -25,10 +27,18 @@ export default async function routes(
             token: { type: 'string' },
           }
         },
-        400: ErrorSchema
-      }
+        400: {
+          type: 'object',
+          properties: {
+            code: { type: 'string', enum: ['UserNotFoundError', 'PasswordIncorrectError'] },
+            message: { type: 'string' },
+            username: { type: 'string' },
+          }
+        },
+      },
+      security: [{ "token": null }]
     },
-    handler: new UserController().login
+    handler: UserController.login
   })
 
   fastify.route({
@@ -41,6 +51,7 @@ export default async function routes(
           username: { type: 'string' },
           password: { type: 'string' },
         },
+        required: ['username', 'password'],
       },
       response: {
         200: {
@@ -49,9 +60,9 @@ export default async function routes(
             username: { type: 'string' },
           }
         },
-        400: ErrorSchema
+        400: 'UserAlreadyExistsError#'
       }
     },
-    handler: new UserController().register
+    handler: UserController.register
   })
 }

@@ -22,10 +22,11 @@ server.register(fastifySwagger, {
     consumes: ['application/json'],
     produces: ['application/json'],
     securityDefinitions: {
-      apiKey: {
+      token: {
         type: 'apiKey',
-        name: 'apiKey',
-        in: 'header'
+        scheme: 'Bearer',
+        name: 'token',
+        in: 'header',
       }
     }
   }
