@@ -60,7 +60,14 @@ export default async function routes(
             username: { type: 'string' },
           }
         },
-        400: 'UserAlreadyExistsError#'
+        400: {
+          type: 'object',
+          properties: {
+            code: { type: 'string', enum: ['UserAlreadyExists'] },
+            message: { type: 'string' },
+            username: { type: 'string' },
+          }
+        },
       }
     },
     handler: UserController.register
