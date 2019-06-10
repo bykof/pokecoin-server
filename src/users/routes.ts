@@ -3,6 +3,9 @@ import { Server, IncomingMessage, ServerResponse } from "http"
 import UserController from "./controller"
 import * as loginSchemas from './schemas/loginSchemas'
 import * as registerSchemas from './schemas/registerSchemas'
+import * as userSchemas from './schemas/userSchemas'
+import isAuthenticated from "./decorators/isAuthenticated"
+import unexpectedErrorSchema from "../core/schemas/unexpectedErrorSchema"
 
 export default async function routes(
   fastify: fastify.FastifyInstance,
@@ -16,9 +19,12 @@ export default async function routes(
       response: {
         200: loginSchemas.responseSuccessfulSchema,
         400: loginSchemas.responseFailedSchema,
+        401: userSchemas.unauthorizedSchema,
+        500: unexpectedErrorSchema,
       },
       security: [{ "token": null }]
     },
+    preHandler: isAuthenticated,
     handler: UserController.login
   })
 
@@ -30,6 +36,8 @@ export default async function routes(
       response: {
         200: registerSchemas.responseSuccessfulSchema,
         400: registerSchemas.responseFailedSchema,
+        401: userSchemas.unauthorizedSchema,
+        500: unexpectedErrorSchema,
       }
     },
     handler: UserController.register

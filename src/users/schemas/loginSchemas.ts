@@ -1,3 +1,6 @@
+import UserNotFoundError from "../errors/UserNotFoundError";
+import PasswordIncorrectError from "../errors/PasswordIncorrectError";
+
 export const bodySchema = {
   type: 'object',
   properties: {
@@ -17,7 +20,7 @@ export const responseSuccessfulSchema = {
 export const responseFailedSchema = {
   type: 'object',
   properties: {
-    code: { type: 'string', enum: ['UserNotFoundError', 'PasswordIncorrectError'] },
+    code: { type: 'string', enum: [UserNotFoundError.name, PasswordIncorrectError.name] },
     message: { type: 'string' },
     username: { type: 'string' },
   }

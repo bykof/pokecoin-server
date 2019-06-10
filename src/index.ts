@@ -12,7 +12,6 @@ const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> =
 
 server.register(fastifySwagger, swaggerConfig)
 
-server.decorate('isAuthenticated', isAuthenticated)
 server.register(authenticationRoutes, { prefix: '/auth' })
 
 server.ready(
