@@ -22,7 +22,6 @@ export default async function routes(
         401: userSchemas.unauthorizedSchema,
         500: unexpectedErrorSchema,
       },
-      security: [{ "token": null }]
     },
     preHandler: isAuthenticated,
     handler: UserController.login
