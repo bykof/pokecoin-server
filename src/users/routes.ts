@@ -1,6 +1,6 @@
 import fastify = require("fastify")
 import { Server, IncomingMessage, ServerResponse } from "http"
-import UserController from "./controller"
+import UserController from "./controller/UserController"
 import * as loginSchemas from './schemas/loginSchemas'
 import * as registerSchemas from './schemas/registerSchemas'
 import * as userSchemas from './schemas/userSchemas'
