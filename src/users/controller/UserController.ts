@@ -19,7 +19,7 @@ export default class UserController {
       return reply.send(user)
     } catch (error) {
       // Duplicate entry
-      if (error.code === '11000') return reply.status(400).send(new UserAlreadyExistsError(request.body.username))
+      if (error.code === 11000) return reply.status(400).send(new UserAlreadyExistsError(request.body.username))
       return reply.status(500).send(error)
     }
   }
