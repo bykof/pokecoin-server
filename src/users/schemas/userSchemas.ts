@@ -8,3 +8,12 @@ export const unauthorizedSchema = {
     message: { type: 'string' },
   }
 }
+
+export const userResponseSchema = {
+  type: 'object',
+  description: 'User Response',
+  properties: {
+    username: { type: 'string' },
+    coinBalance: { type: 'integer' },
+  }
+}

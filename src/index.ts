@@ -5,10 +5,12 @@ import * as mongoose from 'mongoose'
 import authenticationRoutes from './users/routes'
 import swaggerConfig from './config/swaggerConfig';
 import isAuthenticated from './users/decorators/isAuthenticated'
+import BlockChain from './blockchain/BlockChain';
 
 mongoose.connect('mongodb://localhost/pokecoin')
 
 const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({})
+const blockChain: BlockChain = new BlockChain()
 
 server.register(fastifySwagger, swaggerConfig)
 

@@ -2,7 +2,7 @@ import { prop, Typegoose, ModelType, InstanceType, staticMethod, instanceMethod 
 import * as crypto from 'crypto'
 import { sign as signJWT, verify as verifyJWT } from 'jsonwebtoken'
 
-class User extends Typegoose {
+export class UserClass extends Typegoose {
     @prop({ required: true, unique: true })
     username: String
 
@@ -10,12 +10,12 @@ class User extends Typegoose {
     password: String
 
     @staticMethod
-    static hashPassword(this: ModelType<User> & typeof User, password: crypto.BinaryLike): String {
+    static hashPassword(this: ModelType<UserClass> & typeof UserClass, password: crypto.BinaryLike): String {
         return crypto.createHash('sha256').update(password).digest('hex')
     }
 
     @staticMethod
-    static verifyJSONWebToken(this: ModelType<User> & typeof User, token: string): boolean {
+    static verifyJSONWebToken(this: ModelType<UserClass> & typeof UserClass, token: string): boolean {
         try {
             // TODO: change secret
             const decoded = verifyJWT(token, 'secret');
@@ -27,14 +27,14 @@ class User extends Typegoose {
     }
 
     @instanceMethod
-    generateJSONWebToken(this: InstanceType<User>) {
+    generateJSONWebToken(this: InstanceType<UserClass>): String {
         // TODO: change secret
         return signJWT(
             { username: this.username },
             'secret',
             { expiresIn: 60 * 60 }
-        );
+        )
     }
 }
 
-export default new User().getModelForClass(User)
+export default new UserClass().getModelForClass(UserClass)

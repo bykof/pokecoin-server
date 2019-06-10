@@ -19,11 +19,9 @@ export default async function routes(
       response: {
         200: loginSchemas.responseSuccessfulSchema,
         400: loginSchemas.responseFailedSchema,
-        401: userSchemas.unauthorizedSchema,
         500: unexpectedErrorSchema,
       },
     },
-    preHandler: isAuthenticated,
     handler: UserController.login
   })
 
@@ -35,10 +33,23 @@ export default async function routes(
       response: {
         200: registerSchemas.responseSuccessfulSchema,
         400: registerSchemas.responseFailedSchema,
-        401: userSchemas.unauthorizedSchema,
         500: unexpectedErrorSchema,
       }
     },
     handler: UserController.register
+  })
+
+  fastify.route({
+    method: 'GET',
+    url: '/me',
+    schema: {
+      response: {
+        200: userSchemas.userResponseSchema,
+        401: userSchemas.unauthorizedSchema,
+        500: unexpectedErrorSchema,
+      }
+    },
+    preHandler: isAuthenticated,
+    handler: UserController.me
   })
 }
