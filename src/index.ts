@@ -2,40 +2,18 @@ import * as fastify from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 import * as fastifySwagger from 'fastify-swagger'
 import * as mongoose from 'mongoose'
-import authenticationRoutes from './authentication/routes'
+import authenticationRoutes from './users/routes'
+import swaggerConfig from './config/swaggerConfig';
+import isAuthenticated from './users/decorators/isAuthenticated'
 
 mongoose.connect('mongodb://localhost/pokecoin')
 
 const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({})
 
-server.register(fastifySwagger, {
-  exposeRoute: true,
-  routePrefix: '/docs',
-  swagger: {
-    info: {
-      title: 'Pokecoin',
-      description: 'Pokecoin documentation',
-      version: '1.0.0'
-    },
-    host: 'localhost:3000',
-    schemes: ['http'],
-    consumes: ['application/json'],
-    produces: ['application/json'],
-    securityDefinitions: {
-      token: {
-        type: 'apiKey',
-        scheme: 'Bearer',
-        name: 'token',
-        in: 'header',
-      }
-    }
-  }
-})
+server.register(fastifySwagger, swaggerConfig)
 
-server.register(
-  authenticationRoutes,
-  { prefix: '/auth' }
-)
+server.decorate('isAuthenticated', isAuthenticated)
+server.register(authenticationRoutes, { prefix: '/auth' })
 
 server.ready(
   (error) => {
