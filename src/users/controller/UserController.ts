@@ -1,7 +1,7 @@
 import User from '../models/User'
-import UserAlreadyExistsError from '../errors/UserAlreadyExistsError';
-import UserNotFoundError from '../errors/UserNotFoundError';
-import PasswordIncorrectError from '../errors/PasswordIncorrectError';
+import UserAlreadyExistsError from '../errors/UserAlreadyExistsError'
+import UserNotFoundError from '../errors/UserNotFoundError'
+import PasswordIncorrectError from '../errors/PasswordIncorrectError'
 
 export default class UserController {
   /**

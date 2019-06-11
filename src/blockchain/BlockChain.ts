@@ -7,10 +7,11 @@ import BlockIsNotValidError from './errors/BlockIsNotValidError'
 
 export default class BlockChain {
   chain: InstanceType<BlockClass>[]
-  _currentDifficulty: number = 4
+  _currentDifficulty: number
 
-  constructor() {
+  constructor(difficulty=4) {
     this.chain = []
+    this._currentDifficulty = difficulty
   }
 
   async setup() {

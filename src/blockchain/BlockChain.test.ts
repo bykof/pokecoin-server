@@ -3,8 +3,7 @@ import Block from './models/Block'
 import BlockIsNotValidError from './errors/BlockIsNotValidError';
 
 test('test validateBlockChain to be truthy', () => {
-  const blockChain = new BlockChain()
-  blockChain._currentDifficulty = 1
+  const blockChain = new BlockChain(1)
   const block1 = new Block({ data: 'Text', timestamp: Date.now(), previousHash: '' })
   block1.hash = block1.mineHash(blockChain.currentDifficulty)
   blockChain.addBlock(block1)
@@ -16,7 +15,7 @@ test('test validateBlockChain to be truthy', () => {
 })
 
 test('test validateBlockChain to be falsy', () => {
-  const blockChain = new BlockChain()
+  const blockChain = new BlockChain(1)
   const block1 = new Block({ data: 'Text', timestamp: Date.now(), previousHash: '' })
   block1.hash = block1.mineHash(blockChain.currentDifficulty)
   blockChain.addBlock(block1)
@@ -34,7 +33,7 @@ test('test validateBlockChain to be falsy', () => {
 })
 
 test('test addBlock to be truthy', () => {
-  const blockChain = new BlockChain()
+  const blockChain = new BlockChain(1)
   const block1 = new Block({ data: 'Text', timestamp: Date.now(), previousHash: '' })
   block1.hash = block1.mineHash(blockChain.currentDifficulty)
   blockChain.addBlock(block1)
@@ -46,7 +45,7 @@ test('test addBlock to be truthy', () => {
 
 
 test('test addBlock to be falsy', () => {
-  const blockChain = new BlockChain()
+  const blockChain = new BlockChain(1)
   const block1 = new Block({ data: 'Text', timestamp: Date.now(), previousHash: '' })
   block1.hash = block1.mineHash(blockChain.currentDifficulty)
   blockChain.addBlock(block1)
