@@ -1,11 +1,12 @@
 import fastify = require("fastify")
 import { Server, IncomingMessage, ServerResponse } from "http"
+import unexpectedErrorSchema from "../core/schemas/unexpectedErrorSchema"
+import unauthorizedSchema from "../core/schemas/unauthorizedSchema"
 import UserController from "./controller/UserController"
 import * as loginSchemas from './schemas/loginSchemas'
 import * as registerSchemas from './schemas/registerSchemas'
-import * as userSchemas from './schemas/userSchemas'
 import isAuthenticated from "./decorators/isAuthenticated"
-import unexpectedErrorSchema from "../core/schemas/unexpectedErrorSchema"
+import userSchema from "./schemas/userSchema";
 
 export default async function routes(
   fastify: fastify.FastifyInstance,
@@ -44,8 +45,8 @@ export default async function routes(
     url: '/me',
     schema: {
       response: {
-        200: userSchemas.userResponseSchema,
-        401: userSchemas.unauthorizedSchema,
+        200: userSchema,
+        401: unauthorizedSchema,
         500: unexpectedErrorSchema,
       }
     },

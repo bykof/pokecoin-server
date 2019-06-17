@@ -7,7 +7,7 @@ export default {
       description: 'The Pokecoin documentation',
       version: '1.0.0'
     },
-    host: 'localhost:3000',
+    host: '127.0.0.1:3000',
     schemes: ['http'],
     consumes: ['application/json'],
     produces: ['application/json'],

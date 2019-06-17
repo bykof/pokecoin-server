@@ -1,18 +1,14 @@
-import { prop, Typegoose, Ref, instanceMethod, InstanceType } from 'typegoose'
+import { prop, Typegoose, Ref, instanceMethod, InstanceType, staticMethod, ModelType } from 'typegoose'
 import * as crypto from 'crypto'
 
-import { UserClass } from '../../users/models/User'
-import { Block, numberLiteralTypeAnnotation } from '@babel/types';
+import { User } from '../../users/models/User'
 
-export class BlockClass extends Typegoose {
+export class Block extends Typegoose {
   @prop()
   hash: String
 
   @prop()
   previousHash: String
-
-  @prop({default: 1})
-  index: number = 1
 
   @prop()
   data: String
@@ -23,14 +19,13 @@ export class BlockClass extends Typegoose {
   @prop({default: 1})
   nonce: number = 1
 
-  @prop({ ref: UserClass })
-  foundByUser: Ref<UserClass>
+  @prop({ ref: User })
+  foundByUser: Ref<User>
 
   @instanceMethod
-  calculateHash(this: InstanceType<BlockClass>): String {
+  calculateHash(this: InstanceType<Block>): String {
     const information = (
       this.previousHash +
-      this.index.toString() +
       this.timestamp.toString() +
       this.data +
       this.nonce.toString()
@@ -39,7 +34,7 @@ export class BlockClass extends Typegoose {
   }
 
   @instanceMethod
-  mineHash(this: InstanceType<BlockClass>, difficulty: number): String {
+  mineHash(this: InstanceType<Block>, difficulty: number): String {
     const difficultyAsZeros = new Array(difficulty).fill(0).join('')
     while (this.calculateHash().substring(0, difficulty) !== difficultyAsZeros) {
       this.nonce++
@@ -51,6 +46,18 @@ export class BlockClass extends Typegoose {
     }
     return this.calculateHash()
   }
+
+  @staticMethod
+  static createFromRequest(this: ModelType<Block>, request): InstanceType<Block> {
+    const newBlock = new this()
+    newBlock.previousHash = request.body.previousHash
+    newBlock.data = request.body.data
+    newBlock.timestamp = request.body.timestamp
+    newBlock.nonce = request.body.nonce
+    newBlock.hash = newBlock.calculateHash()
+    newBlock.foundByUser = request.user
+    return newBlock
+  }
 }
 
-export default new BlockClass().getModelForClass(BlockClass)
+export const BlockModel = new Block().getModelForClass(Block)

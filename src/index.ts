@@ -3,32 +3,39 @@ import { Server, IncomingMessage, ServerResponse } from 'http'
 import * as fastifySwagger from 'fastify-swagger'
 import * as mongoose from 'mongoose'
 import authenticationRoutes from './users/routes'
+import blockchainRoutes from './blockchain/routes'
 import swaggerConfig from './config/swaggerConfig';
-import isAuthenticated from './users/decorators/isAuthenticated'
-import BlockChain from './blockchain/BlockChain';
-
-mongoose.connect('mongodb://localhost/pokecoin')
+import Blockchain from './blockchain/core/Blockchain'
 
 const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({})
-const blockChain: BlockChain = new BlockChain()
+const blockchain = Blockchain.getInstance();
 
-server.register(fastifySwagger, swaggerConfig)
+(async () => {
+  await mongoose.connect('mongodb://localhost/pokecoin', { useNewUrlParser: true, useCreateIndex: true })
+  await blockchain.setup();
+  console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`)
 
-server.register(authenticationRoutes, { prefix: '/auth' })
+  server.register(fastifySwagger, swaggerConfig)
+  server.register(authenticationRoutes, { prefix: '/auth' })
+  server.register(blockchainRoutes, { prefix: '/blockchain' })
 
-server.ready(
-  (error) => {
-    if (error) throw error
-    server.swagger()
-  }
-)
-
-server.listen(
-  3000,
-  (error, address) => {
-    if (error) {
-      server.log.error(error)
-      process.exit(1)
+  server.ready(
+    (error) => {
+      if (error) throw error
+      server.swagger()
     }
-  }
-)
+  )
+
+  server.listen(
+    3000,
+    (error, address) => {
+      if (error) {
+        server.log.error(error)
+        process.exit(1)
+      }
+      console.log('Server running:', address)
+    }
+  )
+})()
+
+

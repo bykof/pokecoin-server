@@ -1,4 +1,4 @@
-import User from '../models/User'
+import { UserModel } from '../models/User'
 import UserAlreadyExistsError from '../errors/UserAlreadyExistsError'
 import UserNotFoundError from '../errors/UserNotFoundError'
 import PasswordIncorrectError from '../errors/PasswordIncorrectError'
@@ -12,9 +12,9 @@ export default class UserController {
    */
   static async register(request, reply) {
     try {
-      const user = await new User({
+      const user = await new UserModel({
         username: request.body.username,
-        password: User.hashPassword(request.body.password),
+        password: UserModel.hashPassword(request.body.password),
       }).save()
       return reply.send(user)
     } catch (error) {
@@ -32,10 +32,10 @@ export default class UserController {
    */
   static async login(request, reply) {
     try {
-      const user = await User.findOne({ username: request.body.username })
+      const user = await UserModel.findOne({ username: request.body.username })
 
       if (user) {
-        if (user.password === User.hashPassword(request.body.password)) {
+        if (user.password === UserModel.hashPassword(request.body.password)) {
           return reply.send({ token: user.generateJSONWebToken() })
         } else {
           return reply.status(400).send(new PasswordIncorrectError(request.body.username))
