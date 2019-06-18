@@ -364,6 +364,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/lockfile@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@types/lockfile/-/lockfile-1.0.1.tgz#434a3455e89843312f01976e010c60f1bcbd56f7"
+  integrity sha512-65WZedEm4AnOsBDdsapJJG42MhROu3n4aSSiu87JXF/pSdlubxZxp3S1yz3kTfkJ2KBPud4CpjoHVAptOm9Zmw==
+
 "@types/mongodb@*":
   version "3.1.28"
   resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-3.1.28.tgz#c049cdff343788d77f5cc8c5f2e4af72ba7d047b"
@@ -2581,6 +2586,13 @@ locate-path@^3.0.0:
   dependencies:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
+
+lockfile@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/lockfile/-/lockfile-1.0.4.tgz#07f819d25ae48f87e538e6578b6964a4981a5609"
+  integrity sha512-cvbTwETRfsFh4nHsL1eGWapU1XFi5Ot9E85sWAwia7Y7EgB7vfqcZhTKZ+l7hCGxSPoushMv5GKhT5PdLv03WA==
+  dependencies:
+    signal-exit "^3.0.2"
 
 lodash.includes@^4.3.0:
   version "4.3.0"
