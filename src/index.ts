@@ -10,11 +10,11 @@ import Blockchain from './blockchain/core/Blockchain'
 const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({})
 const blockchain = Blockchain.getInstance();
 
-(async () => {
+async function startApplication() {
+  process.on('SIGTERM', () => process.exit())
   await mongoose.connect('mongodb://localhost/pokecoin', { useNewUrlParser: true, useCreateIndex: true })
   await blockchain.setup();
   console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`)
-
   server.register(fastifySwagger, swaggerConfig)
   server.register(authenticationRoutes, { prefix: '/auth' })
   server.register(blockchainRoutes, { prefix: '/blockchain' })
@@ -25,7 +25,6 @@ const blockchain = Blockchain.getInstance();
       server.swagger()
     }
   )
-
   server.listen(
     3000,
     (error, address) => {
@@ -34,8 +33,11 @@ const blockchain = Blockchain.getInstance();
         process.exit(1)
       }
       console.log('Server running:', address)
+
     }
   )
-})()
+}
+
+startApplication()
 
 

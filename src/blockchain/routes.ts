@@ -5,6 +5,7 @@ import isAuthenticated from "../users/decorators/isAuthenticated"
 import unauthorizedSchema from "../core/schemas/unauthorizedSchema"
 import BlockchainController from "./controller/BlockchainController"
 import * as addBlockSchemas from "./schemas/addBlockSchemas"
+import * as lastBlockSchemas from "./schemas/lastBlockSchemas"
 
 export default async function routes(
   fastify: fastify.FastifyInstance,
@@ -25,5 +26,18 @@ export default async function routes(
     },
     preHandler: isAuthenticated,
     handler: BlockchainController.addBlock,
+  })
+
+  fastify.route({
+    method: 'GET',
+    url: '/lastBlock',
+    schema: {
+      response: {
+        200: lastBlockSchemas.responseSuccessfulSchema,
+        401: unauthorizedSchema,
+        500: unexpectedErrorSchema,
+      },
+    },
+    handler: BlockchainController.lastBlock,
   })
 }
