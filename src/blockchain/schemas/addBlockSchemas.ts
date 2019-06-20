@@ -1,5 +1,6 @@
 import BlockIsNotValidError from "../errors/BlockIsNotValidError";
 import blockSchema from "./blockSchema";
+import transactionSchema from "../../wallet/schemas/transactionSchema";
 
 export const bodySchema = {
   type: 'object',
@@ -26,5 +27,6 @@ export const responseSuccessfulSchema = {
   type: 'object',
   properties: {
     block: blockSchema,
+    transaction: transactionSchema,
   }
 }

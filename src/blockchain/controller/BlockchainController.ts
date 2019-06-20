@@ -2,6 +2,7 @@ import Blockchain from "../core/Blockchain"
 import { BlockModel } from "../models/Block"
 import BlockIsNotValidError from "../errors/BlockIsNotValidError"
 import * as lockfile from 'lockfile'
+import Wallet from "../../wallet/core/Wallet";
 
 export default class BlockchainController {
 
@@ -20,6 +21,7 @@ export default class BlockchainController {
       },
       async () => {
         const blockchain = Blockchain.getInstance()
+        const wallet = new Wallet(request.user)
         const newBlock = BlockModel.createFromRequest(request)
 
         if (!blockchain.blockIsValid(newBlock)) {
@@ -28,8 +30,13 @@ export default class BlockchainController {
         } else {
           await newBlock.save()
           await blockchain.updateChain()
+          const newTransaction = await wallet.addReward(newBlock)
           lockfile.unlock(BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK, () => {})
-          return reply.send({ block: newBlock })
+
+          return reply.send({
+            block: newBlock,
+            transaction: newTransaction
+          })
         }
       }
     )
