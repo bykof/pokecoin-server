@@ -40,5 +40,3 @@ async function startApplication() {
 }
 
 startApplication()
-
-
