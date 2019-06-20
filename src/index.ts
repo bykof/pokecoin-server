@@ -4,7 +4,8 @@ import * as fastifySwagger from 'fastify-swagger'
 import * as mongoose from 'mongoose'
 import authenticationRoutes from './users/routes'
 import blockchainRoutes from './blockchain/routes'
-import swaggerConfig from './config/swaggerConfig';
+import walletRoutes from './wallet/routes'
+import swaggerConfig from './config/swaggerConfig'
 import Blockchain from './blockchain/core/Blockchain'
 
 const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({})
@@ -18,7 +19,7 @@ async function startApplication() {
   server.register(fastifySwagger, swaggerConfig)
   server.register(authenticationRoutes, { prefix: '/auth' })
   server.register(blockchainRoutes, { prefix: '/blockchain' })
-
+  server.register(walletRoutes, { prefix: '/wallet' })
   server.ready(
     (error) => {
       if (error) throw error
