@@ -2,11 +2,12 @@ import fastify = require("fastify")
 import { Server, IncomingMessage, ServerResponse } from "http"
 import unexpectedErrorSchema from "../core/schemas/unexpectedErrorSchema"
 import unauthorizedSchema from "../core/schemas/unauthorizedSchema"
-import UserController from "./controller/UserController"
+import UserController from './controller/UserController'
 import * as loginSchemas from './schemas/loginSchemas'
 import * as registerSchemas from './schemas/registerSchemas'
-import isAuthenticated from "./decorators/isAuthenticated"
-import userSchema from "./schemas/userSchema";
+import * as changePasswordSchemas from './schemas/changePasswordSchemas'
+import isAuthenticated from './decorators/isAuthenticated'
+import userSchema from "./schemas/userSchema"
 
 export default async function routes(
   fastify: fastify.FastifyInstance,
@@ -23,7 +24,7 @@ export default async function routes(
         500: unexpectedErrorSchema,
       },
     },
-    handler: UserController.login
+    handler: UserController.login,
   })
 
   fastify.route({
@@ -37,7 +38,7 @@ export default async function routes(
         500: unexpectedErrorSchema,
       }
     },
-    handler: UserController.register
+    handler: UserController.register,
   })
 
   fastify.route({
@@ -48,9 +49,26 @@ export default async function routes(
         200: userSchema,
         401: unauthorizedSchema,
         500: unexpectedErrorSchema,
-      }
+      },
+      security: [{ 'token': [] }],
     },
     preHandler: isAuthenticated,
-    handler: UserController.me
+    handler: UserController.me,
+  })
+
+  fastify.route({
+    method: 'POST',
+    url: '/changePassword',
+    schema: {
+      body: changePasswordSchemas.bodySchema,
+      response: {
+        201: changePasswordSchemas.responseSuccessfulSchema,
+        401: unauthorizedSchema,
+        500: unexpectedErrorSchema,
+      },
+      security: [{ 'token': [] }],
+    },
+    preHandler: isAuthenticated,
+    handler: UserController.changePassword,
   })
 }

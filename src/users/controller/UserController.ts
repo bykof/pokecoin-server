@@ -1,4 +1,4 @@
-import { UserModel } from '../models/User'
+import { UserModel, User } from '../models/User'
 import UserAlreadyExistsError from '../errors/UserAlreadyExistsError'
 import UserNotFoundError from '../errors/UserNotFoundError'
 import PasswordIncorrectError from '../errors/PasswordIncorrectError'
@@ -55,6 +55,23 @@ export default class UserController {
    * @param reply
    */
   static async me(request, reply) {
+    return reply.send(request.user)
+  }
 
+  /**
+   * Change password of user if the given password is the same as current
+   *
+   * @param request
+   * @param reply
+   */
+  static async changePassword(request, reply) {
+    const hashedPassword = UserModel.hashPassword(request.body.password)
+    if (hashedPassword === request.user.password) {
+        request.user.password = UserModel.hashPassword(request.body.newPassword)
+        await request.user.save()
+        return reply.status(201).send()
+    }
+
+    return reply.status(400).send(new PasswordIncorrectError(request.user.username))
   }
 }

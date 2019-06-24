@@ -8,7 +8,7 @@ import walletRoutes from './wallet/routes'
 import swaggerConfig from './config/swaggerConfig'
 import Blockchain from './blockchain/core/Blockchain'
 
-const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({})
+const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({logger: true})
 const blockchain = Blockchain.getInstance();
 
 async function startApplication() {
