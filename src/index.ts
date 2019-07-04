@@ -5,11 +5,17 @@ import * as mongoose from 'mongoose'
 import authenticationRoutes from './users/routes'
 import blockchainRoutes from './blockchain/routes'
 import walletRoutes from './wallet/routes'
+import cardRoutes from './cards/routes'
 import swaggerConfig from './config/swaggerConfig'
 import Blockchain from './blockchain/core/Blockchain'
+import CardsAggregate from './cards/core/CardsAggregate'
+import * as BaseJSON from './json/pokemonCards/Base.json'
 
 const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({logger: true})
 const blockchain = Blockchain.getInstance();
+
+const cardsAggregate = CardsAggregate.getInstance()
+cardsAggregate.addCards(BaseJSON)
 
 async function startApplication() {
   process.on('SIGTERM', () => process.exit())
@@ -20,6 +26,8 @@ async function startApplication() {
   server.register(authenticationRoutes, { prefix: '/auth' })
   server.register(blockchainRoutes, { prefix: '/blockchain' })
   server.register(walletRoutes, { prefix: '/wallet' })
+  server.register(cardRoutes, { prefix: '/cards' })
+
   server.ready(
     (error) => {
       if (error) throw error

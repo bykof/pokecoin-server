@@ -6,28 +6,26 @@ import Weakness from '../models/base/Weakness'
 import Attack from '../models/base/Attack'
 import Card from '../models/base/Card'
 
+const cardsAggregate = CardsAggregate.getInstance()
+cardsAggregate.addCards(BaseCards)
+
 test('test CardReader to init with Base.json', () => {
-  const cardsAggregate = new CardsAggregate(BaseCards)
   expect(cardsAggregate.cards.length).toBe(102)
 })
 
 test('test CardReader to get all pokemon cards', () => {
-  const cardsAggregate = new CardsAggregate(BaseCards)
   expect(cardsAggregate.getPokemonCards().length).toBe(69)
 })
 
 test('test CardReader to get all trainer cards', () => {
-  const cardsAggregate = new CardsAggregate(BaseCards)
   expect(cardsAggregate.getTrainerCards().length).toBe(26)
 })
 
 test('test CardReader to get all energy cards', () => {
-  const cardsAggregate = new CardsAggregate(BaseCards)
   expect(cardsAggregate.getEnergyCards().length).toBe(7)
 })
 
 test('test CardReader to get a Pokemon Card (Alakazam)', () => {
-  const cardsAggregate = new CardsAggregate(BaseCards)
   const alakazam: PokemonCard = <PokemonCard> cardsAggregate.getCardById('base1-1')
   expect(alakazam).toStrictEqual(new PokemonCard({
     "id": "base1-1",
@@ -84,7 +82,6 @@ test('test CardReader to get a Pokemon Card (Alakazam)', () => {
 })
 
 test('test CardReader to get a trainer card (Devolution Spray)', () => {
-  const cardsAggregate = new CardsAggregate(BaseCards)
   const devolutionSpray = cardsAggregate.getCardById('base1-72')
   expect(devolutionSpray).toStrictEqual(new Card({
       "id": "base1-72",

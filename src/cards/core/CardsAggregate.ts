@@ -5,10 +5,17 @@ export default class CardsAggregate {
   SUPERTYPE_POKEMON = 'Pokémon'
   SUPERTYPE_TRAINER = 'Trainer'
   SUPERTYPE_ENERGY = 'Energy'
+
+  static instance: CardsAggregate = null
+
   cards: Card[] = []
 
-  constructor(cards) {
-    this.addCards(cards)
+  static getInstance() {
+    if (!this.instance) {
+      this.instance = new CardsAggregate()
+    }
+
+    return this.instance
   }
 
   addCards(cards) {

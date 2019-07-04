@@ -11,7 +11,7 @@ export default class Card {
   set: String
   setCode: String
   imageUrlHiRes: String
-  text: String[] = null
+  text: String[] = []
 
   constructor(data) {
     for (const key in data) {
