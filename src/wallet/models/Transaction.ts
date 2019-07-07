@@ -1,7 +1,7 @@
-import { prop, Typegoose, Ref, instanceMethod, InstanceType, staticMethod, ModelType } from 'typegoose'
+import { prop, Typegoose, Ref } from 'typegoose'
 
 import { User } from '../../users/models/User'
-import { Block } from '../../blockchain/models/Block';
+import { Block } from '../../blockchain/models/Block'
 
 export class Transaction extends Typegoose {
 

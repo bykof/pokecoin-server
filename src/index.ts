@@ -9,13 +9,15 @@ import cardRoutes from './cards/routes'
 import swaggerConfig from './config/swaggerConfig'
 import Blockchain from './blockchain/core/Blockchain'
 import CardsAggregate from './cards/core/CardsAggregate'
+import CardPacksAggregate from './cards/core/CardPacksAggregate'
 import * as BaseJSON from './json/pokemonCards/Base.json'
 
 const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({logger: true})
 const blockchain = Blockchain.getInstance();
 
+const cardPacksAggregate = CardPacksAggregate.getInstance()
 const cardsAggregate = CardsAggregate.getInstance()
-cardsAggregate.addCards(BaseJSON)
+cardsAggregate.addCardsFromJson(BaseJSON)
 
 async function startApplication() {
   process.on('SIGTERM', () => process.exit())

@@ -7,7 +7,7 @@ import Attack from '../models/base/Attack'
 import Card from '../models/base/Card'
 
 const cardsAggregate = CardsAggregate.getInstance()
-cardsAggregate.addCards(BaseCards)
+cardsAggregate.addCardsFromJson(BaseCards)
 
 test('test CardReader to init with Base.json', () => {
   expect(cardsAggregate.cards.length).toBe(102)
@@ -46,7 +46,7 @@ test('test CardReader to get a Pokemon Card (Alakazam)', () => {
       "Colorless",
       "Colorless"
     ],
-    "text": null,
+    "text": [],
     "convertedRetreatCost": 3,
     "number": "1",
     "artist": "Ken Sugimori",
