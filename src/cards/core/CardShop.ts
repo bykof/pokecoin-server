@@ -6,6 +6,7 @@ import CardPackNotFoundError from "../errors/CardPackNotFoundError"
 import Wallet from "../../wallet/core/Wallet"
 import NotSufficientCoinsError from "../errors/NotSufficientCoinsError"
 import { UserCardTransactionModel } from "../models/UserCardTransaction"
+import Card from "../models/base/Card";
 
 export default class CardShop {
   DEFAULT_PACKAGE_COST = 25
@@ -32,7 +33,7 @@ export default class CardShop {
     }).save()
   }
 
-  async buyDefaultPackage(cardPackName) {
+  async buyDefaultPackage(cardPackName): Promise<Card[]> {
     if (!(await this.hasSufficientCoinsForDefaultPackage())) {
       throw new NotSufficientCoinsError(await this.wallet.getBalance())
     }
@@ -46,6 +47,7 @@ export default class CardShop {
         await this.saveCardAsUserCardTransaction(card, cardPackName)
       }
       this.wallet.withdraw(this.DEFAULT_PACKAGE_COST)
+      return defaultPackage
     } else {
       throw new CardPackNotFoundError(cardPackName)
     }

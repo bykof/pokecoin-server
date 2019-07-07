@@ -2,11 +2,15 @@ import fastify = require("fastify")
 import { Server, IncomingMessage, ServerResponse } from "http"
 import unexpectedErrorSchema from "../core/schemas/unexpectedErrorSchema"
 import CardController from "./controller/CardController"
-import pokemonCardSchema from "./schemas/pokemonCardSchema"
+import { responseSuccessfulSchema as buyDefaultPackageResponseSuccessfulSchema } from "./schemas/buyDefaultPackageSchemas"
 import { responseSuccessfulSchema as getResponseSuccessfulSchema } from "./schemas/getSchema"
 import { responseSuccessfulSchema as listResponseSuccessfulSchema } from "./schemas/listSchema"
+import { responseSuccessfulSchema as packagesResponseSuccessfulSchema } from "./schemas/packagesSchemas"
 import notFoundSchema from "../core/schemas/notFoundSchema"
 import pageParameterSchema from "../core/schemas/pageParameterSchema"
+import CardPackController from "./controller/CardPackController"
+import cardPackSchema from "./schemas/cardPackSchema"
+import isAuthenticated from "../users/decorators/isAuthenticated"
 
 
 export default async function routes(
@@ -24,6 +28,46 @@ export default async function routes(
       },
     },
     handler: CardController.list,
+  })
+
+  fastify.route({
+    method: 'GET',
+    url: '/packages',
+    schema: {
+      response: {
+        200: packagesResponseSuccessfulSchema,
+        500: unexpectedErrorSchema,
+      },
+    },
+    handler: CardPackController.getCardPackages,
+  })
+
+  fastify.route({
+    method: 'GET',
+    url: '/packages/:cardPackName',
+    schema: {
+      response: {
+        200: cardPackSchema,
+        404: notFoundSchema,
+        500: unexpectedErrorSchema,
+      },
+    },
+    handler: CardPackController.getCardPack,
+  })
+
+  fastify.route({
+    method: 'POST',
+    url: '/packages/:cardPackName/buyDefaultPackage',
+    schema: {
+      response: {
+        200: buyDefaultPackageResponseSuccessfulSchema,
+        404: notFoundSchema,
+        500: unexpectedErrorSchema,
+      },
+      security: [{ 'token': [] }],
+    },
+    preHandler: isAuthenticated,
+    handler: CardPackController.buyDefaultPackage,
   })
 
   fastify.route({

@@ -1,0 +1,27 @@
+import CardPacksAggregate from "../core/CardPacksAggregate"
+import CardShop from "../core/CardShop"
+
+export default class CardPackController {
+  static async getCardPackages(request, reply) {
+    return reply.send(CardPacksAggregate.getInstance().cardPackNames())
+  }
+
+  static async getCardPack(request, reply) {
+    const cardPack = CardPacksAggregate.getInstance().getCardPackByName(request.params.cardPackName)
+    if (cardPack) {
+      return reply.send(cardPack)
+    } else {
+      return reply.status(404).send()
+    }
+  }
+
+  static async buyDefaultPackage(request, reply) {
+    const cardShop = new CardShop(request.user)
+    try {
+      const cardPackage = await cardShop.buyDefaultPackage(request.params.cardPackName)
+      return reply.send({cards: cardPackage})
+    } catch (error) {
+      return reply.status(400).send(error)
+    }
+  }
+}
