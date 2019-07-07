@@ -1,17 +1,17 @@
 export default class Card {
-  id: String
-  name: String
-  imageUrl: String
-  subtype: String
-  supertype: String
-  number: String
-  artist: String
-  rarity: String
-  series: String
-  set: String
-  setCode: String
-  imageUrlHiRes: String
-  text: String[] = []
+  id: string
+  name: string
+  imageUrl: string
+  subtype: string
+  supertype: string
+  number: string
+  artist: string
+  rarity: string
+  series: string
+  set: string
+  setCode: string
+  imageUrlHiRes: string
+  text: string[] = []
 
   constructor(data) {
     for (const key in data) {

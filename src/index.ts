@@ -16,8 +16,11 @@ const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> =
 const blockchain = Blockchain.getInstance();
 
 const cardPacksAggregate = CardPacksAggregate.getInstance()
+cardPacksAggregate.addCardPackFromJson('Base', BaseJSON)
+
 const cardsAggregate = CardsAggregate.getInstance()
 cardsAggregate.addCardsFromJson(BaseJSON)
+
 
 async function startApplication() {
   process.on('SIGTERM', () => process.exit())
