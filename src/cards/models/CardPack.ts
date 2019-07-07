@@ -36,6 +36,11 @@ export default class CardPack {
     return cards[randomIndex]
   }
 
+  isOneOfProbability(probability) {
+    const randomIndex = Math.floor(Math.random() * probability) + 1
+    return randomIndex == 1
+  }
+
   /**
    * Create package selects 3 Common cards, 1 Uncommon Card and 1 Rare Card
    */
@@ -53,7 +58,11 @@ export default class CardPack {
     }
 
     for (let i = 0; i < this.DEFAULT_PACKAGE_RARE; i++) {
-      defaultPackage.push(this.selectRandomCardFromCards(cardsByRarity[RARITY_RARE]))
+      if (this.isOneOfProbability(3)) {
+        defaultPackage.push(this.selectRandomCardFromCards(cardsByRarity[RARITY_RARE]))
+      } else {
+        defaultPackage.push(this.selectRandomCardFromCards(cardsByRarity[RARITY_UNCOMMON]))
+      }
     }
 
     return defaultPackage

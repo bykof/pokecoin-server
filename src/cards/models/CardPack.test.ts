@@ -1,19 +1,22 @@
 import CardPack from "./CardPack"
 import * as BaseCards from '../../json/pokemonCards/Base.json'
-import JsonCardParser from "../core/JsonCardParser";
-import { RARITY_COMMON, RARITY_UNCOMMON, RARITY_RARE } from "../core/constants";
+import JsonCardParser from "../core/JsonCardParser"
+import { RARITY_RARE } from "../core/constants";
 
 
 test('test CardPack to create proper defaultPackage', () => {
-  const defaultPackageRarities = [RARITY_COMMON, RARITY_COMMON, RARITY_COMMON, RARITY_UNCOMMON, RARITY_RARE]
   const cardPack = new CardPack('Base', BaseCards.map(JsonCardParser.parseJsonCard))
-  const defaultPackage = cardPack.createDefaultPackage()
-  const defaultPackage2 = cardPack.createDefaultPackage()
+  const defaultPackages = []
+  for (let i = 0; i < 100; i++) {
+    defaultPackages.push(cardPack.createDefaultPackage())
+  }
+  expect(defaultPackages[0].length).toBe(5)
 
-  expect(defaultPackage.length).toBe(5)
-  expect(defaultPackage2.length).toBe(5)
-  expect(defaultPackage.map((card) => card.rarity)).toStrictEqual(defaultPackageRarities)
-  expect(defaultPackage2.map((card) => card.rarity)).toStrictEqual(defaultPackageRarities)
+  let rarities = []
+  for(const defaultPackage of defaultPackages) {
+    rarities = rarities.concat(defaultPackage.map((card) => card.rarity))
+  }
 
-  expect(defaultPackage).not.toBe(defaultPackage2)
+  // Ensure to be at least 1, although this can be also 0
+  expect(rarities.filter((rarity) => rarity === RARITY_RARE).length).toBeGreaterThan(1)
 })
