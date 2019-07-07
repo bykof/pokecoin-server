@@ -6,12 +6,14 @@ import { responseSuccessfulSchema as buyDefaultPackageResponseSuccessfulSchema }
 import { responseSuccessfulSchema as getResponseSuccessfulSchema } from "./schemas/getSchema"
 import { responseSuccessfulSchema as listResponseSuccessfulSchema } from "./schemas/listSchema"
 import { responseSuccessfulSchema as packagesResponseSuccessfulSchema } from "./schemas/packagesSchemas"
+import { responseSuccessfulSchema as userCardResponseSuccessfulSchema } from "./schemas/userCardSchemas"
 import notFoundSchema from "../core/schemas/notFoundSchema"
 import pageParameterSchema from "../core/schemas/pageParameterSchema"
 import CardPackController from "./controller/CardPackController"
 import cardPackSchema from "./schemas/cardPackSchema"
 import isAuthenticated from "../users/decorators/isAuthenticated"
-
+import UserCardController from "./controller/UserCardController"
+import unauthorizedSchema from "../core/schemas/unauthorizedSchema"
 
 export default async function routes(
   fastify: fastify.FastifyInstance,
@@ -28,6 +30,21 @@ export default async function routes(
       },
     },
     handler: CardController.list,
+  })
+
+  fastify.route({
+    method: 'GET',
+    url: '/usercards',
+    schema: {
+      response: {
+        200: userCardResponseSuccessfulSchema,
+        401: unauthorizedSchema,
+        500: unexpectedErrorSchema,
+      },
+      security: [{ 'token': [] }],
+    },
+    preHandler: isAuthenticated,
+    handler: UserCardController.getCards,
   })
 
   fastify.route({
@@ -62,6 +79,7 @@ export default async function routes(
       response: {
         200: buyDefaultPackageResponseSuccessfulSchema,
         404: notFoundSchema,
+        401: unauthorizedSchema,
         500: unexpectedErrorSchema,
       },
       security: [{ 'token': [] }],
