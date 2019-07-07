@@ -36,4 +36,18 @@ export default class Wallet {
     }).save()
     return newTransaction
   }
+
+  /**
+   * Withdraw an amount from users balance account
+   * amount should be a positive integer
+   * @param amount
+   */
+  async withdraw(amount: number) {
+    const newTransaction = await new TransactionModel({
+      amount: -amount,
+      timestamp: Date.now(),
+      user: this.user,
+    }).save()
+    return newTransaction
+  }
 }

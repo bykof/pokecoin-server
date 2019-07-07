@@ -1,5 +1,6 @@
 import CardPack from "../models/CardPack"
 import JsonCardParser from "./JsonCardParser"
+import cardPack from "../schemas/cardPack";
 
 export default class CardPacksAggregate {
   static object: CardPacksAggregate
@@ -17,5 +18,9 @@ export default class CardPacksAggregate {
 
   addCardPackFromJson(name, cardsJson) {
     this.cardPacks.push(new CardPack(name, cardsJson.map(JsonCardParser.parseJsonCard)))
+  }
+
+  getCardPackByName(name) {
+    return this.cardPacks.find((cardPack) => cardPack.name === name)
   }
 }

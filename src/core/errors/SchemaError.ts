@@ -1,9 +1,11 @@
 export default abstract class SchemaError {
-  code: String
-  message: String
+  code: string
+  message: string
+  name: string
 
-  constructor(code: String, message: String) {
+  constructor(code: string, message: string) {
     this.code = code
+    this.name = code
     this.message = message
   }
 }
