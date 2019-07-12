@@ -63,6 +63,15 @@ export default async function routes(
     method: 'GET',
     url: '/packages/:cardPackName',
     schema: {
+      params: {
+        type: 'object',
+        properties: {
+          cardPackName: {
+            type: 'string',
+            description: 'name of the cardpack'
+          }
+        }
+      },
       response: {
         200: cardPackSchema,
         404: notFoundSchema,
@@ -76,6 +85,15 @@ export default async function routes(
     method: 'POST',
     url: '/packages/:cardPackName/buyDefaultPackage',
     schema: {
+      params: {
+        type: 'object',
+        properties: {
+          cardPackName: {
+            type: 'string',
+            description: 'name of the cardpack'
+          }
+        }
+      },
       response: {
         200: buyDefaultPackageResponseSuccessfulSchema,
         404: notFoundSchema,
@@ -92,6 +110,15 @@ export default async function routes(
     method: 'GET',
     url: '/:cardId',
     schema: {
+      params: {
+        type: 'object',
+        properties: {
+          cardId: {
+            type: 'string',
+            description: 'card id'
+          }
+        }
+      },
       response: {
         200: getResponseSuccessfulSchema,
         404: notFoundSchema,

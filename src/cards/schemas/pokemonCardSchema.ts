@@ -3,8 +3,9 @@ import abilitySchema from "./abilitySchema"
 import attackSchema from "./attackSchema"
 import weaknessSchema from "./weaknessSchema"
 
-export default Object.assign(
-  cardSchema,
+const cardSchemaCopy = Object.assign(cardSchema, {})
+cardSchemaCopy.properties = Object.assign(
+  cardSchemaCopy.properties,
   {
     level: { type: 'string' },
     evolvesFrom: { type: 'string' },
@@ -32,5 +33,6 @@ export default Object.assign(
       type: 'array',
       items: { type: 'string' },
     },
-  }
+  },
 )
+export default cardSchemaCopy
