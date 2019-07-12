@@ -45,7 +45,7 @@ export class User extends Typegoose {
         return signJWT(
             { username: this.username },
             'secret',
-            { expiresIn: 60 * 60 }
+            { expiresIn: 60 * 60 * 24 }
         )
     }
 }
