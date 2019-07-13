@@ -35,7 +35,7 @@ export default class CardShop {
 
   async buyDefaultPackage(cardPackName): Promise<Card[]> {
     if (!(await this.hasSufficientCoinsForDefaultPackage())) {
-      throw new NotSufficientCoinsError(await this.wallet.getBalance())
+      throw new NotSufficientCoinsError(await this.wallet.getBalance(), this.DEFAULT_PACKAGE_COST)
     }
 
     const cardPacksAggregate = CardPacksAggregate.getInstance()
