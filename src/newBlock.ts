@@ -7,7 +7,7 @@ import { UserModel } from './users/models/User';
   const blockchain = Blockchain.getInstance()
   await mongoose.connect('mongodb://localhost/pokecoin', { useNewUrlParser: true, useCreateIndex: true })
   await blockchain.setup()
-  let block = new BlockModel({foundByUser: UserModel.findOne({username: 'bykof'}), timestamp: Date.now(), data: 'Hello World', nonce: 1})
+  let block = new BlockModel({foundByUser: (await UserModel.findOne({username: 'bykof'})), timestamp: Date.now(), data: 'Hello World', nonce: 1})
   block.previousHash = blockchain.lastBlock ? blockchain.lastBlock.hash : ''
   block.mineHash(4)
   console.log(
