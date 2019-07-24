@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+
+    html, body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .correctHash {
+      background: green;
+    }
+    .wrongHash {
+      background: red;
+    }
+
+    table {
+      width: 100%;
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+
+    th {
+      font-weight: bold;
+    }
+
+    td, th {
+      border: 1px solid black;
+      padding: 10px;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Users</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>user</th>
+          <th>balance pokecoins</th>
+          <th>cards</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach((user) => { %>
+          <tr>
+            <td><%= user.username %></td>
+            <td><%= wallets[user.username].balance %></td>
+            <td>
+              <%= wallets[user.username].cards.length %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <pre>
+
+    </pre>
+  </body>
+</html>

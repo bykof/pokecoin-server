@@ -1,6 +1,6 @@
 import fastify = require("fastify")
 import { Server, IncomingMessage, ServerResponse } from "http"
-import { blockchainView } from './controller'
+import { blockchainView, usersView } from './controller'
 
 export default async function routes(
   fastify: fastify.FastifyInstance,
@@ -10,5 +10,11 @@ export default async function routes(
     method: 'GET',
     url: '/blockchain',
     handler: blockchainView,
+  })
+
+  fastify.route({
+    method: 'GET',
+    url: '/users',
+    handler: usersView,
   })
 }

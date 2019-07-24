@@ -5,13 +5,13 @@ import { sign as signJWT, verify as verifyJWT } from 'jsonwebtoken'
 
 export class User extends Typegoose {
     @prop({ required: true, unique: true })
-    username: String
+    username: string
 
     @prop({ required: true })
-    password: String
+    password: string
 
     @staticMethod
-    static hashPassword(this: ModelType<User> & typeof User, password: crypto.BinaryLike): String {
+    static hashPassword(this: ModelType<User> & typeof User, password: crypto.BinaryLike): string {
         return crypto.createHash('sha256').update(password).digest('hex')
     }
 
@@ -40,7 +40,7 @@ export class User extends Typegoose {
     }
 
     @instanceMethod
-    generateJSONWebToken(this: InstanceType<User>): String {
+    generateJSONWebToken(this: InstanceType<User>): string {
         // TODO: change secret
         return signJWT(
             { username: this.username },
