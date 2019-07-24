@@ -2,10 +2,13 @@ import * as fastify from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 import * as oas from 'fastify-oas'
 import * as mongoose from 'mongoose'
+import * as pointOfView from 'point-of-view'
+import * as ejs from 'ejs'
 import authenticationRoutes from './users/routes'
 import blockchainRoutes from './blockchain/routes'
 import walletRoutes from './wallet/routes'
 import cardRoutes from './cards/routes'
+import viewRoutes from './views/routes'
 import swaggerConfig from './config/swaggerConfig'
 import Blockchain from './blockchain/core/Blockchain'
 import CardsAggregate from './cards/core/CardsAggregate'
@@ -27,11 +30,23 @@ async function startApplication() {
   await mongoose.connect('mongodb://localhost/pokecoin', { useNewUrlParser: true, useCreateIndex: true })
   await blockchain.setup();
   console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`)
+
+  server.register(
+    pointOfView, {
+      engine: {
+        ejs: ejs
+      },
+      templates: './src/templates',
+      includeViewExtension: true,
+    }
+
+  )
   server.register(oas, swaggerConfig)
   server.register(authenticationRoutes, { prefix: '/auth' })
   server.register(blockchainRoutes, { prefix: '/blockchain' })
   server.register(walletRoutes, { prefix: '/wallet' })
   server.register(cardRoutes, { prefix: '/cards' })
+  server.register(viewRoutes, { prefix: '/views'})
 
   server.ready(
     (error) => {
