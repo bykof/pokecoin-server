@@ -14,7 +14,7 @@ test('test not sufficient pokecoins of user error', async () => {
   const user = new UserModel({ username: 'test', password: 'test' })
   const cardShop = new CardShop(user)
   cardShop.wallet.getBalance = jest.fn(async () => 0)
-  expect(cardShop.buyDefaultPackage('Base')).rejects.toEqual(new NotSufficientCoinsError(0))
+  expect(cardShop.buyDefaultPackage('Base')).rejects.toStrictEqual(new NotSufficientCoinsError(0, cardShop.DEFAULT_PACKAGE_COST))
 })
 
 

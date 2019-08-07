@@ -2,7 +2,6 @@
 import { InstanceType } from 'typegoose'
 
 import { Block, BlockModel } from '../models/Block'
-import SchemaError from '../../core/errors/SchemaError'
 
 export default class Blockchain{
 

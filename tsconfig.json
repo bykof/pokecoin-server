@@ -3,6 +3,7 @@
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
       "resolveJsonModule": true,
-      "target": "ES5"
+      "target": "ES6",
+      "module": "commonjs"
   }
 }

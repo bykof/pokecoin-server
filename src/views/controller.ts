@@ -12,7 +12,7 @@ export async function blockchainView(request, reply) {
   const reversedChain = blockchain.chain.slice()
   reversedChain.reverse()
 
-  return reply.view(
+  reply.view(
     'blockchain',
     {
       chain: reversedChain,
@@ -35,7 +35,7 @@ export async function usersView(request, reply) {
       }
     )
   )
-  return reply.view(
+  reply.view(
     'users',
     {
       users: users,

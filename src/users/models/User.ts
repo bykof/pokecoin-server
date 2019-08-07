@@ -32,7 +32,7 @@ export class User extends Typegoose {
     static async getUserByJSONWebToken(
         this: ModelType<User> & typeof User,
         token: string
-    ): DocumentQuery<InstanceType<User>, InstanceType<User>, {}> {
+    ): Promise<InstanceType<User>> {
         const decodedToken = this.decodeJSONWebToken(token)
         if (decodedToken) {
             return await this.findOne({ username: decodedToken['username'] })
