@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = {
+const swaggerConfig = {
     exposeRoute: true,
     routePrefix: '/docs',
     swagger: {
@@ -9,8 +9,6 @@ exports.default = {
             description: 'The Pokecoin documentation',
             version: '1.0.0'
         },
-        host: 'localhost:3000',
-        schemes: ['http'],
         consumes: ['application/json'],
         produces: ['application/json'],
         securityDefinitions: {
@@ -23,4 +21,8 @@ exports.default = {
         }
     }
 };
+if (!process.env.PRODUCTION) {
+    swaggerConfig.swagger['host'] = '0.0.0.0:3000';
+}
+exports.default = swaggerConfig;
 //# sourceMappingURL=swaggerConfig.js.map

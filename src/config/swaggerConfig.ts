@@ -1,4 +1,4 @@
-export default {
+const swaggerConfig = {
   exposeRoute: true,
   routePrefix: '/docs',
   swagger: {
@@ -7,8 +7,6 @@ export default {
       description: 'The Pokecoin documentation',
       version: '1.0.0'
     },
-    host: 'localhost:3000',
-    schemes: ['http'],
     consumes: ['application/json'],
     produces: ['application/json'],
     securityDefinitions: {
@@ -21,3 +19,9 @@ export default {
     }
   }
 }
+
+if (!process.env.PRODUCTION) {
+  swaggerConfig.swagger['host'] = '0.0.0.0:3000'
+}
+
+export default swaggerConfig
