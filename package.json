@@ -10,7 +10,7 @@
     "dev": "ts-node-dev ./src/index.ts",
     "start": "node dist/index.js",
     "test": "jest",
-    "deploy": "yarn compile && git push heroku master "
+    "deploy": "yarn compile && git push heroku master"
   },
   "dependencies": {
     "@types/ejs": "^2.6.3",

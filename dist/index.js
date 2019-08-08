@@ -31,7 +31,7 @@ const cardsAggregate = CardsAggregate_1.default.getInstance();
 cardsAggregate.addCardsFromJson(BaseJSON);
 // Env variables
 const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost/pokecoin';
-const PORT = process.env.PORT || '3000';
+const PORT = parseInt(process.env.PORT) || 3000;
 function startApplication() {
     return __awaiter(this, void 0, void 0, function* () {
         process.on('SIGTERM', () => process.exit());
@@ -56,7 +56,7 @@ function startApplication() {
                 throw error;
             server.oas();
         });
-        server.listen(PORT, (error, address) => {
+        server.listen(PORT, '0.0.0.0', (error, address) => {
             if (error) {
                 server.log.error(error);
                 process.exit(1);
