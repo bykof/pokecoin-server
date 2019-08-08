@@ -29,10 +29,12 @@ const cardPacksAggregate = CardPacksAggregate_1.default.getInstance();
 cardPacksAggregate.addCardPackFromJson('Base', BaseJSON);
 const cardsAggregate = CardsAggregate_1.default.getInstance();
 cardsAggregate.addCardsFromJson(BaseJSON);
+// Env variables
+const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost/pokecoin';
+const PORT = process.env.PORT || '3000';
 function startApplication() {
     return __awaiter(this, void 0, void 0, function* () {
         process.on('SIGTERM', () => process.exit());
-        const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost/pokecoin';
         yield mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true });
         yield blockchain.setup();
         console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`);
@@ -54,7 +56,7 @@ function startApplication() {
                 throw error;
             server.oas();
         });
-        server.listen(3000, (error, address) => {
+        server.listen(PORT, (error, address) => {
             if (error) {
                 server.log.error(error);
                 process.exit(1);
