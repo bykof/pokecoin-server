@@ -27,7 +27,8 @@ cardsAggregate.addCardsFromJson(BaseJSON)
 
 async function startApplication() {
   process.on('SIGTERM', () => process.exit())
-  await mongoose.connect('mongodb://localhost/pokecoin', { useNewUrlParser: true, useCreateIndex: true })
+  const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost/pokecoin'
+  await mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true })
   await blockchain.setup();
   console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`)
 

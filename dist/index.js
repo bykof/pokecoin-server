@@ -32,7 +32,8 @@ cardsAggregate.addCardsFromJson(BaseJSON);
 function startApplication() {
     return __awaiter(this, void 0, void 0, function* () {
         process.on('SIGTERM', () => process.exit());
-        yield mongoose.connect('mongodb://localhost/pokecoin', { useNewUrlParser: true, useCreateIndex: true });
+        const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost/pokecoin';
+        yield mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true });
         yield blockchain.setup();
         console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`);
         server.register(pointOfView, {
