@@ -1,0 +1,1 @@
+{"version":3,"file":"userCardSchema.js","sourceRoot":"","sources":["../../../src/cards/schemas/userCardSchema.ts"],"names":[],"mappings":";;AAAA,kBAAe;IACb,IAAI,EAAE,QAAQ;IACd,UAAU,EAAE;QACV,MAAM,EAAE,EAAC,IAAI,EAAE,QAAQ,EAAC;QACxB,QAAQ,EAAE,EAAC,IAAI,EAAE,QAAQ,EAAC;QAC1B,SAAS,EAAE,EAAC,IAAI,EAAE,SAAS,EAAC;KAC7B;CACF,CAAA"}

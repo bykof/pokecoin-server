@@ -1,0 +1,1 @@
+{"version":3,"file":"cardPackSchema.js","sourceRoot":"","sources":["../../../src/cards/schemas/cardPackSchema.ts"],"names":[],"mappings":";;AACA,2DAAoD;AAEpD,kBAAe;IACb,IAAI,EAAE,QAAQ;IACd,UAAU,EAAE;QACV,IAAI,EAAE,EAAE,IAAI,EAAE,QAAQ,EAAE;QACxB,KAAK,EAAE;YACL,IAAI,EAAE,OAAO,EAAE,KAAK,EAAE,2BAAiB;SACxC;KACF;CACF,CAAA"}

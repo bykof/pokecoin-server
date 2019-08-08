@@ -1,0 +1,1 @@
+{"version":3,"file":"abilitySchema.js","sourceRoot":"","sources":["../../../src/cards/schemas/abilitySchema.ts"],"names":[],"mappings":";;AAAA,kBAAe;IACb,IAAI,EAAE,QAAQ;IACd,UAAU,EAAE;QACV,IAAI,EAAE,EAAE,IAAI,EAAE,QAAQ,EAAE;QACxB,IAAI,EAAE,EAAE,IAAI,EAAE,QAAQ,EAAE;QACxB,IAAI,EAAE,EAAE,IAAI,EAAE,QAAQ,EAAE;KACzB;CACF,CAAA"}

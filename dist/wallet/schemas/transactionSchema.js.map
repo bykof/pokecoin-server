@@ -1,0 +1,1 @@
+{"version":3,"file":"transactionSchema.js","sourceRoot":"","sources":["../../../src/wallet/schemas/transactionSchema.ts"],"names":[],"mappings":";;AAAA,sEAA+D;AAC/D,+DAAwD;AAExD,kBAAe;IACb,IAAI,EAAE,QAAQ;IACd,UAAU,EAAE;QACV,MAAM,EAAE,EAAE,IAAI,EAAE,SAAS,EAAE;QAC3B,SAAS,EAAE,EAAE,IAAI,EAAE,SAAS,EAAE;QAC9B,aAAa,EAAE,qBAAW;QAC1B,IAAI,EAAE,oBAAU;KACjB;CACF,CAAA"}

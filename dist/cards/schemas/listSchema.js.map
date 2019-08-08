@@ -1,0 +1,1 @@
+{"version":3,"file":"listSchema.js","sourceRoot":"","sources":["../../../src/cards/schemas/listSchema.ts"],"names":[],"mappings":";;AACA,2DAAoD;AAEvC,QAAA,wBAAwB,GAAG;IACtC,IAAI,EAAE,QAAQ;IACd,UAAU,EAAE;QACV,KAAK,EAAE;YACL,IAAI,EAAE,OAAO;YACb,KAAK,EAAE,2BAAiB;SACzB;KACF;CACF,CAAA"}
