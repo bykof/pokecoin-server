@@ -9,7 +9,8 @@
     "compile": "tsc --sourceMap --experimentalDecorators true --emitDecoratorMetadata true --resolveJsonModule true --module CommonJS --target ES6 --outDir dist/ src/index",
     "dev": "ts-node-dev ./src/index.ts",
     "start": "node dist/index.js",
-    "test": "jest"
+    "test": "jest",
+    "deploy": "yarn compile && git push heroku master "
   },
   "dependencies": {
     "@types/ejs": "^2.6.3",
