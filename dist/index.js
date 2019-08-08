@@ -51,11 +51,11 @@ function startApplication() {
         server.register(routes_3.default, { prefix: '/wallet' });
         server.register(routes_4.default, { prefix: '/cards' });
         server.register(routes_5.default, { prefix: '/views' });
-        server.ready((error) => {
-            if (error)
-                throw error;
-            server.oas();
-        });
+        server.ready((err) => __awaiter(this, void 0, void 0, function* () {
+            if (err)
+                throw err;
+            yield server.oas();
+        }));
         server.listen(PORT, '0.0.0.0', (error, address) => {
             if (error) {
                 server.log.error(error);

@@ -52,12 +52,11 @@ async function startApplication() {
   server.register(cardRoutes, { prefix: '/cards' })
   server.register(viewRoutes, { prefix: '/views'})
 
-  server.ready(
-    (error) => {
-      if (error) throw error
-      server.oas()
-    }
-  )
+  server.ready(async err => {
+    if (err) throw err;
+    await server.oas()
+  })
+
   server.listen(
     PORT,
     '0.0.0.0',

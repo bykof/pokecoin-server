@@ -24,5 +24,8 @@ const swaggerConfig = {
 if (!process.env.PRODUCTION) {
     swaggerConfig.swagger['host'] = '0.0.0.0:3000';
 }
+else {
+    swaggerConfig.swagger['host'] = 'rocky-lowlands-35145.herokuapp.com';
+}
 exports.default = swaggerConfig;
 //# sourceMappingURL=swaggerConfig.js.map
