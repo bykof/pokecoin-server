@@ -8,10 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const typegoose_1 = require("typegoose");
 const crypto = require("crypto");
 const User_1 = require("../../users/models/User");
+const UserSetup_1 = require("../../users/core/UserSetup");
 class Block extends typegoose_1.Typegoose {
     constructor() {
         super(...arguments);
@@ -44,6 +53,18 @@ class Block extends typegoose_1.Typegoose {
         newBlock.hash = newBlock.calculateHash();
         newBlock.foundByUser = request.user;
         return newBlock;
+    }
+    static createFirstBlock() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const newBlock = new this();
+            newBlock.previousHash = '';
+            newBlock.data = 'Genesis Block #1';
+            newBlock.timestamp = Date.now();
+            newBlock.nonce = 0;
+            newBlock.hash = newBlock.calculateHash();
+            newBlock.foundByUser = yield User_1.UserModel.findOne({ username: UserSetup_1.DEFAULT_USERNAME });
+            return newBlock;
+        });
     }
 }
 __decorate([
@@ -88,6 +109,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Object)
 ], Block, "createFromRequest", null);
+__decorate([
+    typegoose_1.staticMethod,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], Block, "createFirstBlock", null);
 exports.Block = Block;
 exports.BlockModel = new Block().getModelForClass(Block);
 //# sourceMappingURL=Block.js.map

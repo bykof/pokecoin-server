@@ -23,6 +23,10 @@ class Blockchain {
     setup() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.updateChain();
+            if (this.chain.length === 0) {
+                yield Block_1.BlockModel.createFirstBlock();
+                yield this.updateChain();
+            }
         });
     }
     get currentDifficulty() {

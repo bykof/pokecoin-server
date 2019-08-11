@@ -23,6 +23,7 @@ const Blockchain_1 = require("./blockchain/core/Blockchain");
 const CardsAggregate_1 = require("./cards/core/CardsAggregate");
 const CardPacksAggregate_1 = require("./cards/core/CardPacksAggregate");
 const BaseJSON = require("./json/pokemonCards/Base.json");
+const UserSetup_1 = require("./users/core/UserSetup");
 const server = fastify({ logger: true });
 const blockchain = Blockchain_1.default.getInstance();
 const cardPacksAggregate = CardPacksAggregate_1.default.getInstance();
@@ -36,6 +37,7 @@ function startApplication() {
     return __awaiter(this, void 0, void 0, function* () {
         process.on('SIGTERM', () => process.exit());
         yield mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true });
+        yield UserSetup_1.default.setup();
         yield blockchain.setup();
         console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`);
         server.register(pointOfView, {
