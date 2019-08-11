@@ -26,7 +26,9 @@ export default class Blockchain{
   async setup() {
     await this.updateChain()
     if (this.chain.length === 0) {
+      console.log('Blockchain has no genesis block, will create one now...')
       await BlockModel.createFirstBlock()
+      console.log('Genesis block was created')
       await this.updateChain()
     }
   }

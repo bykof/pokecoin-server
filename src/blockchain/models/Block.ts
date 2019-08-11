@@ -69,6 +69,7 @@ export class Block extends Typegoose {
     newBlock.nonce = 0
     newBlock.hash = newBlock.calculateHash()
     newBlock.foundByUser = await UserModel.findOne({username: DEFAULT_USERNAME})
+    await newBlock.save()
     return newBlock
   }
 }
