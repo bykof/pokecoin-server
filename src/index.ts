@@ -14,6 +14,7 @@ import Blockchain from './blockchain/core/Blockchain'
 import CardsAggregate from './cards/core/CardsAggregate'
 import CardPacksAggregate from './cards/core/CardPacksAggregate'
 import * as BaseJSON from './json/pokemonCards/Base.json'
+import UserSetup from './users/core/UserSetup';
 
 const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({logger: true})
 const blockchain = Blockchain.getInstance();
@@ -32,7 +33,8 @@ async function startApplication() {
   process.on('SIGTERM', () => process.exit())
 
   await mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true })
-  await blockchain.setup();
+  await UserSetup.setup()
+  await blockchain.setup()
   console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`)
 
   server.register(

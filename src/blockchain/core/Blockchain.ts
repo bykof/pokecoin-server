@@ -25,6 +25,10 @@ export default class Blockchain{
 
   async setup() {
     await this.updateChain()
+    if (this.chain.length === 0) {
+      await BlockModel.createFirstBlock()
+      await this.updateChain()
+    }
   }
 
   get currentDifficulty(): number {

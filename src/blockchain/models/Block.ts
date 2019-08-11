@@ -1,7 +1,8 @@
 import { prop, Typegoose, Ref, instanceMethod, InstanceType, staticMethod, ModelType } from 'typegoose'
 import * as crypto from 'crypto'
 
-import { User } from '../../users/models/User'
+import { User, UserModel } from '../../users/models/User'
+import { DEFAULT_USERNAME } from '../../users/core/UserSetup'
 
 export class Block extends Typegoose {
   @prop()
@@ -16,7 +17,7 @@ export class Block extends Typegoose {
   @prop()
   timestamp: number
 
-  @prop({default: 1})
+  @prop({ default: 1 })
   nonce: number = 1
 
   @prop({ ref: User })
@@ -56,6 +57,18 @@ export class Block extends Typegoose {
     newBlock.nonce = request.body.nonce
     newBlock.hash = newBlock.calculateHash()
     newBlock.foundByUser = request.user
+    return newBlock
+  }
+
+  @staticMethod
+  static async createFirstBlock(this: ModelType<Block>): Promise<InstanceType<Block>> {
+    const newBlock = new this()
+    newBlock.previousHash = ''
+    newBlock.data = 'Genesis Block #1'
+    newBlock.timestamp = Date.now()
+    newBlock.nonce = 0
+    newBlock.hash = newBlock.calculateHash()
+    newBlock.foundByUser = await UserModel.findOne({username: DEFAULT_USERNAME})
     return newBlock
   }
 }
