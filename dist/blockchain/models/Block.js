@@ -63,6 +63,7 @@ class Block extends typegoose_1.Typegoose {
             newBlock.nonce = 0;
             newBlock.hash = newBlock.calculateHash();
             newBlock.foundByUser = yield User_1.UserModel.findOne({ username: UserSetup_1.DEFAULT_USERNAME });
+            yield newBlock.save();
             return newBlock;
         });
     }

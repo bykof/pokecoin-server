@@ -24,7 +24,9 @@ class Blockchain {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.updateChain();
             if (this.chain.length === 0) {
+                console.log('Blockchain has no genesis block, will create one now...');
                 yield Block_1.BlockModel.createFirstBlock();
+                console.log('Genesis block was created');
                 yield this.updateChain();
             }
         });
