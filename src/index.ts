@@ -29,10 +29,15 @@ cardsAggregate.addCardsFromJson(BaseJSON)
 const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost/pokecoin'
 const PORT = parseInt(process.env.PORT) || 3000
 
+export async function setupDatabase() {
+  await mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true })
+
+}
+
 async function startApplication() {
   process.on('SIGTERM', () => process.exit())
 
-  await mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true })
+  await setupDatabase()
   await UserSetup.setup()
   await blockchain.setup()
   console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`)

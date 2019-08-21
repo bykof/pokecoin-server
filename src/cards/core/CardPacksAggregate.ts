@@ -1,6 +1,5 @@
 import CardPack from "../models/CardPack"
 import JsonCardParser from "./JsonCardParser"
-import cardPack from "../schemas/cardPackSchema";
 
 export default class CardPacksAggregate {
   static object: CardPacksAggregate
