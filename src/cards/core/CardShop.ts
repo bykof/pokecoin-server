@@ -9,7 +9,7 @@ import { UserCardTransactionModel } from "../models/UserCardTransaction"
 import Card from "../models/base/Card";
 
 export default class CardShop {
-  DEFAULT_PACKAGE_COST = 25
+  DEFAULT_PACKAGE_COST = parseInt(process.env.DEFAULT_PACKAGE_COST) || 25
 
   user: InstanceType<User>
   wallet: Wallet

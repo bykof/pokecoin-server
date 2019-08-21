@@ -1,10 +1,10 @@
 import { InstanceType } from "typegoose"
 import { User } from "../../users/models/User"
 import { TransactionModel, Transaction } from "../models/Transaction"
-import { Block } from "../../blockchain/models/Block";
+import { Block } from "../../blockchain/models/Block"
 
 export default class Wallet {
-  DEFAULT_REWARD: number = 1
+  DEFAULT_REWARD: number = parseInt(process.env.DEFAULT_REWARD) || 1
   user: InstanceType<User>
 
   constructor(user: InstanceType<User>) {
