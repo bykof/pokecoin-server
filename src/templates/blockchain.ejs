@@ -1,72 +1,62 @@
 <html>
   <head>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blockchain View</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <style>
-
-    html, body {
-      margin: 0;
-      padding: 20px;
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    .correctHash {
-      background: green;
-    }
-    .wrongHash {
-      background: red;
-    }
-
-    table {
-      width: 100%;
-      border: 1px solid black;
-      border-collapse: collapse;
-    }
-
-    th {
-      font-weight: bold;
-    }
-
-    td, th {
-      border: 1px solid black;
-      padding: 10px;
-    }
+      .correctHash {
+        background: #98FB98;
+      }
+      .wrongHash {
+        background: #DB7093;
+      }
     </style>
   </head>
   <body>
-    <h1>Blockchain</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>_id</th>
-          <th>previousHash</th>
-          <th>hash</th>
-          <th>nonce</th>
-          <th>timestamp</th>
-          <th>found by user</th>
-          <th>data</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for (let i = 0; i < chain.length; i++) { %>
-          <tr>
-            <td><%= chain[i]._id %></td>
-            <% if (chain[i].previousHash !== '') { %>
-              <% if (chain[i].previousHash === chain[i+1].hash) { %>
-                <td class="correctHash"><%= chain[i].previousHash %></td>
-              <% } else { %>
-                <td class="wrongHash"><%= chain[i].previousHash %></td>
+    <section>
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+          <h1 class="is-size-2">Blockchain</h1>
+          <table class="table is-bordered">
+            <thead>
+              <tr>
+                <th>_id</th>
+                <th>previousHash</th>
+                <th>hash</th>
+                <th>nonce</th>
+                <th>timestamp</th>
+                <th>found by user</th>
+                <th>data</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (let i = 0; i < chain.length; i++) { %>
+                <tr>
+                  <td><%= chain[i]._id %></td>
+                  <% if (chain[i].previousHash !== '') { %>
+                    <% if (chain[i].previousHash === chain[i+1].hash) { %>
+                      <td class="correctHash"><%= chain[i].previousHash %></td>
+                    <% } else { %>
+                      <td class="wrongHash"><%= chain[i].previousHash %></td>
+                    <% } %>
+                  <% } else { %>
+                    <td></td>
+                  <% } %>
+                  <td><%= chain[i].hash %></td>
+                  <td><%= chain[i].nonce %></td>
+                  <td><%= moment(chain[i].timestamp).format('DD.MM.YYYY HH:mm:ss') %></td>
+                  <td><%= chain[i].foundByUser.username %></td>
+                  <td><%= chain[i].data %></td>
+                </tr>
               <% } %>
-            <% } else { %>
-              <td></td>
-            <% } %>
-            <td><%= chain[i].hash %></td>
-            <td><%= chain[i].nonce %></td>
-            <td><%= moment(chain[i].timestamp).format('DD.MM.YYYY HH:mm:ss') %></td>
-            <td><%= chain[i].foundByUser.username %></td>
-            <td><%= chain[i].data %></td>
-          </tr>
-        <% } %>
-      </tbody>
-    </table>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+    </section>
   </body>
 </html>

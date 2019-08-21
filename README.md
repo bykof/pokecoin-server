@@ -26,6 +26,16 @@ yarn start
 yarn test
 ```
 
+## Environment Variables
+
+| Name                 | Description                                    | Type    | Default                      |
+|----------------------|------------------------------------------------|---------|------------------------------|
+| PRODUCTION           | production mode                                | boolean | false                        |
+| MONGODB_URL          | The mongodb uri                                | string  | mongodb://localhost/pokecoin |
+| PORT                 | port                                           | number  | 3000                         |
+| DEFAULT_REWARD       | The reward for a found block                   | number  | 1                            |
+| DEFAULT_PACKAGE_COST | The package cost for a default pokemon package | number  | 25                           |
+
 ## Author
 
 👤 **Michael Bykovski &lt;michael.bykovskii@aoe.com&gt;**
