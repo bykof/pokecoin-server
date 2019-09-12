@@ -30,7 +30,6 @@ export default class Paginator implements IPaginator {
   }
 
   getObjectsOnPage(page: number): any[] {
-    console.log(page * this.page_size, page * this.page_size + this.page_size)
     return this.objects.slice(page * this.page_size, page * this.page_size + this.page_size)
   }
 }

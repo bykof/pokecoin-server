@@ -16,7 +16,7 @@ import CardPacksAggregate from './cards/core/CardPacksAggregate'
 import * as BaseJSON from './json/pokemonCards/Base.json'
 import UserSetup from './users/core/UserSetup';
 
-const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({logger: true})
+const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({ logger: true })
 const blockchain = Blockchain.getInstance();
 
 const cardPacksAggregate = CardPacksAggregate.getInstance()
@@ -26,11 +26,11 @@ const cardsAggregate = CardsAggregate.getInstance()
 cardsAggregate.addCardsFromJson(BaseJSON)
 
 // Env variables
-const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost/pokecoin'
-const PORT = parseInt(process.env.PORT) || 3000
+const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost/pokecoin'
+const PORT = parseInt(process.env.PORT) || 3000
 
 export async function setupDatabase() {
-  await mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true })
+  await mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
 
 }
 
@@ -44,12 +44,12 @@ async function startApplication() {
 
   server.register(
     pointOfView, {
-      engine: {
-        ejs: ejs
-      },
-      templates: './src/templates',
-      includeViewExtension: true,
-    }
+    engine: {
+      ejs: ejs
+    },
+    templates: './src/templates',
+    includeViewExtension: true,
+  }
 
   )
   server.register(oas, swaggerConfig)
@@ -57,7 +57,12 @@ async function startApplication() {
   server.register(blockchainRoutes, { prefix: '/blockchain' })
   server.register(walletRoutes, { prefix: '/wallet' })
   server.register(cardRoutes, { prefix: '/cards' })
-  server.register(viewRoutes, { prefix: '/views'})
+  server.register(viewRoutes, { prefix: '/views' })
+  server.route({
+    method: 'GET',
+    url: '/loaderio-bc8e94f651bcb367bc2dd186b686f104',
+    handler: (request, reply) => { reply.view('token') },
+  })
 
   server.ready(async err => {
     if (err) throw err;
@@ -73,7 +78,6 @@ async function startApplication() {
         process.exit(1)
       }
       console.log('Server running:', address)
-
     }
   )
 }

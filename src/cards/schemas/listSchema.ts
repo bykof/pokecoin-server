@@ -6,7 +6,18 @@ export const responseSuccessfulSchema = {
   properties: {
     cards: {
       type: 'array',
-      items: pokemonCardSchema,
+      items: {
+        type: 'object',
+        properties: {},
+        if: {
+          type: "object",
+          properties: {
+            supertype: { type: "string", const: "Pokémon" },
+          }
+        },
+        then: pokemonCardSchema,
+        else: cardSchema,
+      },
     },
   }
 }

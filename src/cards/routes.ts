@@ -34,6 +34,28 @@ export default async function routes(
 
   fastify.route({
     method: 'GET',
+    url: '/:cardId',
+    schema: {
+      params: {
+        type: 'object',
+        properties: {
+          cardId: {
+            type: 'string',
+            description: 'card id'
+          }
+        }
+      },
+      response: {
+        200: getResponseSuccessfulSchema,
+        404: notFoundSchema,
+        500: unexpectedErrorSchema,
+      },
+    },
+    handler: CardController.get,
+  })
+
+  fastify.route({
+    method: 'GET',
     url: '/usercards',
     schema: {
       response: {
@@ -104,27 +126,5 @@ export default async function routes(
     },
     preHandler: isAuthenticated,
     handler: CardPackController.buyDefaultPackage,
-  })
-
-  fastify.route({
-    method: 'GET',
-    url: '/:cardId',
-    schema: {
-      params: {
-        type: 'object',
-        properties: {
-          cardId: {
-            type: 'string',
-            description: 'card id'
-          }
-        }
-      },
-      response: {
-        200: getResponseSuccessfulSchema,
-        404: notFoundSchema,
-        500: unexpectedErrorSchema,
-      },
-    },
-    handler: CardController.get,
   })
 }
