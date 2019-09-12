@@ -31,6 +31,6 @@ class CardsAggregate {
         return this.cards.find((card) => card.id === id);
     }
 }
-CardsAggregate.instance = null;
 exports.default = CardsAggregate;
+CardsAggregate.instance = null;
 //# sourceMappingURL=CardsAggregate.js.map

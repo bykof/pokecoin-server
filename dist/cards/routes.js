@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -35,6 +36,27 @@ function routes(fastify, options) {
                 },
             },
             handler: CardController_1.default.list,
+        });
+        fastify.route({
+            method: 'GET',
+            url: '/:cardId',
+            schema: {
+                params: {
+                    type: 'object',
+                    properties: {
+                        cardId: {
+                            type: 'string',
+                            description: 'card id'
+                        }
+                    }
+                },
+                response: {
+                    200: getSchema_1.responseSuccessfulSchema,
+                    404: notFoundSchema_1.default,
+                    500: unexpectedErrorSchema_1.default,
+                },
+            },
+            handler: CardController_1.default.get,
         });
         fastify.route({
             method: 'GET',
@@ -105,27 +127,6 @@ function routes(fastify, options) {
             },
             preHandler: isAuthenticated_1.default,
             handler: CardPackController_1.default.buyDefaultPackage,
-        });
-        fastify.route({
-            method: 'GET',
-            url: '/:cardId',
-            schema: {
-                params: {
-                    type: 'object',
-                    properties: {
-                        cardId: {
-                            type: 'string',
-                            description: 'card id'
-                        }
-                    }
-                },
-                response: {
-                    200: getSchema_1.responseSuccessfulSchema,
-                    404: notFoundSchema_1.default,
-                    500: unexpectedErrorSchema_1.default,
-                },
-            },
-            handler: CardController_1.default.get,
         });
     });
 }

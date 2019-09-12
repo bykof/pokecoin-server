@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -33,10 +34,16 @@ cardsAggregate.addCardsFromJson(BaseJSON);
 // Env variables
 const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost/pokecoin';
 const PORT = parseInt(process.env.PORT) || 3000;
+function setupDatabase() {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+    });
+}
+exports.setupDatabase = setupDatabase;
 function startApplication() {
     return __awaiter(this, void 0, void 0, function* () {
         process.on('SIGTERM', () => process.exit());
-        yield mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true });
+        yield setupDatabase();
         yield UserSetup_1.default.setup();
         yield blockchain.setup();
         console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`);
@@ -53,6 +60,11 @@ function startApplication() {
         server.register(routes_3.default, { prefix: '/wallet' });
         server.register(routes_4.default, { prefix: '/cards' });
         server.register(routes_5.default, { prefix: '/views' });
+        server.route({
+            method: 'GET',
+            url: '/loaderio-bc8e94f651bcb367bc2dd186b686f104',
+            handler: (request, reply) => { reply.view('token'); },
+        });
         server.ready((err) => __awaiter(this, void 0, void 0, function* () {
             if (err)
                 throw err;

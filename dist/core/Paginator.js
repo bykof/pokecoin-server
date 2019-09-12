@@ -21,7 +21,6 @@ class Paginator {
         return 0;
     }
     getObjectsOnPage(page) {
-        console.log(page * this.page_size, page * this.page_size + this.page_size);
         return this.objects.slice(page * this.page_size, page * this.page_size + this.page_size);
     }
 }
