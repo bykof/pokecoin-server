@@ -60,7 +60,7 @@ async function startApplication() {
   server.register(viewRoutes, { prefix: '/views' })
   server.route({
     method: 'GET',
-    url: '/loaderio-bc8e94f651bcb367bc2dd186b686f104',
+    url: '/loaderio-bc8e94f651bcb367bc2dd186b686f104/',
     handler: (request, reply) => { reply.view('token') },
   })
 

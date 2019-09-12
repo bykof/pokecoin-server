@@ -62,7 +62,7 @@ function startApplication() {
         server.register(routes_5.default, { prefix: '/views' });
         server.route({
             method: 'GET',
-            url: '/loaderio-bc8e94f651bcb367bc2dd186b686f104',
+            url: '/loaderio-bc8e94f651bcb367bc2dd186b686f104/',
             handler: (request, reply) => { reply.view('token'); },
         });
         server.ready((err) => __awaiter(this, void 0, void 0, function* () {
