@@ -1,5 +1,4 @@
 import { prop, Typegoose, ModelType, InstanceType, staticMethod, instanceMethod } from 'typegoose'
-import { DocumentQuery } from 'mongoose'
 import * as crypto from 'crypto'
 import { sign as signJWT, verify as verifyJWT } from 'jsonwebtoken'
 

@@ -1,4 +1,4 @@
-import { UserCardTransaction, UserCardTransactionModel } from "../models/UserCardTransaction";
+import { UserCardTransactionModel } from "../models/UserCardTransaction";
 
 export default class UserCardController {
   static async getCards(request, reply) {
