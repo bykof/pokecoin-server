@@ -1,6 +1,7 @@
-import userSchema from "../../users/schemas/userSchema";
-
 export default {
+  $id: 'Block',
+  title: 'Block',
+  description: 'The block schema',
   type: 'object',
   properties: {
     hash: { type: 'string' },
@@ -8,6 +9,6 @@ export default {
     data: { type: 'string' },
     timestamp: { type: 'integer' },
     nonce: { type: 'integer' },
-    foundByUser: userSchema,
+    foundByUser: 'User#',
   }
 }

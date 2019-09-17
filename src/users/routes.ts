@@ -3,11 +3,8 @@ import { Server, IncomingMessage, ServerResponse } from "http"
 import unexpectedErrorSchema from "../core/schemas/unexpectedErrorSchema"
 import unauthorizedSchema from "../core/schemas/unauthorizedSchema"
 import UserController from './controller/UserController'
-import * as loginSchemas from './schemas/loginSchemas'
-import * as registerSchemas from './schemas/registerSchemas'
-import * as changePasswordSchemas from './schemas/changePasswordSchemas'
 import isAuthenticated from './decorators/isAuthenticated'
-import userSchema from "./schemas/userSchema"
+
 
 export default async function routes(
   fastify: fastify.FastifyInstance,
@@ -17,10 +14,10 @@ export default async function routes(
     method: 'POST',
     url: '/login',
     schema: {
-      body: loginSchemas.bodySchema,
+      body: 'LoginBody#',
       response: {
-        200: loginSchemas.responseSuccessfulSchema,
-        400: loginSchemas.responseFailedSchema,
+        200: 'LoginResponse#',
+        400: 'LoginErrorResponse#',
         500: unexpectedErrorSchema,
       },
     },
@@ -31,10 +28,10 @@ export default async function routes(
     method: 'POST',
     url: '/register',
     schema: {
-      body: registerSchemas.bodySchema,
+      body: 'RegisterBody#',
       response: {
-        200: registerSchemas.responseSuccessfulSchema,
-        400: registerSchemas.responseFailedSchema,
+        200: 'RegisterResponse#',
+        400: 'RegisterErrorResponse#',
         500: unexpectedErrorSchema,
       }
     },
@@ -46,7 +43,7 @@ export default async function routes(
     url: '/me',
     schema: {
       response: {
-        200: userSchema,
+        200: 'User#',
         401: unauthorizedSchema,
         500: unexpectedErrorSchema,
       },
@@ -60,9 +57,9 @@ export default async function routes(
     method: 'POST',
     url: '/changePassword',
     schema: {
-      body: changePasswordSchemas.bodySchema,
+      body: 'ChangePasswordBody#',
       response: {
-        201: changePasswordSchemas.responseSuccessfulSchema,
+        201: 'ChangePasswordResponse#',
         401: unauthorizedSchema,
         500: unexpectedErrorSchema,
       },

@@ -4,8 +4,6 @@ import unexpectedErrorSchema from "../core/schemas/unexpectedErrorSchema"
 import isAuthenticated from "../users/decorators/isAuthenticated"
 import unauthorizedSchema from "../core/schemas/unauthorizedSchema"
 import BlockchainController from "./controller/BlockchainController"
-import * as addBlockSchemas from "./schemas/addBlockSchemas"
-import * as lastBlockSchemas from "./schemas/lastBlockSchemas"
 
 export default async function routes(
   fastify: fastify.FastifyInstance,
@@ -15,10 +13,10 @@ export default async function routes(
     method: 'POST',
     url: '/blocks',
     schema: {
-      body: addBlockSchemas.bodySchema,
+      body: 'AddBlockBody#',
       response: {
-        200: addBlockSchemas.responseSuccessfulSchema,
-        400: addBlockSchemas.responseFailedSchema,
+        200: 'AddBlockResponse#',
+        400: 'AddBlockErrorResponse#',
         401: unauthorizedSchema,
         500: unexpectedErrorSchema,
       },
@@ -33,7 +31,7 @@ export default async function routes(
     url: '/lastBlock',
     schema: {
       response: {
-        200: lastBlockSchemas.responseSuccessfulSchema,
+        200: 'Block#',
         401: unauthorizedSchema,
         500: unexpectedErrorSchema,
       },

@@ -1,6 +1,8 @@
 import UnauthorizedError from "../errors/UnauthorizedError";
 
 export default {
+  $id: 'UnauthorizedError',
+  title: 'UnauthorizedError',
   type: 'object',
   description: 'Unauthorized Request',
   properties: {

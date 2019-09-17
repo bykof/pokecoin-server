@@ -15,7 +15,11 @@ import CardsAggregate from './cards/core/CardsAggregate'
 import CardPacksAggregate from './cards/core/CardPacksAggregate'
 import * as BaseJSON from './json/pokemonCards/Base.json'
 import UserSetup from './users/core/UserSetup';
+
+import { init as userSchemasInit } from './users/schemas'
 import { init as cardSchemasInit } from './cards/schemas'
+import { init as blockSchemasInit } from './blockchain/schemas'
+import { init as walletSchemasInit } from './wallet/schemas'
 
 const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({ logger: true })
 const blockchain = Blockchain.getInstance();
@@ -43,7 +47,10 @@ async function startApplication() {
   await blockchain.setup()
   console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`)
 
+  userSchemasInit(server)
   cardSchemasInit(server)
+  walletSchemasInit(server)
+  blockSchemasInit(server)
 
   server.register(
     pointOfView, {
@@ -55,17 +62,27 @@ async function startApplication() {
   }
 
   )
-  server.register(oas, swaggerConfig)
-  server.register(authenticationRoutes, { prefix: '/auth' })
-  server.register(blockchainRoutes, { prefix: '/blockchain' })
-  server.register(walletRoutes, { prefix: '/wallet' })
-  server.register(cardRoutes, { prefix: '/cards' })
-  server.register(viewRoutes, { prefix: '/views' })
-  server.route({
-    method: 'GET',
-    url: '/loaderio-bc8e94f651bcb367bc2dd186b686f104/',
-    handler: (request, reply) => { reply.view('token') },
-  })
+  server.register(
+    oas,
+    swaggerConfig,
+  ).register(
+    authenticationRoutes,
+    { prefix: '/auth' },
+  ).register(
+    blockchainRoutes,
+    { prefix: '/blockchain' },
+  ).register(
+    walletRoutes,
+    { prefix: '/wallet' },
+  ).register(
+    cardRoutes,
+    { prefix: '/cards' },
+  ).register(
+    viewRoutes,
+    { prefix: '/views' },
+  ).after(
+    (error) => { if (error) { console.log(error) } }
+  )
 
   server.ready(async err => {
     if (err) throw err;

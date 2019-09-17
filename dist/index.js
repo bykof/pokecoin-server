@@ -25,7 +25,10 @@ const CardsAggregate_1 = require("./cards/core/CardsAggregate");
 const CardPacksAggregate_1 = require("./cards/core/CardPacksAggregate");
 const BaseJSON = require("./json/pokemonCards/Base.json");
 const UserSetup_1 = require("./users/core/UserSetup");
-const schemas_1 = require("./cards/schemas");
+const schemas_1 = require("./users/schemas");
+const schemas_2 = require("./cards/schemas");
+const schemas_3 = require("./blockchain/schemas");
+const schemas_4 = require("./wallet/schemas");
 const server = fastify({ logger: true });
 const blockchain = Blockchain_1.default.getInstance();
 const cardPacksAggregate = CardPacksAggregate_1.default.getInstance();
@@ -49,6 +52,9 @@ function startApplication() {
         yield blockchain.setup();
         console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`);
         schemas_1.init(server);
+        schemas_2.init(server);
+        schemas_4.init(server);
+        schemas_3.init(server);
         server.register(pointOfView, {
             engine: {
                 ejs: ejs
@@ -56,17 +62,9 @@ function startApplication() {
             templates: './src/templates',
             includeViewExtension: true,
         });
-        server.register(oas, swaggerConfig_1.default);
-        server.register(routes_1.default, { prefix: '/auth' });
-        server.register(routes_2.default, { prefix: '/blockchain' });
-        server.register(routes_3.default, { prefix: '/wallet' });
-        server.register(routes_4.default, { prefix: '/cards' });
-        server.register(routes_5.default, { prefix: '/views' });
-        server.route({
-            method: 'GET',
-            url: '/loaderio-bc8e94f651bcb367bc2dd186b686f104/',
-            handler: (request, reply) => { reply.view('token'); },
-        });
+        server.register(oas, swaggerConfig_1.default).register(routes_1.default, { prefix: '/auth' }).register(routes_2.default, { prefix: '/blockchain' }).register(routes_3.default, { prefix: '/wallet' }).register(routes_4.default, { prefix: '/cards' }).register(routes_5.default, { prefix: '/views' }).after((error) => { if (error) {
+            console.log(error);
+        } });
         server.ready((err) => __awaiter(this, void 0, void 0, function* () {
             if (err)
                 throw err;

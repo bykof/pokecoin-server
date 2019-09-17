@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const userSchema_1 = require("../../users/schemas/userSchema");
 exports.default = {
+    $id: 'Block',
+    title: 'Block',
+    description: 'The block schema',
     type: 'object',
     properties: {
         hash: { type: 'string' },
@@ -9,7 +11,7 @@ exports.default = {
         data: { type: 'string' },
         timestamp: { type: 'integer' },
         nonce: { type: 'integer' },
-        foundByUser: userSchema_1.default,
+        foundByUser: 'User#',
     }
 };
 //# sourceMappingURL=blockSchema.js.map

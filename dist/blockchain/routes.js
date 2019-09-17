@@ -13,18 +13,16 @@ const unexpectedErrorSchema_1 = require("../core/schemas/unexpectedErrorSchema")
 const isAuthenticated_1 = require("../users/decorators/isAuthenticated");
 const unauthorizedSchema_1 = require("../core/schemas/unauthorizedSchema");
 const BlockchainController_1 = require("./controller/BlockchainController");
-const addBlockSchemas = require("./schemas/addBlockSchemas");
-const lastBlockSchemas = require("./schemas/lastBlockSchemas");
 function routes(fastify, options) {
     return __awaiter(this, void 0, void 0, function* () {
         fastify.route({
             method: 'POST',
             url: '/blocks',
             schema: {
-                body: addBlockSchemas.bodySchema,
+                body: 'AddBlockBody#',
                 response: {
-                    200: addBlockSchemas.responseSuccessfulSchema,
-                    400: addBlockSchemas.responseFailedSchema,
+                    200: 'AddBlockResponse#',
+                    400: 'AddBlockErrorResponse#',
                     401: unauthorizedSchema_1.default,
                     500: unexpectedErrorSchema_1.default,
                 },
@@ -38,7 +36,7 @@ function routes(fastify, options) {
             url: '/lastBlock',
             schema: {
                 response: {
-                    200: lastBlockSchemas.responseSuccessfulSchema,
+                    200: 'Block#',
                     401: unauthorizedSchema_1.default,
                     500: unexpectedErrorSchema_1.default,
                 },

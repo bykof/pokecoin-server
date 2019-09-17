@@ -1,23 +1,10 @@
 import UserNotFoundError from "../errors/UserNotFoundError";
 import PasswordIncorrectError from "../errors/PasswordIncorrectError";
 
-export const bodySchema = {
-  type: 'object',
-  properties: {
-    username: { type: 'string' },
-    password: { type: 'string' },
-  },
-  required: ['username', 'password'],
-}
-
-export const responseSuccessfulSchema = {
-  type: 'object',
-  properties: {
-    token: { type: 'string' },
-  }
-}
-
-export const responseFailedSchema = {
+export default {
+  $id: 'LoginErrorResponse',
+  title: 'LoginErrorResponse',
+  description: 'The error schema if login failed',
   type: 'object',
   properties: {
     code: { type: 'string', enum: [UserNotFoundError.name, PasswordIncorrectError.name] },

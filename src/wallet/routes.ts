@@ -3,7 +3,6 @@ import { Server, IncomingMessage, ServerResponse } from "http"
 import unexpectedErrorSchema from "../core/schemas/unexpectedErrorSchema"
 import isAuthenticated from "../users/decorators/isAuthenticated"
 import unauthorizedSchema from "../core/schemas/unauthorizedSchema"
-import * as balanceSchemas from './schemas/balanceSchemas'
 import WalletController from "./controllers/WalletController"
 
 export default async function routes(
@@ -15,7 +14,7 @@ export default async function routes(
     url: '/balance',
     schema: {
       response: {
-        200: balanceSchemas.responseSuccessfulSchema,
+        200: 'BalanceResponse#',
         401: unauthorizedSchema,
         500: unexpectedErrorSchema,
       },
