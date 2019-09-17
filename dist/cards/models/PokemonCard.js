@@ -7,8 +7,12 @@ const Weakness_1 = require("./base/Weakness");
 class PokemonCard extends Card_1.default {
     constructor(data) {
         super(data);
-        this.ability = new Ability_1.default(data.ability);
-        this.attacks = data.attacks.map((attack) => new Attack_1.default(attack));
+        if (data.ability) {
+            this.ability = new Ability_1.default(data.ability);
+        }
+        if (data.attacks) {
+            this.attacks = data.attacks.map((attack) => new Attack_1.default(attack));
+        }
         if (data.weaknesses) {
             this.weaknesses = data.weaknesses.map((weakness) => new Weakness_1.default(weakness));
         }

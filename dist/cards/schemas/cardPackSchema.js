@@ -1,12 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const pokemonCardSchema_1 = require("./pokemonCardSchema");
 exports.default = {
+    $id: 'CardPack',
+    title: 'CardPack',
+    $schema: "http://json-schema.org/draft-07/schema#",
+    required: [
+        'name',
+        'cards',
+    ],
     type: 'object',
     properties: {
         name: { type: 'string' },
         cards: {
-            type: 'array', items: pokemonCardSchema_1.default,
+            type: 'array', items: 'PokemonCard#',
         },
     },
 };

@@ -25,6 +25,7 @@ const CardsAggregate_1 = require("./cards/core/CardsAggregate");
 const CardPacksAggregate_1 = require("./cards/core/CardPacksAggregate");
 const BaseJSON = require("./json/pokemonCards/Base.json");
 const UserSetup_1 = require("./users/core/UserSetup");
+const schemas_1 = require("./cards/schemas");
 const server = fastify({ logger: true });
 const blockchain = Blockchain_1.default.getInstance();
 const cardPacksAggregate = CardPacksAggregate_1.default.getInstance();
@@ -47,6 +48,7 @@ function startApplication() {
         yield UserSetup_1.default.setup();
         yield blockchain.setup();
         console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`);
+        schemas_1.init(server);
         server.register(pointOfView, {
             engine: {
                 ejs: ejs

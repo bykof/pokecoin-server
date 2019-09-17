@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const swaggerConfig = {
     exposeRoute: true,
+    addModels: true,
     routePrefix: '/docs',
     swagger: {
         info: {

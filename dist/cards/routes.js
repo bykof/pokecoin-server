@@ -11,15 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const unexpectedErrorSchema_1 = require("../core/schemas/unexpectedErrorSchema");
 const CardController_1 = require("./controller/CardController");
-const buyDefaultPackageSchemas_1 = require("./schemas/buyDefaultPackageSchemas");
-const getSchema_1 = require("./schemas/getSchema");
-const listSchema_1 = require("./schemas/listSchema");
-const packagesSchemas_1 = require("./schemas/packagesSchemas");
-const userCardSchemas_1 = require("./schemas/userCardSchemas");
 const notFoundSchema_1 = require("../core/schemas/notFoundSchema");
 const pageParameterSchema_1 = require("../core/schemas/pageParameterSchema");
 const CardPackController_1 = require("./controller/CardPackController");
-const cardPackSchema_1 = require("./schemas/cardPackSchema");
 const isAuthenticated_1 = require("../users/decorators/isAuthenticated");
 const UserCardController_1 = require("./controller/UserCardController");
 const unauthorizedSchema_1 = require("../core/schemas/unauthorizedSchema");
@@ -31,7 +25,7 @@ function routes(fastify, options) {
             schema: {
                 querystring: pageParameterSchema_1.default,
                 response: {
-                    200: listSchema_1.responseSuccessfulSchema,
+                    200: 'CardsResponse#',
                     500: unexpectedErrorSchema_1.default,
                 },
             },
@@ -51,7 +45,7 @@ function routes(fastify, options) {
                     }
                 },
                 response: {
-                    200: getSchema_1.responseSuccessfulSchema,
+                    200: 'CardResponse#',
                     404: notFoundSchema_1.default,
                     500: unexpectedErrorSchema_1.default,
                 },
@@ -63,7 +57,7 @@ function routes(fastify, options) {
             url: '/usercards',
             schema: {
                 response: {
-                    200: userCardSchemas_1.responseSuccessfulSchema,
+                    200: 'UserCardResponse#',
                     401: unauthorizedSchema_1.default,
                     500: unexpectedErrorSchema_1.default,
                 },
@@ -77,7 +71,7 @@ function routes(fastify, options) {
             url: '/packages',
             schema: {
                 response: {
-                    200: packagesSchemas_1.responseSuccessfulSchema,
+                    200: 'PackagesResponse#',
                     500: unexpectedErrorSchema_1.default,
                 },
             },
@@ -97,7 +91,7 @@ function routes(fastify, options) {
                     }
                 },
                 response: {
-                    200: cardPackSchema_1.default,
+                    200: 'CardPack#',
                     404: notFoundSchema_1.default,
                     500: unexpectedErrorSchema_1.default,
                 },
@@ -118,7 +112,7 @@ function routes(fastify, options) {
                     }
                 },
                 response: {
-                    200: buyDefaultPackageSchemas_1.responseSuccessfulSchema,
+                    200: 'BuyDefaultPackageSchemaResponse#',
                     404: notFoundSchema_1.default,
                     401: unauthorizedSchema_1.default,
                     500: unexpectedErrorSchema_1.default,
