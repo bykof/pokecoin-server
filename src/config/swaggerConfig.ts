@@ -1,5 +1,6 @@
 const swaggerConfig = {
   exposeRoute: true,
+  addModels: true,
   routePrefix: '/docs',
   swagger: {
     info: {

@@ -18,8 +18,15 @@ export default class PokemonCard extends Card {
 
   constructor(data) {
     super(data)
-    this.ability = new Ability(data.ability)
-    this.attacks = data.attacks.map((attack) => new Attack(attack))
+
+    if (data.ability) {
+      this.ability = new Ability(data.ability)
+    }
+
+    if (data.attacks) {
+      this.attacks = data.attacks.map((attack) => new Attack(attack))
+    }
+
     if (data.weaknesses) {
       this.weaknesses = data.weaknesses.map((weakness) => new Weakness(weakness))
     }

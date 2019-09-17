@@ -2,15 +2,9 @@ import fastify = require("fastify")
 import { Server, IncomingMessage, ServerResponse } from "http"
 import unexpectedErrorSchema from "../core/schemas/unexpectedErrorSchema"
 import CardController from "./controller/CardController"
-import { responseSuccessfulSchema as buyDefaultPackageResponseSuccessfulSchema } from "./schemas/buyDefaultPackageSchemas"
-import { responseSuccessfulSchema as getResponseSuccessfulSchema } from "./schemas/getSchema"
-import { responseSuccessfulSchema as listResponseSuccessfulSchema } from "./schemas/listSchema"
-import { responseSuccessfulSchema as packagesResponseSuccessfulSchema } from "./schemas/packagesSchemas"
-import { responseSuccessfulSchema as userCardResponseSuccessfulSchema } from "./schemas/userCardSchemas"
 import notFoundSchema from "../core/schemas/notFoundSchema"
 import pageParameterSchema from "../core/schemas/pageParameterSchema"
 import CardPackController from "./controller/CardPackController"
-import cardPackSchema from "./schemas/cardPackSchema"
 import isAuthenticated from "../users/decorators/isAuthenticated"
 import UserCardController from "./controller/UserCardController"
 import unauthorizedSchema from "../core/schemas/unauthorizedSchema"
@@ -25,7 +19,7 @@ export default async function routes(
     schema: {
       querystring: pageParameterSchema,
       response: {
-        200: listResponseSuccessfulSchema,
+        200: 'CardsResponse#',
         500: unexpectedErrorSchema,
       },
     },
@@ -46,7 +40,7 @@ export default async function routes(
         }
       },
       response: {
-        200: getResponseSuccessfulSchema,
+        200: 'CardResponse#',
         404: notFoundSchema,
         500: unexpectedErrorSchema,
       },
@@ -59,7 +53,7 @@ export default async function routes(
     url: '/usercards',
     schema: {
       response: {
-        200: userCardResponseSuccessfulSchema,
+        200: 'UserCardResponse#',
         401: unauthorizedSchema,
         500: unexpectedErrorSchema,
       },
@@ -74,7 +68,7 @@ export default async function routes(
     url: '/packages',
     schema: {
       response: {
-        200: packagesResponseSuccessfulSchema,
+        200: 'PackagesResponse#',
         500: unexpectedErrorSchema,
       },
     },
@@ -95,7 +89,7 @@ export default async function routes(
         }
       },
       response: {
-        200: cardPackSchema,
+        200: 'CardPack#',
         404: notFoundSchema,
         500: unexpectedErrorSchema,
       },
@@ -117,7 +111,7 @@ export default async function routes(
         }
       },
       response: {
-        200: buyDefaultPackageResponseSuccessfulSchema,
+        200: 'BuyDefaultPackageSchemaResponse#',
         404: notFoundSchema,
         401: unauthorizedSchema,
         500: unexpectedErrorSchema,

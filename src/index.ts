@@ -15,6 +15,7 @@ import CardsAggregate from './cards/core/CardsAggregate'
 import CardPacksAggregate from './cards/core/CardPacksAggregate'
 import * as BaseJSON from './json/pokemonCards/Base.json'
 import UserSetup from './users/core/UserSetup';
+import { init as cardSchemasInit } from './cards/schemas'
 
 const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({ logger: true })
 const blockchain = Blockchain.getInstance();
@@ -41,6 +42,8 @@ async function startApplication() {
   await UserSetup.setup()
   await blockchain.setup()
   console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`)
+
+  cardSchemasInit(server)
 
   server.register(
     pointOfView, {
