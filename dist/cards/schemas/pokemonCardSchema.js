@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     definitions: {},
-    $schema: "http://json-schema.org/draft-07/schema#",
     $id: "PokemonCard",
     type: "object",
     title: "Pokemoncard",

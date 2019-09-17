@@ -1,6 +1,5 @@
 const swaggerConfig = {
   exposeRoute: true,
-  addModels: true,
   routePrefix: '/docs',
   swagger: {
     info: {
@@ -13,7 +12,6 @@ const swaggerConfig = {
     securityDefinitions: {
       token: {
         type: 'apiKey',
-        scheme: 'bearer',
         name: 'token',
         in: 'header',
       }
