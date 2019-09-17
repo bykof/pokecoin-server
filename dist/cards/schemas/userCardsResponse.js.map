@@ -1,0 +1,1 @@
+{"version":3,"file":"userCardsResponse.js","sourceRoot":"","sources":["../../../src/cards/schemas/userCardsResponse.ts"],"names":[],"mappings":";;AAAA,kBAAe;IACb,GAAG,EAAE,kBAAkB;IACvB,KAAK,EAAE,kBAAkB;IACzB,WAAW,EAAE,8BAA8B;IAC3C,OAAO,EAAE,yCAAyC;IAClD,IAAI,EAAE,OAAO;IACb,KAAK,EAAE,WAAW;CACnB,CAAA"}
