@@ -1,4 +1,4 @@
-import { prop, Typegoose, Ref } from 'typegoose'
+import { prop, Typegoose, Ref } from '@hasezoey/typegoose'
 
 import { User } from '../../users/models/User'
 

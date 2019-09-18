@@ -1,4 +1,4 @@
-import { prop, Typegoose, ModelType, InstanceType, staticMethod, instanceMethod } from 'typegoose'
+import { prop, Typegoose, ModelType, InstanceType, staticMethod, instanceMethod } from '@hasezoey/typegoose'
 import * as crypto from 'crypto'
 import { sign as signJWT, verify as verifyJWT } from 'jsonwebtoken'
 

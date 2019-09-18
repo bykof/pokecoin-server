@@ -46,7 +46,6 @@ test('test CardReader to get a Pokemon Card (Alakazam)', () => {
       "Colorless",
       "Colorless"
     ],
-    "text": [],
     "convertedRetreatCost": 3,
     "number": "1",
     "artist": "Ken Sugimori",

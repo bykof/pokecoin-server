@@ -1,5 +1,5 @@
 
-import { InstanceType } from 'typegoose'
+import { InstanceType } from '@hasezoey/typegoose'
 
 import { Block, BlockModel } from '../models/Block'
 

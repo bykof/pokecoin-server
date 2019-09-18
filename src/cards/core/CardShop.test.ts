@@ -33,7 +33,7 @@ test('test buyDefaultPackage', async () => {
       return new TransactionModel({
         amount: -amount,
         timestamp: Date.now(),
-        user: this.user,
+        user: user,
       })
     }
   )
@@ -43,7 +43,7 @@ test('test buyDefaultPackage', async () => {
         cardId: card.id,
         cardPack: cardPackName,
         timestamp: Date.now(),
-        user: this.user,
+        user: user,
       })
     }
   )

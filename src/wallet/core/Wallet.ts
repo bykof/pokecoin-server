@@ -1,4 +1,4 @@
-import { InstanceType } from "typegoose"
+import { InstanceType } from '@hasezoey/typegoose'
 import { User } from "../../users/models/User"
 import { TransactionModel, Transaction } from "../models/Transaction"
 import { Block } from "../../blockchain/models/Block"

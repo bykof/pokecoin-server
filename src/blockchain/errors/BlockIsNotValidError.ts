@@ -1,5 +1,5 @@
 import SchemaError from "../../core/errors/SchemaError";
-import { InstanceType } from "typegoose";
+import { InstanceType } from '@hasezoey/typegoose';
 import { Block } from "../models/Block";
 import Blockchain from "../core/Blockchain";
 

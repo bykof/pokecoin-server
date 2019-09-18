@@ -1,4 +1,4 @@
-import { InstanceType } from "typegoose"
+import { InstanceType } from '@hasezoey/typegoose'
 
 import { User } from "../../users/models/User"
 import CardPacksAggregate from "./CardPacksAggregate"

@@ -1,4 +1,4 @@
-import { prop, Typegoose, Ref, instanceMethod, InstanceType, staticMethod, ModelType } from 'typegoose'
+import { prop, Typegoose, Ref, instanceMethod, InstanceType, staticMethod, ModelType } from '@hasezoey/typegoose'
 import * as crypto from 'crypto'
 
 import { User, UserModel } from '../../users/models/User'
