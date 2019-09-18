@@ -13,6 +13,7 @@ export default async function routes(
     method: 'GET',
     url: '/balance',
     schema: {
+      tags: ['Wallet'],
       response: {
         200: 'BalanceResponse#',
         401: unauthorizedSchema,

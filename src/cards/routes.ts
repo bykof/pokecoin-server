@@ -17,6 +17,7 @@ export default async function routes(
     method: 'GET',
     url: '/',
     schema: {
+      tags: ['Cards'],
       querystring: pageParameterSchema,
       response: {
         200: 'CardsResponse#',
@@ -30,6 +31,7 @@ export default async function routes(
     method: 'GET',
     url: '/:cardId',
     schema: {
+      tags: ['Cards'],
       params: {
         type: 'object',
         properties: {
@@ -52,6 +54,7 @@ export default async function routes(
     method: 'GET',
     url: '/usercards',
     schema: {
+      tags: ['Cards'],
       response: {
         200: 'UserCardResponse#',
         401: unauthorizedSchema,
@@ -67,6 +70,7 @@ export default async function routes(
     method: 'GET',
     url: '/packages',
     schema: {
+      tags: ['Cards'],
       response: {
         200: 'PackagesResponse#',
         500: unexpectedErrorSchema,
@@ -79,6 +83,7 @@ export default async function routes(
     method: 'GET',
     url: '/packages/:cardPackName',
     schema: {
+      tags: ['Cards'],
       params: {
         type: 'object',
         properties: {
@@ -101,6 +106,7 @@ export default async function routes(
     method: 'POST',
     url: '/packages/:cardPackName/buyDefaultPackage',
     schema: {
+      tags: ['Cards'],
       params: {
         type: 'object',
         properties: {

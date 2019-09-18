@@ -13,6 +13,7 @@ export default async function routes(
     method: 'POST',
     url: '/blocks',
     schema: {
+      tags: ['Blockchain'],
       body: 'AddBlockBody#',
       response: {
         200: 'AddBlockResponse#',
@@ -30,6 +31,7 @@ export default async function routes(
     method: 'GET',
     url: '/lastBlock',
     schema: {
+      tags: ['Blockchain'],
       response: {
         200: 'Block#',
         401: unauthorizedSchema,

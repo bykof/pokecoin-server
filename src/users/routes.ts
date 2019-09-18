@@ -14,6 +14,7 @@ export default async function routes(
     method: 'POST',
     url: '/login',
     schema: {
+      tags: ['Users'],
       body: 'LoginBody#',
       response: {
         200: 'LoginResponse#',
@@ -28,6 +29,7 @@ export default async function routes(
     method: 'POST',
     url: '/register',
     schema: {
+      tags: ['Users'],
       body: 'RegisterBody#',
       response: {
         200: 'RegisterResponse#',
@@ -42,6 +44,7 @@ export default async function routes(
     method: 'GET',
     url: '/me',
     schema: {
+      tags: ['Users'],
       response: {
         200: 'User#',
         401: unauthorizedSchema,
@@ -57,6 +60,7 @@ export default async function routes(
     method: 'POST',
     url: '/changePassword',
     schema: {
+      tags: ['Users'],
       body: 'ChangePasswordBody#',
       response: {
         201: 'ChangePasswordResponse#',
