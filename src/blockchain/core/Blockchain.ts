@@ -2,6 +2,7 @@
 import { InstanceType } from '@hasezoey/typegoose'
 
 import { Block, BlockModel } from '../models/Block'
+import { POW_DIFFICULTY } from '../../env'
 
 export default class Blockchain{
 
@@ -10,7 +11,7 @@ export default class Blockchain{
   chain: InstanceType<Block>[]
   _currentDifficulty: number
 
-  private constructor(difficulty=4) {
+  private constructor(difficulty=POW_DIFFICULTY) {
     this.chain = []
     this._currentDifficulty = difficulty
   }

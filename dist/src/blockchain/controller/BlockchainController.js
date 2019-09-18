@@ -60,6 +60,17 @@ class BlockchainController {
             return reply.send(lastBlock);
         });
     }
+    /**
+     * Get the current POW difficulty of the blockchain
+     * @param requeest
+     * @param reply
+     */
+    static currentDifficulty(request, reply) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const blockchain = Blockchain_1.default.getInstance();
+            return reply.send(blockchain.currentDifficulty);
+        });
+    }
 }
 exports.default = BlockchainController;
 BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK = 'addBlockchainBlock.lock';

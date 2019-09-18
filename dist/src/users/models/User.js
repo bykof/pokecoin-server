@@ -21,6 +21,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typegoose_1 = require("@hasezoey/typegoose");
 const crypto = require("crypto");
 const jsonwebtoken_1 = require("jsonwebtoken");
+const env_1 = require("../../env");
 class User extends typegoose_1.Typegoose {
     static hashPassword(password) {
         return crypto.createHash('sha256').update(password).digest('hex');
@@ -47,7 +48,7 @@ class User extends typegoose_1.Typegoose {
     }
     generateJSONWebToken() {
         // TODO: change secret
-        return jsonwebtoken_1.sign({ username: this.username }, 'secret', { expiresIn: 60 * 60 * 24 });
+        return jsonwebtoken_1.sign({ username: this.username }, env_1.JWT_SECRET, { expiresIn: 60 * 60 * 24 });
     }
 }
 __decorate([

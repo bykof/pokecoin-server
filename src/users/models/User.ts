@@ -1,6 +1,7 @@
 import { prop, Typegoose, ModelType, InstanceType, staticMethod, instanceMethod } from '@hasezoey/typegoose'
 import * as crypto from 'crypto'
 import { sign as signJWT, verify as verifyJWT } from 'jsonwebtoken'
+import { JWT_SECRET } from '../../env'
 
 export class User extends Typegoose {
     @prop({ required: true, unique: true })
@@ -43,7 +44,7 @@ export class User extends Typegoose {
         // TODO: change secret
         return signJWT(
             { username: this.username },
-            'secret',
+            JWT_SECRET,
             { expiresIn: 60 * 60 * 24 }
         )
     }

@@ -10,8 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Block_1 = require("../models/Block");
+const env_1 = require("../../env");
 class Blockchain {
-    constructor(difficulty = 4) {
+    constructor(difficulty = env_1.POW_DIFFICULTY) {
         this.chain = [];
         this._currentDifficulty = difficulty;
     }

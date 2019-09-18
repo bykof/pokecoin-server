@@ -54,4 +54,14 @@ export default class BlockchainController {
     await lastBlock.execPopulate()
     return reply.send(lastBlock)
   }
+
+  /**
+   * Get the current POW difficulty of the blockchain
+   * @param requeest
+   * @param reply
+   */
+  static async currentDifficulty(request, reply) {
+    const blockchain = Blockchain.getInstance()
+    return reply.send(blockchain.currentDifficulty)
+  }
 }

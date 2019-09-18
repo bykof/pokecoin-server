@@ -40,4 +40,17 @@ export default async function routes(
     },
     handler: BlockchainController.lastBlock,
   })
+
+  fastify.route({
+    method: 'GET',
+    url: '/currentDifficulty',
+    schema: {
+      tags: ['Blockchain'],
+      response: {
+        200: 'CurrentDifficultyResponse#',
+        500: unexpectedErrorSchema,
+      },
+    },
+    handler: BlockchainController.currentDifficulty,
+  })
 }

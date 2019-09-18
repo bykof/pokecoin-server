@@ -45,6 +45,18 @@ function routes(fastify, options) {
             },
             handler: BlockchainController_1.default.lastBlock,
         });
+        fastify.route({
+            method: 'GET',
+            url: '/currentDifficulty',
+            schema: {
+                tags: ['Blockchain'],
+                response: {
+                    200: 'CurrentDifficultyResponse#',
+                    500: unexpectedErrorSchema_1.default,
+                },
+            },
+            handler: BlockchainController_1.default.currentDifficulty,
+        });
     });
 }
 exports.default = routes;

@@ -35,6 +35,8 @@ yarn test
 | PORT                 | port                                           | number  | 3000                         |
 | DEFAULT_REWARD       | The reward for a found block                   | number  | 1                            |
 | DEFAULT_PACKAGE_COST | The package cost for a default pokemon package | number  | 25                           |
+| JWT_SECRET           | The JWT Secret                                 | string  | secret                       |
+| POW_DIFFICULTY       | The 0 for POW in the Blockchain                | number  | 6                            |
 
 ## Author
 

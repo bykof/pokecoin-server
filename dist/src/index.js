@@ -14,6 +14,7 @@ const oas = require("fastify-oas");
 const mongoose = require("mongoose");
 const pointOfView = require("point-of-view");
 const ejs = require("ejs");
+const env_1 = require("./env");
 const routes_1 = require("./users/routes");
 const routes_2 = require("./blockchain/routes");
 const routes_3 = require("./wallet/routes");
@@ -35,12 +36,9 @@ const cardPacksAggregate = CardPacksAggregate_1.default.getInstance();
 cardPacksAggregate.addCardPackFromJson('Base', BaseJSON);
 const cardsAggregate = CardsAggregate_1.default.getInstance();
 cardsAggregate.addCardsFromJson(BaseJSON);
-// Env variables
-const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost/pokecoin';
-const PORT = parseInt(process.env.PORT) || 3000;
 function setupDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+        yield mongoose.connect(env_1.MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
     });
 }
 exports.setupDatabase = setupDatabase;
@@ -70,7 +68,7 @@ function startApplication() {
                 throw err;
             yield server.oas();
         }));
-        server.listen(PORT, '0.0.0.0', (error, address) => {
+        server.listen(env_1.PORT, '0.0.0.0', (error, address) => {
             if (error) {
                 server.log.error(error);
                 process.exit(1);

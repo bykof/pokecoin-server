@@ -4,6 +4,7 @@ import * as oas from 'fastify-oas'
 import * as mongoose from 'mongoose'
 import * as pointOfView from 'point-of-view'
 import * as ejs from 'ejs'
+import { MONGODB_URL, PORT } from './env'
 import authenticationRoutes from './users/routes'
 import blockchainRoutes from './blockchain/routes'
 import walletRoutes from './wallet/routes'
@@ -29,10 +30,6 @@ cardPacksAggregate.addCardPackFromJson('Base', BaseJSON)
 
 const cardsAggregate = CardsAggregate.getInstance()
 cardsAggregate.addCardsFromJson(BaseJSON)
-
-// Env variables
-const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost/pokecoin'
-const PORT = parseInt(process.env.PORT) || 3000
 
 export async function setupDatabase() {
   await mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
