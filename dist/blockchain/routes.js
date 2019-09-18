@@ -19,6 +19,7 @@ function routes(fastify, options) {
             method: 'POST',
             url: '/blocks',
             schema: {
+                tags: ['Blockchain'],
                 body: 'AddBlockBody#',
                 response: {
                     200: 'AddBlockResponse#',
@@ -35,6 +36,7 @@ function routes(fastify, options) {
             method: 'GET',
             url: '/lastBlock',
             schema: {
+                tags: ['Blockchain'],
                 response: {
                     200: 'Block#',
                     401: unauthorizedSchema_1.default,

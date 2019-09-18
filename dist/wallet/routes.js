@@ -19,6 +19,7 @@ function routes(fastify, options) {
             method: 'GET',
             url: '/balance',
             schema: {
+                tags: ['Wallet'],
                 response: {
                     200: 'BalanceResponse#',
                     401: unauthorizedSchema_1.default,

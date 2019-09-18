@@ -23,6 +23,7 @@ function routes(fastify, options) {
             method: 'GET',
             url: '/',
             schema: {
+                tags: ['Cards'],
                 querystring: pageParameterSchema_1.default,
                 response: {
                     200: 'CardsResponse#',
@@ -35,6 +36,7 @@ function routes(fastify, options) {
             method: 'GET',
             url: '/:cardId',
             schema: {
+                tags: ['Cards'],
                 params: {
                     type: 'object',
                     properties: {
@@ -56,6 +58,7 @@ function routes(fastify, options) {
             method: 'GET',
             url: '/usercards',
             schema: {
+                tags: ['Cards'],
                 response: {
                     200: 'UserCardResponse#',
                     401: unauthorizedSchema_1.default,
@@ -70,6 +73,7 @@ function routes(fastify, options) {
             method: 'GET',
             url: '/packages',
             schema: {
+                tags: ['Cards'],
                 response: {
                     200: 'PackagesResponse#',
                     500: unexpectedErrorSchema_1.default,
@@ -81,6 +85,7 @@ function routes(fastify, options) {
             method: 'GET',
             url: '/packages/:cardPackName',
             schema: {
+                tags: ['Cards'],
                 params: {
                     type: 'object',
                     properties: {
@@ -102,6 +107,7 @@ function routes(fastify, options) {
             method: 'POST',
             url: '/packages/:cardPackName/buyDefaultPackage',
             schema: {
+                tags: ['Cards'],
                 params: {
                     type: 'object',
                     properties: {

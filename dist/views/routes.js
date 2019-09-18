@@ -15,11 +15,17 @@ function routes(fastify, options) {
         fastify.route({
             method: 'GET',
             url: '/blockchain',
+            schema: {
+                tags: ['Views'],
+            },
             handler: controller_1.blockchainView,
         });
         fastify.route({
             method: 'GET',
             url: '/users',
+            schema: {
+                tags: ['Views'],
+            },
             handler: controller_1.usersView,
         });
     });
