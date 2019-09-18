@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const typegoose_1 = require("typegoose");
+const typegoose_1 = require("@hasezoey/typegoose");
 const User_1 = require("../../users/models/User");
 class UserCardTransaction extends typegoose_1.Typegoose {
 }
