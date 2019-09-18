@@ -1,3 +1,5 @@
+import * as packageJSON from '../../package.json'
+
 const swaggerConfig = {
   exposeRoute: true,
   routePrefix: '/docs',
@@ -5,7 +7,7 @@ const swaggerConfig = {
     info: {
       title: 'Pokecoin',
       description: 'The Pokecoin documentation',
-      version: '1.0.0'
+      version: packageJSON.version,
     },
     consumes: ['application/json'],
     produces: ['application/json'],
