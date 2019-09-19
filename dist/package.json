@@ -6,7 +6,8 @@
     "author": "Michael Bykovski <michael.bykovskii@aoe.com>",
     "license": "MIT",
     "scripts": {
-        "compile": "tsc --sourceMap --experimentalDecorators true --emitDecoratorMetadata true --resolveJsonModule true --module CommonJS --target ES6 --outDir dist/ src/index",
+        "clean": "rm -rf dist",
+        "compile": "yarn clean && tsc --sourceMap --experimentalDecorators true --emitDecoratorMetadata true --resolveJsonModule true --module CommonJS --target ES6 --outDir dist/ src/index",
         "dev": "ts-node-dev ./src/index.ts",
         "start": "node dist/index.js",
         "test": "jest",
