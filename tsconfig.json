@@ -5,6 +5,6 @@
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "target": "ES6",
-    "module": "commonjs",
+    "module": "commonjs"
   }
 }
