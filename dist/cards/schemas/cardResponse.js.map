@@ -1,1 +1,0 @@
-{"version":3,"file":"cardResponse.js","sourceRoot":"","sources":["../../../src/cards/schemas/cardResponse.ts"],"names":[],"mappings":";;AAAA,kBAAe;IACb,GAAG,EAAE,cAAc;IACnB,KAAK,EAAE,cAAc;IACrB,WAAW,EAAE,6BAA6B;IAC1C,IAAI,EAAE,QAAQ;IACd,QAAQ,EAAE;QACR,MAAM;KACP;IACD,UAAU,EAAE;QACV,IAAI,EAAE,cAAc;KACrB;CACF,CAAA"}

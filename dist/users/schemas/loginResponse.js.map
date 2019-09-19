@@ -1,1 +1,0 @@
-{"version":3,"file":"loginResponse.js","sourceRoot":"","sources":["../../../src/users/schemas/loginResponse.ts"],"names":[],"mappings":";;AAAA,kBAAe;IACb,GAAG,EAAE,eAAe;IACpB,KAAK,EAAE,eAAe;IACtB,WAAW,EAAE,sCAAsC;IACnD,IAAI,EAAE,QAAQ;IACd,QAAQ,EAAE;QACR,OAAO;KACR;IACD,UAAU,EAAE;QACV,KAAK,EAAE,EAAE,IAAI,EAAE,QAAQ,EAAE;KAC1B;CACF,CAAA"}
