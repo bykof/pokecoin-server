@@ -28,7 +28,7 @@
     "jsonwebtoken": "^8.5.1",
     "lockfile": "^1.0.4",
     "moment": "^2.24.0",
-    "mongoose": "^5.7.1",
+    "mongoose": "^5.7.5",
     "openapi3-ts": "^1.3.0",
     "point-of-view": "^3.5.0",
     "reflect-metadata": "^0.1.13",
