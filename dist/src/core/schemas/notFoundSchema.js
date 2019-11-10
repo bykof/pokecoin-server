@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     $id: 'NotFoundError',
     title: 'NotFoundError',
-    description: 'Was not found',
-    type: 'null',
+    description: 'The requested resource was not found',
+    type: 'string',
 };
 //# sourceMappingURL=notFoundSchema.js.map
