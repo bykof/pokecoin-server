@@ -139,7 +139,7 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@hasezoey/typegoose@5.9.2":
+"@hasezoey/typegoose@^5.9.2":
   version "5.9.2"
   resolved "https://registry.yarnpkg.com/@hasezoey/typegoose/-/typegoose-5.9.2.tgz#10e949ba04da61156416448f9d5990794dd15fd3"
   integrity sha512-PwbOGJi9IggUF8E2K3fEHSEoBgXV3nlDd1H6m/rjC9iWG1GeKHAp9gp0SPZh3e/5rJ3vWbfWbyukD/pMT3tbxA==
@@ -380,7 +380,7 @@
   dependencies:
     "@types/jest-diff" "*"
 
-"@types/jsonwebtoken@^8.3.3":
+"@types/jsonwebtoken@^8.3.5":
   version "8.3.5"
   resolved "https://registry.yarnpkg.com/@types/jsonwebtoken/-/jsonwebtoken-8.3.5.tgz#ff9be1151a844095df1ff5f723651298c2c07659"
   integrity sha512-VGM1gb+LwsQ5EPevvbvdnKncajBdYqNcrvixBif1BsiDQiSF1q+j4bBTvKC6Bt9n2kqNSx+yNTY2TVJ360E7EQ==
@@ -400,7 +400,7 @@
     "@types/bson" "*"
     "@types/node" "*"
 
-"@types/mongoose@^5.5.17":
+"@types/mongoose@^5.5.30":
   version "5.5.30"
   resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.5.30.tgz#8b6b06e4142771204ae1abec5773157b8a94ec53"
   integrity sha512-LQ7Q/MoRLhtYn1zGefsTrobeg4hieXe6MGYM2plbZHhqf4Ud1zRuEwjDQIjCgDIyMPnACiyCvPMTyzHaoSp0SA==
@@ -408,7 +408,7 @@
     "@types/mongodb" "*"
     "@types/node" "*"
 
-"@types/node@*", "@types/node@^12.7.5":
+"@types/node@*", "@types/node@^12.12.7":
   version "12.12.7"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.7.tgz#01e4ea724d9e3bd50d90c11fd5980ba317d8fa11"
   integrity sha512-E6Zn0rffhgd130zbCbAr/JdXfXkoOUFAKNs/rF8qnafSJ8KYaA/j3oz7dcwal+lYjLA7xvdd5J4wdYpCTlP8+w==
