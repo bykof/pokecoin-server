@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     $id: 'CardPack',
     title: 'CardPack',
+    description: 'A pack of cards. Formerly known as Booster.',
     required: [
         'name',
         'cards',
