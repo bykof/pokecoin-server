@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const fastify = require("fastify");
 const oas = require("fastify-oas");
+const fastifyCORS = require("fastify-cors");
 const mongoose = require("mongoose");
 const pointOfView = require("point-of-view");
 const ejs = require("ejs");
@@ -53,6 +54,11 @@ function startApplication() {
         schemas_2.init(server);
         schemas_4.init(server);
         schemas_3.init(server);
+        server.register(fastifyCORS, {
+            origin: '*',
+            credentials: true,
+            preflightContinue: true,
+        });
         server.register(pointOfView, {
             engine: {
                 ejs: ejs
