@@ -14,12 +14,12 @@
         "deploy": "git push heroku master"
     },
     "dependencies": {
-        "@hasezoey/typegoose": "5.9.2",
+        "@hasezoey/typegoose": "^5.9.2",
         "@types/ejs": "^2.6.3",
-        "@types/jsonwebtoken": "^8.3.3",
+        "@types/jsonwebtoken": "^8.3.5",
         "@types/lockfile": "^1.0.1",
-        "@types/mongoose": "^5.5.17",
-        "@types/node": "^12.7.5",
+        "@types/mongoose": "^5.5.30",
+        "@types/node": "^12.12.7",
         "@types/swagger-schema-official": "^2.0.18",
         "ejs": "^2.7.1",
         "fastify": "^2.10.0",
