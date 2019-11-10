@@ -1,6 +1,7 @@
 import * as fastify from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 import * as oas from 'fastify-oas'
+import * as fastifyCORS from 'fastify-cors'
 import * as mongoose from 'mongoose'
 import * as pointOfView from 'point-of-view'
 import * as ejs from 'ejs'
@@ -48,6 +49,15 @@ async function startApplication() {
   cardSchemasInit(server)
   walletSchemasInit(server)
   blockSchemasInit(server)
+
+  server.register(
+    fastifyCORS,
+    {
+      origin: '*',
+      credentials: true,
+      preflightContinue: true,
+    },
+  )
 
   server.register(
     pointOfView, {
