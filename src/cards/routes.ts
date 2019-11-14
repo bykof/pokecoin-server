@@ -127,4 +127,16 @@ export default async function routes(
     preHandler: isAuthenticated,
     handler: CardPackController.buyDefaultPackage,
   })
+
+  fastify.route({
+    method: 'GET',
+    url: '/packages/currentPackageCost',
+    schema: {
+      tags: ['Cards'],
+      response: {
+        200: 'CurrentPackageCostResponse#',
+      },
+    },
+    handler: CardPackController.currentPackageCost,
+  })
 }

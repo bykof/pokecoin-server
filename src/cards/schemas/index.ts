@@ -7,6 +7,7 @@ import packagesResponse from "./packagesResponse";
 import buyDefaultPackageSchemaResponse from "./buyDefaultPackageSchemaResponse";
 import cardResponse from "./cardResponse";
 import cardsResponse from "./cardsResponse";
+import currentPackageCostResponse from "./currentPackageCostResponse";
 
 export function init(fastify: FastifyInstance) {
   fastify.addSchema(pokemonCardSchema)
@@ -17,4 +18,5 @@ export function init(fastify: FastifyInstance) {
   fastify.addSchema(userCardsResponse)
   fastify.addSchema(cardResponse)
   fastify.addSchema(cardsResponse)
+  fastify.addSchema(currentPackageCostResponse)
 }

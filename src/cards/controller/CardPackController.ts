@@ -24,4 +24,9 @@ export default class CardPackController {
       return reply.status(400).send(error)
     }
   }
+
+  static async currentPackageCost(request, reply) {
+    const cardShop = new CardShop(request.user);
+    return reply.send(cardShop.DEFAULT_PACKAGE_COST);
+  }
 }
