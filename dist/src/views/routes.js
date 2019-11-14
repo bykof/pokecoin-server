@@ -28,6 +28,14 @@ function routes(fastify, options) {
             },
             handler: controller_1.usersView,
         });
+        fastify.route({
+            method: 'GET',
+            url: '/dashboard',
+            schema: {
+                tags: ['Views'],
+            },
+            handler: controller_1.dashboardView,
+        });
     });
 }
 exports.default = routes;

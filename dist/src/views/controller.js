@@ -28,6 +28,22 @@ function blockchainView(request, reply) {
     });
 }
 exports.blockchainView = blockchainView;
+function dashboardView(request, reply) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const blockchain = Blockchain_1.default.getInstance();
+        const users = yield User_1.UserModel.find();
+        const userCards = yield UserCardTransaction_1.UserCardTransactionModel.find();
+        // Populate all users
+        yield Promise.all(blockchain.chain.map((block) => block.populate('foundByUser').execPopulate()));
+        return reply.view('dashboard', {
+            blockchain: blockchain,
+            users: users,
+            userCards: userCards,
+            moment: moment,
+        });
+    });
+}
+exports.dashboardView = dashboardView;
 function usersView(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
         const users = yield User_1.UserModel.find();
