@@ -128,6 +128,17 @@ function routes(fastify, options) {
             preHandler: isAuthenticated_1.default,
             handler: CardPackController_1.default.buyDefaultPackage,
         });
+        fastify.route({
+            method: 'GET',
+            url: '/packages/currentPackageCost',
+            schema: {
+                tags: ['Cards'],
+                response: {
+                    200: 'CurrentPackageCostResponse#',
+                },
+            },
+            handler: CardPackController_1.default.currentPackageCost,
+        });
     });
 }
 exports.default = routes;

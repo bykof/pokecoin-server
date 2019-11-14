@@ -40,6 +40,12 @@ class CardPackController {
             }
         });
     }
+    static currentPackageCost(request, reply) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const cardShop = new CardShop_1.default(request.user);
+            return reply.send(cardShop.DEFAULT_PACKAGE_COST);
+        });
+    }
 }
 exports.default = CardPackController;
 //# sourceMappingURL=CardPackController.js.map
