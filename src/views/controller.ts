@@ -21,6 +21,24 @@ export async function blockchainView(request, reply) {
   )
 }
 
+export async function dashboardView(request, reply) {
+  const blockchain = Blockchain.getInstance()
+  const users = await UserModel.find()
+  const userCards = await UserCardTransactionModel.find()
+  // Populate all users
+  await Promise.all(blockchain.chain.map((block) => block.populate('foundByUser').execPopulate()))
+
+  return reply.view(
+    'dashboard',
+    {
+      blockchain: blockchain,
+      users: users,
+      userCards: userCards,
+      moment: moment,
+    },
+  )
+}
+
 export async function usersView(request, reply) {
   const users = await UserModel.find()
   const wallets = {}
@@ -29,7 +47,7 @@ export async function usersView(request, reply) {
       async (user) => {
         const wallet = new Wallet(user)
         wallets[user.username] = {
-          cards: await UserCardTransactionModel.find({user: user}),
+          cards: await UserCardTransactionModel.find({ user: user }),
           balance: await wallet.getBalance()
         }
       }

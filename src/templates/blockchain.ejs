@@ -1,62 +1,75 @@
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Blockchain View</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <style>
-      .correctHash {
-        background: #98FB98;
-      }
-      .wrongHash {
-        background: #DB7093;
-      }
-    </style>
-  </head>
-  <body>
-    <section>
-      <div class="container">
-        <div class="columns">
-          <div class="column">
-          <h1 class="is-size-2">Blockchain</h1>
-          <table class="table is-bordered">
-            <thead>
-              <tr>
-                <th>_id</th>
-                <th>previousHash</th>
-                <th>hash</th>
-                <th>nonce</th>
-                <th>timestamp</th>
-                <th>found by user</th>
-                <th>data</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% for (let i = 0; i < chain.length; i++) { %>
-                <tr>
-                  <td><%= chain[i]._id %></td>
-                  <% if (chain[i].previousHash !== '') { %>
-                    <% if (chain[i].previousHash === chain[i+1].hash) { %>
-                      <td class="correctHash"><%= chain[i].previousHash %></td>
-                    <% } else { %>
-                      <td class="wrongHash"><%= chain[i].previousHash %></td>
-                    <% } %>
-                  <% } else { %>
-                    <td></td>
-                  <% } %>
-                  <td><%= chain[i].hash %></td>
-                  <td><%= chain[i].nonce %></td>
-                  <td><%= moment(chain[i].timestamp).format('DD.MM.YYYY HH:mm:ss') %></td>
-                  <td><%= chain[i].foundByUser.username %></td>
-                  <td><%= chain[i].data %></td>
-                </tr>
-              <% } %>
-            </tbody>
-          </table>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blockchain View</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.4/dist/css/bulma-timeline.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <style>
+    .correctHash {
+      background: #98FB98;
+    }
+
+    .wrongHash {
+      background: #DB7093;
+    }
+
+    .break-all {
+      word-break: break-all;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="section">
+    <div class="container">
+      <h1 class="is-size-2">
+        Blockchain
+      </h1>
+      <div class="timeline">
+        <% for (let i = 0; i < chain.length; i++) { %>
+        <header class="timeline-header">
+          <% if (chain[i].previousHash !== '') { %>
+          <% if (chain[i].previousHash === chain[i+1].hash) { %>
+          <span class="tag is-success">
+            <%= moment(chain[i].timestamp).format('DD.MM.YYYY HH:mm:ss') %>
+          </span>
+          <% } else { %>
+          <span class="tag is-danger">
+            <%= moment(chain[i].timestamp).format('DD.MM.YYYY HH:mm:ss') %>
+          </span>
+          <% } %>
+          <% } else { %>
+          <span class="tag is-primary">
+            Genesis Block
+          </span>
+          <% } %>
+        </header>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <p>
+              <b>ID:</b> <%= chain[i]._id %>
+            </p>
+            <p>
+              <b>Hash:</b> <span class="is-size-7 break-all"><%= chain[i].hash %></span>
+            </p>
+            <p>
+              <b>Nonce:</b> <%= chain[i].nonce %>
+            </p>
+            <p>
+              <b>Found by:</b> <%= chain[i].foundByUser.username %>
+            </p>
+            <p>
+              <b>Data:</b><span class="is-size-7 break-all"> <%= chain[i].data %></span>
+            </p>
           </div>
         </div>
+        <% } %>
       </div>
-    </section>
-  </body>
+    </div>
+  </section>
+</body>
+
 </html>
