@@ -21,7 +21,7 @@ class Wallet {
      */
     getBalance() {
         return __awaiter(this, void 0, void 0, function* () {
-            const transactions = yield Transaction_1.TransactionModel.find({ user: this.user });
+            const transactions = yield Transaction_1.TransactionModel.find({ user: this.user._id });
             return transactions.reduce((accumulator, transaction) => accumulator + transaction.amount, 0);
         });
     }

@@ -15,8 +15,8 @@ export default class Wallet {
    * Get the balance of a user
    * It will sum the amount of all transactions
    */
-  async getBalance() {
-    const transactions: InstanceType<Transaction>[] = await TransactionModel.find({user: this.user})
+  async getBalance(): Promise<number> {
+    const transactions: InstanceType<Transaction>[] = await TransactionModel.find({user: this.user._id})
     return transactions.reduce(
       (accumulator, transaction) => accumulator + transaction.amount,
       0
