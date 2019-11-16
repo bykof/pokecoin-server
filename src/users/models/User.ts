@@ -54,7 +54,7 @@ export class User extends Typegoose {
     @instanceMethod
     async getPoints(this: InstanceType<User>): Promise<Number> {
         const wallet = new Wallet(this)
-        const userCardTransactions = await UserCardTransactionModel.find({ user: this })
+        const userCardTransactions = await UserCardTransactionModel.find({ user: this._id })
         const balance = await wallet.getBalance()
         return balance + (userCardTransactions.length * 5)
     }

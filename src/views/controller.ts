@@ -58,7 +58,7 @@ export async function usersView(request, reply) {
   )
 
   users.sort((a, b) => {
-    return a['points'] - b['points']
+    return b['points'] - a['points']
   })
 
   const html = await server['view'](

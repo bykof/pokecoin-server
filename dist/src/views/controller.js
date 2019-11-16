@@ -59,7 +59,7 @@ function usersView(request, reply) {
             user['points'] = yield user.getPoints();
         })));
         users.sort((a, b) => {
-            return a['points'] - b['points'];
+            return b['points'] - a['points'];
         });
         const html = yield __1.server['view']('users', {
             users: users,
