@@ -52,7 +52,7 @@ class Block extends typegoose_1.Typegoose {
         newBlock.timestamp = request.body.timestamp;
         newBlock.nonce = request.body.nonce;
         newBlock.hash = newBlock.calculateHash();
-        newBlock.foundByUser = request.user;
+        newBlock.foundByUser = request.user._id;
         return newBlock;
     }
     static createFirstBlock() {
@@ -63,7 +63,7 @@ class Block extends typegoose_1.Typegoose {
             newBlock.timestamp = Date.now();
             newBlock.nonce = 0;
             newBlock.hash = newBlock.calculateHash();
-            newBlock.foundByUser = yield User_1.UserModel.findOne({ username: UserSetup_1.DEFAULT_USERNAME });
+            newBlock.foundByUser = (yield User_1.UserModel.findOne({ username: UserSetup_1.DEFAULT_USERNAME }))._id;
             yield newBlock.save();
             return newBlock;
         });

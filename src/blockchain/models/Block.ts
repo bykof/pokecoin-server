@@ -56,7 +56,7 @@ export class Block extends Typegoose {
     newBlock.timestamp = request.body.timestamp
     newBlock.nonce = request.body.nonce
     newBlock.hash = newBlock.calculateHash()
-    newBlock.foundByUser = request.user
+    newBlock.foundByUser = request.user._id
     return newBlock
   }
 
@@ -68,7 +68,7 @@ export class Block extends Typegoose {
     newBlock.timestamp = Date.now()
     newBlock.nonce = 0
     newBlock.hash = newBlock.calculateHash()
-    newBlock.foundByUser = await UserModel.findOne({username: DEFAULT_USERNAME})
+    newBlock.foundByUser = (await UserModel.findOne({username: DEFAULT_USERNAME}))._id
     await newBlock.save()
     return newBlock
   }
