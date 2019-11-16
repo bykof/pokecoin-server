@@ -36,8 +36,6 @@ function dashboardView(request, reply) {
         const blockchain = Blockchain_1.default.getInstance();
         const users = yield User_1.UserModel.find();
         const userCards = yield UserCardTransaction_1.UserCardTransactionModel.find();
-        // Populate all users
-        yield Promise.all(blockchain.chain.map((block) => block.populate('foundByUser').execPopulate()));
         const html = yield __1.server['view']('dashboard', {
             blockchain: blockchain,
             users: users,
@@ -59,8 +57,9 @@ function usersView(request, reply) {
                 balance: yield wallet.getBalance()
             };
             user['points'] = yield user.getPoints();
+            console.log(user['points']);
         })));
-        users = users.sort((a, b) => {
+        users.sort((a, b) => {
             return a['points'] - b['points'];
         });
         const html = yield __1.server['view']('users', {
