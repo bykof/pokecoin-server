@@ -17,8 +17,9 @@ const UserCardTransaction_1 = require("../cards/models/UserCardTransaction");
 function blockchainView(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
         const blockchain = Blockchain_1.default.getInstance();
-        // Populate all users
-        yield Promise.all(blockchain.chain.map((block) => block.populate('foundByUser').execPopulate()));
+        yield Promise.all(blockchain.chain.map((block) => __awaiter(this, void 0, void 0, function* () {
+            block.foundByUser = yield User_1.UserModel.findById(block.foundByUser);
+        })));
         const reversedChain = blockchain.chain.slice();
         reversedChain.reverse();
         reply.view('blockchain', {

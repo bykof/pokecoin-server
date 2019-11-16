@@ -7,8 +7,9 @@ import { UserCardTransactionModel } from '../cards/models/UserCardTransaction';
 
 export async function blockchainView(request, reply) {
   const blockchain = Blockchain.getInstance()
-  // Populate all users
-  await Promise.all(blockchain.chain.map((block) => block.populate('foundByUser').execPopulate()))
+  await Promise.all(blockchain.chain.map(async (block) => {
+    block.foundByUser = await UserModel.findById(block.foundByUser)
+  }))
   const reversedChain = blockchain.chain.slice()
   reversedChain.reverse()
 
