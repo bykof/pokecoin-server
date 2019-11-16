@@ -28,8 +28,6 @@ export async function dashboardView(request, reply) {
   const blockchain = Blockchain.getInstance()
   const users = await UserModel.find()
   const userCards = await UserCardTransactionModel.find()
-  // Populate all users
-  await Promise.all(blockchain.chain.map((block) => block.populate('foundByUser').execPopulate()))
 
   const html = await server['view'](
     'dashboard',
@@ -55,11 +53,12 @@ export async function usersView(request, reply) {
           balance: await wallet.getBalance()
         }
         user['points'] = await user.getPoints()
+        console.log(user['points'])
       }
     )
   )
 
-  users = users.sort((a, b) => {
+  users.sort((a, b) => {
     return a['points'] - b['points']
   })
 
