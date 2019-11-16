@@ -32,7 +32,7 @@ export default class Wallet {
       amount: this.DEFAULT_REWARD,
       timestamp: Date.now(),
       rewardOfBlock: block,
-      user: this.user,
+      user: this.user._id,
     }).save()
     return newTransaction
   }
