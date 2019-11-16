@@ -14,6 +14,7 @@ const Block_1 = require("../models/Block");
 const BlockIsNotValidError_1 = require("../errors/BlockIsNotValidError");
 const lockfile = require("lockfile");
 const Wallet_1 = require("../../wallet/core/Wallet");
+const User_1 = require("../../users/models/User");
 class BlockchainController {
     /**
      * Validate a block and add it to the blockchain
@@ -55,8 +56,7 @@ class BlockchainController {
         return __awaiter(this, void 0, void 0, function* () {
             const blockchain = Blockchain_1.default.getInstance();
             const lastBlock = blockchain.lastBlock;
-            lastBlock.populate('foundByUser');
-            yield lastBlock.execPopulate();
+            lastBlock.foundByUser = yield User_1.UserModel.findById(lastBlock.foundByUser);
             return reply.send(lastBlock);
         });
     }

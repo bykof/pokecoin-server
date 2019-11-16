@@ -3,6 +3,7 @@ import { BlockModel } from "../models/Block"
 import BlockIsNotValidError from "../errors/BlockIsNotValidError"
 import * as lockfile from 'lockfile'
 import Wallet from "../../wallet/core/Wallet";
+import { UserModel } from '../../users/models/User';
 
 export default class BlockchainController {
 
@@ -50,8 +51,7 @@ export default class BlockchainController {
   static async lastBlock(request, reply) {
     const blockchain = Blockchain.getInstance()
     const lastBlock = blockchain.lastBlock
-    lastBlock.populate('foundByUser')
-    await lastBlock.execPopulate()
+    lastBlock.foundByUser = await UserModel.findById(lastBlock.foundByUser)
     return reply.send(lastBlock)
   }
 
