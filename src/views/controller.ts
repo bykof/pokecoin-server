@@ -40,7 +40,7 @@ export async function dashboardView(request, reply) {
 }
 
 export async function usersView(request, reply) {
-  const users = await UserModel.find()
+  let users = await UserModel.find()
   const wallets = {}
   await Promise.all(
     users.map(
@@ -50,9 +50,15 @@ export async function usersView(request, reply) {
           cards: await UserCardTransactionModel.find({ user: user }),
           balance: await wallet.getBalance()
         }
+        user['points'] = await user.getPoints()
       }
     )
   )
+
+  users = users.sort((a, b) => {
+    return a['points'] - b['points']
+  })
+
   reply.view(
     'users',
     {

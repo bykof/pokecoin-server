@@ -2,6 +2,8 @@ import { prop, Typegoose, ModelType, InstanceType, staticMethod, instanceMethod 
 import * as crypto from 'crypto'
 import { sign as signJWT, verify as verifyJWT } from 'jsonwebtoken'
 import { JWT_SECRET } from '../../env'
+import Wallet from '../../wallet/core/Wallet'
+import { UserCardTransactionModel } from '../../cards/models/UserCardTransaction'
 
 export class User extends Typegoose {
     @prop({ required: true, unique: true })
@@ -47,6 +49,14 @@ export class User extends Typegoose {
             JWT_SECRET,
             { expiresIn: 60 * 60 * 24 }
         )
+    }
+
+    @instanceMethod
+    async getPoints(this: InstanceType<User>): Promise<Number> {
+        const wallet = new Wallet(this)
+        const userCardTransactions = await UserCardTransactionModel.find({ user: this })
+        const balance = await wallet.getBalance()
+        return balance + (userCardTransactions.length * 5)
     }
 }
 
