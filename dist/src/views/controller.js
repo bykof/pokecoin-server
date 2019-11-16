@@ -14,6 +14,7 @@ const Blockchain_1 = require("../blockchain/core/Blockchain");
 const User_1 = require("../users/models/User");
 const Wallet_1 = require("../wallet/core/Wallet");
 const UserCardTransaction_1 = require("../cards/models/UserCardTransaction");
+const __1 = require("..");
 function blockchainView(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
         const blockchain = Blockchain_1.default.getInstance();
@@ -22,10 +23,11 @@ function blockchainView(request, reply) {
         })));
         const reversedChain = blockchain.chain.slice();
         reversedChain.reverse();
-        reply.view('blockchain', {
+        const html = yield __1.server['view']('blockchain', {
             chain: reversedChain,
             moment: moment,
         });
+        reply.type('text/html').send(html);
     });
 }
 exports.blockchainView = blockchainView;
@@ -36,12 +38,13 @@ function dashboardView(request, reply) {
         const userCards = yield UserCardTransaction_1.UserCardTransactionModel.find();
         // Populate all users
         yield Promise.all(blockchain.chain.map((block) => block.populate('foundByUser').execPopulate()));
-        return reply.view('dashboard', {
+        const html = yield __1.server['view']('dashboard', {
             blockchain: blockchain,
             users: users,
             userCards: userCards,
             moment: moment,
         });
+        reply.type('text/html').send(html);
     });
 }
 exports.dashboardView = dashboardView;
@@ -60,11 +63,12 @@ function usersView(request, reply) {
         users = users.sort((a, b) => {
             return a['points'] - b['points'];
         });
-        reply.view('users', {
+        const html = yield __1.server['view']('users', {
             users: users,
             wallets: wallets,
             moment: moment,
-        }, { async: true });
+        });
+        reply.type('text/html').send(html);
     });
 }
 exports.usersView = usersView;

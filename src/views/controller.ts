@@ -3,6 +3,7 @@ import Blockchain from "../blockchain/core/Blockchain"
 import { UserModel } from '../users/models/User'
 import Wallet from '../wallet/core/Wallet'
 import { UserCardTransactionModel } from '../cards/models/UserCardTransaction';
+import { server } from '..';
 
 
 export async function blockchainView(request, reply) {
@@ -13,13 +14,14 @@ export async function blockchainView(request, reply) {
   const reversedChain = blockchain.chain.slice()
   reversedChain.reverse()
 
-  reply.view(
+  const html = await server['view'](
     'blockchain',
     {
       chain: reversedChain,
       moment: moment,
     },
   )
+  reply.type('text/html').send(html)
 }
 
 export async function dashboardView(request, reply) {
@@ -29,7 +31,7 @@ export async function dashboardView(request, reply) {
   // Populate all users
   await Promise.all(blockchain.chain.map((block) => block.populate('foundByUser').execPopulate()))
 
-  return reply.view(
+  const html = await server['view'](
     'dashboard',
     {
       blockchain: blockchain,
@@ -38,6 +40,7 @@ export async function dashboardView(request, reply) {
       moment: moment,
     },
   )
+  reply.type('text/html').send(html)
 }
 
 export async function usersView(request, reply) {
@@ -60,13 +63,13 @@ export async function usersView(request, reply) {
     return a['points'] - b['points']
   })
 
-  reply.view(
+  const html = await server['view'](
     'users',
     {
       users: users,
       wallets: wallets,
       moment: moment,
     },
-    { async: true },
   )
+  reply.type('text/html').send(html)
 }

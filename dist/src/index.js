@@ -31,7 +31,7 @@ const schemas_1 = require("./users/schemas");
 const schemas_2 = require("./cards/schemas");
 const schemas_3 = require("./blockchain/schemas");
 const schemas_4 = require("./wallet/schemas");
-const server = fastify({ logger: true });
+exports.server = fastify({ logger: true });
 const blockchain = Blockchain_1.default.getInstance();
 const cardPacksAggregate = CardPacksAggregate_1.default.getInstance();
 cardPacksAggregate.addCardPackFromJson('Base', BaseJSON);
@@ -50,33 +50,33 @@ function startApplication() {
         yield UserSetup_1.default.setup();
         yield blockchain.setup();
         console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`);
-        schemas_1.init(server);
-        schemas_2.init(server);
-        schemas_4.init(server);
-        schemas_3.init(server);
-        server.register(fastifyCORS, {
+        schemas_1.init(exports.server);
+        schemas_2.init(exports.server);
+        schemas_4.init(exports.server);
+        schemas_3.init(exports.server);
+        exports.server.register(fastifyCORS, {
             origin: '*',
             credentials: true,
             preflightContinue: true,
         });
-        server.register(pointOfView, {
+        exports.server.register(pointOfView, {
             engine: {
                 ejs: ejs
             },
             templates: './src/templates',
             includeViewExtension: true,
         });
-        server.register(oas, swaggerConfig_1.default).register(routes_1.default, { prefix: '/auth' }).register(routes_2.default, { prefix: '/blockchain' }).register(routes_3.default, { prefix: '/wallet' }).register(routes_4.default, { prefix: '/cards' }).register(routes_5.default, { prefix: '/views' }).after((error) => { if (error) {
+        exports.server.register(oas, swaggerConfig_1.default).register(routes_1.default, { prefix: '/auth' }).register(routes_2.default, { prefix: '/blockchain' }).register(routes_3.default, { prefix: '/wallet' }).register(routes_4.default, { prefix: '/cards' }).register(routes_5.default, { prefix: '/views' }).after((error) => { if (error) {
             console.log(error);
         } });
-        server.ready((err) => __awaiter(this, void 0, void 0, function* () {
+        exports.server.ready((err) => __awaiter(this, void 0, void 0, function* () {
             if (err)
                 throw err;
-            yield server.oas();
+            yield exports.server.oas();
         }));
-        server.listen(env_1.PORT, '0.0.0.0', (error, address) => {
+        exports.server.listen(env_1.PORT, '0.0.0.0', (error, address) => {
             if (error) {
-                server.log.error(error);
+                exports.server.log.error(error);
                 process.exit(1);
             }
             console.log('Server running:', address);

@@ -23,7 +23,7 @@ import { init as cardSchemasInit } from './cards/schemas'
 import { init as blockSchemasInit } from './blockchain/schemas'
 import { init as walletSchemasInit } from './wallet/schemas'
 
-const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({ logger: true })
+export const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({ logger: true })
 const blockchain = Blockchain.getInstance();
 
 const cardPacksAggregate = CardPacksAggregate.getInstance()
