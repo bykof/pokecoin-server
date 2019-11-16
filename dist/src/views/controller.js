@@ -46,7 +46,7 @@ function dashboardView(request, reply) {
 exports.dashboardView = dashboardView;
 function usersView(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
-        const users = yield User_1.UserModel.find();
+        let users = yield User_1.UserModel.find();
         const wallets = {};
         yield Promise.all(users.map((user) => __awaiter(this, void 0, void 0, function* () {
             const wallet = new Wallet_1.default(user);
@@ -54,7 +54,11 @@ function usersView(request, reply) {
                 cards: yield UserCardTransaction_1.UserCardTransactionModel.find({ user: user }),
                 balance: yield wallet.getBalance()
             };
+            user['points'] = yield user.getPoints();
         })));
+        users = users.sort((a, b) => {
+            return a['points'] - b['points'];
+        });
         reply.view('users', {
             users: users,
             wallets: wallets,

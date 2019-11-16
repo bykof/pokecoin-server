@@ -22,6 +22,8 @@ const typegoose_1 = require("@hasezoey/typegoose");
 const crypto = require("crypto");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const env_1 = require("../../env");
+const Wallet_1 = require("../../wallet/core/Wallet");
+const UserCardTransaction_1 = require("../../cards/models/UserCardTransaction");
 class User extends typegoose_1.Typegoose {
     static hashPassword(password) {
         return crypto.createHash('sha256').update(password).digest('hex');
@@ -50,6 +52,14 @@ class User extends typegoose_1.Typegoose {
         // TODO: change secret
         return jsonwebtoken_1.sign({ username: this.username }, env_1.JWT_SECRET, { expiresIn: 60 * 60 * 24 });
     }
+    getPoints() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const wallet = new Wallet_1.default(this);
+            const userCardTransactions = yield UserCardTransaction_1.UserCardTransactionModel.find({ user: this });
+            const balance = yield wallet.getBalance();
+            return balance + (userCardTransactions.length * 5);
+        });
+    }
 }
 __decorate([
     typegoose_1.prop({ required: true, unique: true }),
@@ -65,6 +75,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", String)
 ], User.prototype, "generateJSONWebToken", null);
+__decorate([
+    typegoose_1.instanceMethod,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], User.prototype, "getPoints", null);
 __decorate([
     typegoose_1.staticMethod,
     __metadata("design:type", Function),
