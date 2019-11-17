@@ -29,7 +29,7 @@ export default class CardShop {
       cardId: card.id,
       cardPack: cardPackName,
       timestamp: Date.now(),
-      user: this.user,
+      user: this.user._id,
     }).save()
   }
 
