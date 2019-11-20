@@ -32,7 +32,7 @@
         <% for (let i = 0; i < chain.length; i++) { %>
         <header class="timeline-header">
           <% if (chain[i].previousHash !== '') { %>
-          <% if (chain[i].previousHash === chain[i+1].hash) { %>
+          <% if (i + 1 < chain.length && chain[i].previousHash === chain[i+1].hash) { %>
           <span class="tag is-success">
             <%= moment(chain[i].timestamp).format('DD.MM.YYYY HH:mm:ss') %>
           </span>
