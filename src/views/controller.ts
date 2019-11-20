@@ -11,8 +11,11 @@ export async function blockchainView(request, reply) {
   await Promise.all(blockchain.chain.map(async (block) => {
     block.foundByUser = await UserModel.findById(block.foundByUser)
   }))
-  const reversedChain = blockchain.chain.slice()
+  let reversedChain = blockchain.chain
   reversedChain.reverse()
+  // Only select the last 100 blockchain entries
+  reversedChain = reversedChain.slice(0, 100)
+
 
   const html = await server['view'](
     'blockchain',
