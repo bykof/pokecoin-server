@@ -21,8 +21,8 @@ function blockchainView(request, reply) {
         yield Promise.all(blockchain.chain.map((block) => __awaiter(this, void 0, void 0, function* () {
             block.foundByUser = yield User_1.UserModel.findById(block.foundByUser);
         })));
-        let reversedChain = blockchain.chain;
-        reversedChain.reverse();
+        let reversedChain = blockchain.chain.slice();
+        reversedChain = reversedChain.reverse();
         // Only select the last 100 blockchain entries
         reversedChain = reversedChain.slice(0, 100);
         const html = yield __1.server['view']('blockchain', {
