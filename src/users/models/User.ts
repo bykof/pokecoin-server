@@ -56,7 +56,7 @@ export class User extends Typegoose {
         const wallet = new Wallet(this)
         const userCardTransactions = await UserCardTransactionModel.find({ user: this._id })
         const balance = await wallet.getBalance()
-        return balance + (userCardTransactions.length * 5)
+        return balance + (userCardTransactions.length * 6)
     }
 }
 
