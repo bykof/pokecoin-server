@@ -103,7 +103,7 @@ export default async function routes(
   })
 
   fastify.route({
-    method: 'POST',
+    method: 'GET',
     url: '/packages/:cardPackName/buyDefaultPackage',
     schema: {
       tags: ['Cards'],

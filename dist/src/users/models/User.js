@@ -57,7 +57,7 @@ class User extends typegoose_1.Typegoose {
             const wallet = new Wallet_1.default(this);
             const userCardTransactions = yield UserCardTransaction_1.UserCardTransactionModel.find({ user: this._id });
             const balance = yield wallet.getBalance();
-            return balance + (userCardTransactions.length * 5);
+            return balance + (userCardTransactions.length * 6);
         });
     }
 }

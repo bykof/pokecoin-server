@@ -104,7 +104,7 @@ function routes(fastify, options) {
             handler: CardPackController_1.default.getCardPack,
         });
         fastify.route({
-            method: 'POST',
+            method: 'GET',
             url: '/packages/:cardPackName/buyDefaultPackage',
             schema: {
                 tags: ['Cards'],
