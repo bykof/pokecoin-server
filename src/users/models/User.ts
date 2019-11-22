@@ -1,24 +1,22 @@
-import { prop, Typegoose, ModelType, InstanceType, staticMethod, instanceMethod } from '@hasezoey/typegoose'
+import { prop, DocumentType, ReturnModelType, getModelForClass } from '@typegoose/typegoose'
 import * as crypto from 'crypto'
 import { sign as signJWT, verify as verifyJWT } from 'jsonwebtoken'
 import { JWT_SECRET } from '../../env'
 import Wallet from '../../wallet/core/Wallet'
 import { UserCardTransactionModel } from '../../cards/models/UserCardTransaction'
 
-export class User extends Typegoose {
+export class User {
     @prop({ required: true, unique: true })
     username: string
 
     @prop({ required: true })
     password: string
 
-    @staticMethod
-    static hashPassword(this: ModelType<User> & typeof User, password: crypto.BinaryLike): string {
+    static hashPassword(password: crypto.BinaryLike): string {
         return crypto.createHash('sha256').update(password).digest('hex')
     }
 
-    @staticMethod
-    static decodeJSONWebToken(this: ModelType<User> & typeof User, token: string): Object | null {
+    static decodeJSONWebToken(token: string): Object | null {
         try {
             // TODO: change secret
             return verifyJWT(token, 'secret')
@@ -30,19 +28,17 @@ export class User extends Typegoose {
         return null
     }
 
-    @staticMethod
     static async getUserByJSONWebToken(
-        this: ModelType<User> & typeof User,
+        this: ReturnModelType<typeof User>,
         token: string
-    ): Promise<InstanceType<User>> {
+    ): Promise<DocumentType<User>> {
         const decodedToken = this.decodeJSONWebToken(token)
         if (decodedToken) {
             return await this.findOne({ username: decodedToken['username'] })
         }
     }
 
-    @instanceMethod
-    generateJSONWebToken(this: InstanceType<User>): string {
+    generateJSONWebToken(this: DocumentType<User>): string {
         // TODO: change secret
         return signJWT(
             { username: this.username },
@@ -51,13 +47,12 @@ export class User extends Typegoose {
         )
     }
 
-    @instanceMethod
-    async getPoints(this: InstanceType<User>): Promise<Number> {
+    async getPoints(this: DocumentType<User>): Promise<Number> {
         const wallet = new Wallet(this)
-        const userCardTransactions = await UserCardTransactionModel.find({ user: this._id })
+        const userCardTransactions = await UserCardTransactionModel.find({ user: this })
         const balance = await wallet.getBalance()
         return balance + (userCardTransactions.length * 6)
     }
 }
 
-export const UserModel = new User().getModelForClass(User)
+export const UserModel = getModelForClass(User)

@@ -6,10 +6,12 @@ import { setupDatabase } from '.';
 
 (async () => {
   const blockchain = Blockchain.getInstance()
+  blockchain._currentDifficulty = 5
   await setupDatabase()
   await blockchain.setup()
   let block = new BlockModel({foundByUser: (await UserModel.findOne({username: 'bykof'})), timestamp: Date.now(), data: 'Hello World', nonce: 1})
   block.previousHash = blockchain.lastBlock ? blockchain.lastBlock.hash : ''
+  console.log('start mining...')
   block.mineHash(4)
   console.log(
     JSON.stringify({

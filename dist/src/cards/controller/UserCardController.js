@@ -13,7 +13,7 @@ const UserCardTransaction_1 = require("../models/UserCardTransaction");
 class UserCardController {
     static getCards(request, reply) {
         return __awaiter(this, void 0, void 0, function* () {
-            const userCards = yield UserCardTransaction_1.UserCardTransactionModel.find({ user: request.user._id });
+            const userCards = yield UserCardTransaction_1.UserCardTransactionModel.find({ user: request.user });
             return reply.send(userCards);
         });
     }

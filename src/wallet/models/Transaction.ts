@@ -1,9 +1,9 @@
-import { prop, Typegoose, Ref } from '@hasezoey/typegoose'
+import { prop, Ref, getModelForClass } from '@typegoose/typegoose'
 
 import { User } from '../../users/models/User'
 import { Block } from '../../blockchain/models/Block'
 
-export class Transaction extends Typegoose {
+export class Transaction {
 
   @prop()
   amount: number
@@ -11,11 +11,11 @@ export class Transaction extends Typegoose {
   @prop()
   timestamp: number
 
-  @prop({ ref: Block })
+  @prop({ ref: "Block" })
   rewardOfBlock: Ref<Block>
 
-  @prop({ ref: User })
+  @prop({ ref: "User" })
   user: Ref<User>
 }
 
-export const TransactionModel = new Transaction().getModelForClass(Transaction)
+export const TransactionModel = getModelForClass(Transaction)

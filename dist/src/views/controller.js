@@ -55,7 +55,7 @@ function usersView(request, reply) {
         yield Promise.all(users.map((user) => __awaiter(this, void 0, void 0, function* () {
             const wallet = new Wallet_1.default(user);
             wallets[user.username] = {
-                cards: yield UserCardTransaction_1.UserCardTransactionModel.find({ user: user._id }),
+                cards: yield UserCardTransaction_1.UserCardTransactionModel.find({ user: user }),
                 balance: yield wallet.getBalance()
             };
             user['points'] = yield user.getPoints();

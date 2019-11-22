@@ -1,13 +1,13 @@
-import { InstanceType } from '@hasezoey/typegoose'
+import { DocumentType } from '@typegoose/typegoose'
 import { User } from "../../users/models/User"
 import { TransactionModel, Transaction } from "../models/Transaction"
 import { Block } from "../../blockchain/models/Block"
 
 export default class Wallet {
   DEFAULT_REWARD: number = parseInt(process.env.DEFAULT_REWARD) || 1
-  user: InstanceType<User>
+  user: User
 
-  constructor(user: InstanceType<User>) {
+  constructor(user: User) {
     this.user = user
   }
 
@@ -15,8 +15,8 @@ export default class Wallet {
    * Get the balance of a user
    * It will sum the amount of all transactions
    */
-  async getBalance(): Promise<number> {
-    const transactions: InstanceType<Transaction>[] = await TransactionModel.find({user: this.user._id})
+  async getBalance() {
+    const transactions: DocumentType<Transaction>[] = await TransactionModel.find({user: this.user})
     return transactions.reduce(
       (accumulator, transaction) => accumulator + transaction.amount,
       0
@@ -27,12 +27,12 @@ export default class Wallet {
    * Add a reward for current wallet for a found block
    * @param block the block which was found
    */
-  async addReward(block: InstanceType<Block>) {
+  async addReward(block: DocumentType<Block>) {
     const newTransaction = await new TransactionModel({
       amount: this.DEFAULT_REWARD,
       timestamp: Date.now(),
       rewardOfBlock: block,
-      user: this.user._id,
+      user: this.user,
     }).save()
     return newTransaction
   }

@@ -21,7 +21,7 @@ class Wallet {
      */
     getBalance() {
         return __awaiter(this, void 0, void 0, function* () {
-            const transactions = yield Transaction_1.TransactionModel.find({ user: this.user._id });
+            const transactions = yield Transaction_1.TransactionModel.find({ user: this.user });
             return transactions.reduce((accumulator, transaction) => accumulator + transaction.amount, 0);
         });
     }
@@ -35,7 +35,7 @@ class Wallet {
                 amount: this.DEFAULT_REWARD,
                 timestamp: Date.now(),
                 rewardOfBlock: block,
-                user: this.user._id,
+                user: this.user,
             }).save();
             return newTransaction;
         });

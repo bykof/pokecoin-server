@@ -1,4 +1,4 @@
-import { UserModel, User } from '../models/User'
+import { UserModel } from '../models/User'
 import UserAlreadyExistsError from '../errors/UserAlreadyExistsError'
 import UserNotFoundError from '../errors/UserNotFoundError'
 import PasswordIncorrectError from '../errors/PasswordIncorrectError'

@@ -18,13 +18,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const typegoose_1 = require("@hasezoey/typegoose");
+const typegoose_1 = require("@typegoose/typegoose");
 const crypto = require("crypto");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const env_1 = require("../../env");
 const Wallet_1 = require("../../wallet/core/Wallet");
 const UserCardTransaction_1 = require("../../cards/models/UserCardTransaction");
-class User extends typegoose_1.Typegoose {
+class User {
     static hashPassword(password) {
         return crypto.createHash('sha256').update(password).digest('hex');
     }
@@ -55,7 +55,7 @@ class User extends typegoose_1.Typegoose {
     getPoints() {
         return __awaiter(this, void 0, void 0, function* () {
             const wallet = new Wallet_1.default(this);
-            const userCardTransactions = yield UserCardTransaction_1.UserCardTransactionModel.find({ user: this._id });
+            const userCardTransactions = yield UserCardTransaction_1.UserCardTransactionModel.find({ user: this });
             const balance = yield wallet.getBalance();
             return balance + (userCardTransactions.length * 6);
         });
@@ -69,36 +69,6 @@ __decorate([
     typegoose_1.prop({ required: true }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
-__decorate([
-    typegoose_1.instanceMethod,
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], User.prototype, "generateJSONWebToken", null);
-__decorate([
-    typegoose_1.instanceMethod,
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], User.prototype, "getPoints", null);
-__decorate([
-    typegoose_1.staticMethod,
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", String)
-], User, "hashPassword", null);
-__decorate([
-    typegoose_1.staticMethod,
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Object)
-], User, "decodeJSONWebToken", null);
-__decorate([
-    typegoose_1.staticMethod,
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], User, "getUserByJSONWebToken", null);
 exports.User = User;
-exports.UserModel = new User().getModelForClass(User);
+exports.UserModel = typegoose_1.getModelForClass(User);
 //# sourceMappingURL=User.js.map

@@ -18,13 +18,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const typegoose_1 = require("@hasezoey/typegoose");
+const typegoose_1 = require("@typegoose/typegoose");
 const crypto = require("crypto");
 const User_1 = require("../../users/models/User");
 const UserSetup_1 = require("../../users/core/UserSetup");
-class Block extends typegoose_1.Typegoose {
+class Block {
     constructor() {
-        super(...arguments);
         this.nonce = 1;
     }
     calculateHash() {
@@ -52,7 +51,7 @@ class Block extends typegoose_1.Typegoose {
         newBlock.timestamp = request.body.timestamp;
         newBlock.nonce = request.body.nonce;
         newBlock.hash = newBlock.calculateHash();
-        newBlock.foundByUser = request.user._id;
+        newBlock.foundByUser = request.user;
         return newBlock;
     }
     static createFirstBlock() {
@@ -63,7 +62,7 @@ class Block extends typegoose_1.Typegoose {
             newBlock.timestamp = Date.now();
             newBlock.nonce = 0;
             newBlock.hash = newBlock.calculateHash();
-            newBlock.foundByUser = (yield User_1.UserModel.findOne({ username: UserSetup_1.DEFAULT_USERNAME }))._id;
+            newBlock.foundByUser = yield User_1.UserModel.findOne({ username: UserSetup_1.DEFAULT_USERNAME });
             yield newBlock.save();
             return newBlock;
         });
@@ -90,33 +89,9 @@ __decorate([
     __metadata("design:type", Number)
 ], Block.prototype, "nonce", void 0);
 __decorate([
-    typegoose_1.prop({ ref: User_1.User }),
+    typegoose_1.prop({ ref: "User" }),
     __metadata("design:type", Object)
 ], Block.prototype, "foundByUser", void 0);
-__decorate([
-    typegoose_1.instanceMethod,
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], Block.prototype, "calculateHash", null);
-__decorate([
-    typegoose_1.instanceMethod,
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", String)
-], Block.prototype, "mineHash", null);
-__decorate([
-    typegoose_1.staticMethod,
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Object)
-], Block, "createFromRequest", null);
-__decorate([
-    typegoose_1.staticMethod,
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], Block, "createFirstBlock", null);
 exports.Block = Block;
-exports.BlockModel = new Block().getModelForClass(Block);
+exports.BlockModel = typegoose_1.getModelForClass(Block);
 //# sourceMappingURL=Block.js.map

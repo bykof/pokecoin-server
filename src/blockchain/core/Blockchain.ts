@@ -1,14 +1,12 @@
-
-import { InstanceType } from '@hasezoey/typegoose'
-
 import { Block, BlockModel } from '../models/Block'
 import { POW_DIFFICULTY } from '../../env'
+import { DocumentType } from '@typegoose/typegoose'
 
 export default class Blockchain{
 
   private static instance
 
-  chain: InstanceType<Block>[]
+  chain: DocumentType<Block>[]
   _currentDifficulty: number
 
   private constructor(difficulty=POW_DIFFICULTY) {
@@ -42,7 +40,7 @@ export default class Blockchain{
     return Array(this.currentDifficulty).fill(0).join('')
   }
 
-  get lastBlock(): InstanceType<Block> {
+  get lastBlock(): DocumentType<Block> {
     return this.chain[this.chain.length - 1]
   }
 
@@ -76,7 +74,7 @@ export default class Blockchain{
    * Check if the given block is proper calculated and the hash does not exists in the chain
    * @param block
    */
-  blockIsValid(block: InstanceType<Block>): boolean {
+  blockIsValid(block: DocumentType<Block>): boolean {
     return (
       block.calculateHash().substring(0, this.currentDifficulty) === this.difficultyAsZeros &&
       (this.lastBlock ? block.previousHash === this.lastBlock.hash : true)

@@ -1,8 +1,8 @@
-import { prop, Typegoose, Ref } from '@hasezoey/typegoose'
+import { prop, Ref, getModelForClass } from '@typegoose/typegoose'
 
 import { User } from '../../users/models/User'
 
-export class UserCardTransaction extends Typegoose {
+export class UserCardTransaction {
 
   @prop()
   cardId: string
@@ -13,8 +13,8 @@ export class UserCardTransaction extends Typegoose {
   @prop()
   timestamp: number
 
-  @prop({ ref: User })
+  @prop({ ref: "User" })
   user: Ref<User>
 }
 
-export const UserCardTransactionModel = new UserCardTransaction().getModelForClass(UserCardTransaction)
+export const UserCardTransactionModel = getModelForClass(UserCardTransaction)

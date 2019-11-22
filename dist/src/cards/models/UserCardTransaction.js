@@ -9,9 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const typegoose_1 = require("@hasezoey/typegoose");
-const User_1 = require("../../users/models/User");
-class UserCardTransaction extends typegoose_1.Typegoose {
+const typegoose_1 = require("@typegoose/typegoose");
+class UserCardTransaction {
 }
 __decorate([
     typegoose_1.prop(),
@@ -26,9 +25,9 @@ __decorate([
     __metadata("design:type", Number)
 ], UserCardTransaction.prototype, "timestamp", void 0);
 __decorate([
-    typegoose_1.prop({ ref: User_1.User }),
+    typegoose_1.prop({ ref: "User" }),
     __metadata("design:type", Object)
 ], UserCardTransaction.prototype, "user", void 0);
 exports.UserCardTransaction = UserCardTransaction;
-exports.UserCardTransactionModel = new UserCardTransaction().getModelForClass(UserCardTransaction);
+exports.UserCardTransactionModel = typegoose_1.getModelForClass(UserCardTransaction);
 //# sourceMappingURL=UserCardTransaction.js.map

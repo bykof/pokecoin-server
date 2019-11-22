@@ -109,4 +109,4 @@ async function startApplication() {
   )
 }
 
-startApplication()
+startApplication().catch(console.log)

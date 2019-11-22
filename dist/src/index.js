@@ -83,5 +83,5 @@ function startApplication() {
         });
     });
 }
-startApplication();
+startApplication().catch(console.log);
 //# sourceMappingURL=index.js.map

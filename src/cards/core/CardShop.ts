@@ -1,4 +1,4 @@
-import { InstanceType } from '@hasezoey/typegoose'
+import { DocumentType } from '@typegoose/typegoose'
 
 import { User } from "../../users/models/User"
 import CardPacksAggregate from "./CardPacksAggregate"
@@ -11,10 +11,10 @@ import Card from "../models/base/Card";
 export default class CardShop {
   DEFAULT_PACKAGE_COST = parseInt(process.env.DEFAULT_PACKAGE_COST) || 25
 
-  user: InstanceType<User>
+  user: User
   wallet: Wallet
 
-  constructor(user: InstanceType<User>) {
+  constructor(user: DocumentType<User>) {
     this.user = user
     this.wallet = new Wallet(this.user)
   }
@@ -29,7 +29,7 @@ export default class CardShop {
       cardId: card.id,
       cardPack: cardPackName,
       timestamp: Date.now(),
-      user: this.user._id,
+      user: this.user,
     }).save()
   }
 
