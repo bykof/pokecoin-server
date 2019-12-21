@@ -4,6 +4,7 @@ import { UserModel } from '../users/models/User'
 import Wallet from '../wallet/core/Wallet'
 import { UserCardTransactionModel } from '../cards/models/UserCardTransaction';
 import { server } from '..';
+import { BlockModel } from '../blockchain/models/Block';
 
 
 export async function blockchainView(request, reply) {
@@ -28,17 +29,17 @@ export async function blockchainView(request, reply) {
 }
 
 export async function dashboardView(request, reply) {
-  const blockchain = Blockchain.getInstance()
-  const users = await UserModel.find()
-  const userCards = await UserCardTransactionModel.find()
+  const blockChainCount = await BlockModel.count({})
+  const usersCount = await UserModel.count({})
+  const userCardsCount = await UserCardTransactionModel.count({})
 
   const html = await server['view'](
     'dashboard',
     {
-      blockchain: blockchain,
-      users: users,
-      userCards: userCards,
-      moment: moment,
+
+      blockChainCount: blockChainCount,
+      usersCount: usersCount,
+      userCardsCount: userCardsCount,
     },
   )
   reply.type('text/html').send(html)
