@@ -19,7 +19,14 @@ export default class Wallet {
     const transactions = await TransactionModel.aggregate(
       [
         { $match: { user: this.user._id } },
-        { $project: { total: { $add: ['$amount'] } } },
+        {
+          $group: {
+            _id: null,
+            total: {
+              $sum: "$amount"
+            }
+          }
+        },
       ]
     )
     if (transactions.length === 0) return 0;

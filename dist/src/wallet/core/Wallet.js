@@ -23,7 +23,14 @@ class Wallet {
         return __awaiter(this, void 0, void 0, function* () {
             const transactions = yield Transaction_1.TransactionModel.aggregate([
                 { $match: { user: this.user._id } },
-                { $project: { total: { $add: ['$amount'] } } },
+                {
+                    $group: {
+                        _id: null,
+                        total: {
+                            $sum: "$amount"
+                        }
+                    }
+                },
             ]);
             if (transactions.length === 0)
                 return 0;
