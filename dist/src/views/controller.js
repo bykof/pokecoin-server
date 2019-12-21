@@ -10,21 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const moment = require("moment");
-const Blockchain_1 = require("../blockchain/core/Blockchain");
 const User_1 = require("../users/models/User");
 const Wallet_1 = require("../wallet/core/Wallet");
 const UserCardTransaction_1 = require("../cards/models/UserCardTransaction");
 const __1 = require("..");
+const Block_1 = require("../blockchain/models/Block");
 function blockchainView(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
-        const blockchain = Blockchain_1.default.getInstance();
-        yield Promise.all(blockchain.chain.map((block) => __awaiter(this, void 0, void 0, function* () {
-            block.foundByUser = yield User_1.UserModel.findById(block.foundByUser);
-        })));
-        let reversedChain = blockchain.chain.slice();
+        let reversedChain = yield Block_1.BlockModel.find({}).sort({}).populate('foundByUser').limit(100).exec();
         reversedChain = reversedChain.reverse();
-        // Only select the last 100 blockchain entries
-        reversedChain = reversedChain.slice(0, 100);
         const html = yield __1.server['view']('blockchain', {
             chain: reversedChain,
             moment: moment,
@@ -35,14 +29,13 @@ function blockchainView(request, reply) {
 exports.blockchainView = blockchainView;
 function dashboardView(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
-        const blockchain = Blockchain_1.default.getInstance();
-        const users = yield User_1.UserModel.find();
-        const userCards = yield UserCardTransaction_1.UserCardTransactionModel.find();
+        const blockChainCount = yield Block_1.BlockModel.count({});
+        const usersCount = yield User_1.UserModel.count({});
+        const userCardsCount = yield UserCardTransaction_1.UserCardTransactionModel.count({});
         const html = yield __1.server['view']('dashboard', {
-            blockchain: blockchain,
-            users: users,
-            userCards: userCards,
-            moment: moment,
+            blockChainCount: blockChainCount,
+            usersCount: usersCount,
+            userCardsCount: userCardsCount,
         });
         reply.type('text/html').send(html);
     });
@@ -55,7 +48,7 @@ function usersView(request, reply) {
         yield Promise.all(users.map((user) => __awaiter(this, void 0, void 0, function* () {
             const wallet = new Wallet_1.default(user);
             wallets[user.username] = {
-                cards: yield UserCardTransaction_1.UserCardTransactionModel.find({ user: user }),
+                cardsCount: yield UserCardTransaction_1.UserCardTransactionModel.count({ user: user }),
                 balance: yield wallet.getBalance()
             };
             user['points'] = yield user.getPoints();

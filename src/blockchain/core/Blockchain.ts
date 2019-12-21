@@ -1,6 +1,7 @@
 import { Block, BlockModel } from '../models/Block'
 import { POW_DIFFICULTY } from '../../env'
 import { DocumentType } from '@typegoose/typegoose'
+import { User } from '../../users/models/User'
 
 export default class Blockchain{
 
@@ -49,6 +50,14 @@ export default class Blockchain{
    */
   static resetInstance() {
     this.instance = new Blockchain()
+  }
+
+  /**
+   * Calculates difficulty depending on users
+   */
+  async calculateDifficulty(user: DocumentType<User>) {
+    const points = await user.getPoints();
+
   }
 
   /**
