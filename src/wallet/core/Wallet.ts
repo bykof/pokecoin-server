@@ -4,10 +4,10 @@ import { TransactionModel, Transaction } from "../models/Transaction"
 import { Block } from "../../blockchain/models/Block"
 
 export default class Wallet {
-  DEFAULT_REWARD: number = parseInt(process.env.DEFAULT_REWARD) || 1
-  user: User
+  DEFAULT_REWARD: number = parseInt(process.env.DEFAULT_REWARD) || 1
+  user: DocumentType<User>
 
-  constructor(user: User) {
+  constructor(user: DocumentType<User>) {
     this.user = user
   }
 
@@ -16,11 +16,14 @@ export default class Wallet {
    * It will sum the amount of all transactions
    */
   async getBalance() {
-    const transactions: DocumentType<Transaction>[] = await TransactionModel.find({user: this.user})
-    return transactions.reduce(
-      (accumulator, transaction) => accumulator + transaction.amount,
-      0
+    const transactions = await TransactionModel.aggregate(
+      [
+        { $match: { user: this.user._id } },
+        { $project: { total: { $add: ['$amount'] } } },
+      ]
     )
+    if (transactions.length === 0) return 0;
+    return transactions[0].total;
   }
 
   /**

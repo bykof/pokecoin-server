@@ -52,7 +52,7 @@ export async function usersView(request, reply) {
       async (user) => {
         const wallet = new Wallet(user)
         wallets[user.username] = {
-          cards: await UserCardTransactionModel.find({ user: user }),
+          cardsCount: await UserCardTransactionModel.count({ user: user }),
           balance: await wallet.getBalance()
         }
         user['points'] = await user.getPoints()

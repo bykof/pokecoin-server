@@ -11,11 +11,28 @@
 <body>
   <section class="section">
     <div class="container">
-      <div class="columns">
+      <div class="columns has-text-centered">
         <div class="column">
-          <span class="tag is-primary is-large">Gefundene Blöcke: <%= blockchain.chain.length %></span>
-          <span class="tag is-primary is-large">Benutzer: <%= users.length %></span>
-          <span class="tag is-primary is-large">Karten gekauft: <%= userCards.length %></span>
+          <nav class="level">
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Gefundene Blöcke</p>
+                <p class="title"><%= blockchain.chain.length %></p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Benutzer</p>
+                <p class="title"><%= users.length %></p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Karten gekauft</p>
+                <p class="title"><%= userCards.length %></p>
+              </div>
+            </div>
+          </nav>
         </div>
       </div>
     </div>

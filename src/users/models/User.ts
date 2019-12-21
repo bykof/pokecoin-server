@@ -49,9 +49,9 @@ export class User {
 
     async getPoints(this: DocumentType<User>): Promise<Number> {
         const wallet = new Wallet(this)
-        const userCardTransactions = await UserCardTransactionModel.find({ user: this })
+        const userCardTransactionsCount = await UserCardTransactionModel.count({ user: this })
         const balance = await wallet.getBalance()
-        return balance + (userCardTransactions.length * 6)
+        return balance + (userCardTransactionsCount * 6)
     }
 }
 

@@ -11,7 +11,7 @@ import Card from "../models/base/Card";
 export default class CardShop {
   DEFAULT_PACKAGE_COST = parseInt(process.env.DEFAULT_PACKAGE_COST) || 25
 
-  user: User
+  user: DocumentType<User>
   wallet: Wallet
 
   constructor(user: DocumentType<User>) {
