@@ -6,12 +6,9 @@ import { User } from '../../users/models/User'
 export default class Blockchain{
 
   private static instance
-
-  chain: DocumentType<Block>[]
   _currentDifficulty: number
 
   private constructor(difficulty=POW_DIFFICULTY) {
-    this.chain = []
     this._currentDifficulty = difficulty
   }
 
@@ -24,12 +21,12 @@ export default class Blockchain{
   }
 
   async setup() {
-    await this.updateChain()
-    if (this.chain.length === 0) {
+    const lastBlock = this.getLastBlock();
+
+    if (!lastBlock) {
       console.log('Blockchain has no genesis block, will create one now...')
       await BlockModel.createFirstBlock()
       console.log('Genesis block was created')
-      await this.updateChain()
     }
   }
 
@@ -41,8 +38,10 @@ export default class Blockchain{
     return Array(this.currentDifficulty).fill(0).join('')
   }
 
-  get lastBlock(): DocumentType<Block> {
-    return this.chain[this.chain.length - 1]
+  async getLastBlock(): Promise<DocumentType<Block> | null> {
+    const blocks = await BlockModel.find().skip(await BlockModel.countDocuments({}) - 1);
+    if (blocks.length === 0) return null
+    return blocks[0];
   }
 
   /**
@@ -61,40 +60,14 @@ export default class Blockchain{
   }
 
   /**
-   * Validates if the blockchain is correct
-   */
-  validateBlockChain(): boolean {
-    for (let i = 1; i < this.chain.length; i++) {
-      const currentBlock = this.chain[i]
-      const previousBlock = this.chain[i - 1]
-
-      if (currentBlock.calculateHash() !== currentBlock.hash) {
-        return false
-      }
-
-      if (currentBlock.previousHash !== previousBlock.hash) {
-        return false
-      }
-    }
-    return true
-  }
-
-  /**
    * Check if the given block is proper calculated and the hash does not exists in the chain
    * @param block
    */
-  blockIsValid(block: DocumentType<Block>): boolean {
+  async blockIsValid(block: DocumentType<Block>): Promise<boolean> {
+    const lastBlock = await this.getLastBlock()
     return (
       block.calculateHash().substring(0, this.currentDifficulty) === this.difficultyAsZeros &&
-      (this.lastBlock ? block.previousHash === this.lastBlock.hash : true)
+      (lastBlock ? block.previousHash === lastBlock.hash : true)
     )
-  }
-
-  /**
-   * Updates the chain with new blocks from the database
-   * @param newBlock
-   */
-  async updateChain(){
-    this.chain = await BlockModel.find()
   }
 }

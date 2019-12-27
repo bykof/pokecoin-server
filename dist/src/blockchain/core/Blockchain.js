@@ -13,7 +13,6 @@ const Block_1 = require("../models/Block");
 const env_1 = require("../../env");
 class Blockchain {
     constructor(difficulty = env_1.POW_DIFFICULTY) {
-        this.chain = [];
         this._currentDifficulty = difficulty;
     }
     static getInstance() {
@@ -24,12 +23,11 @@ class Blockchain {
     }
     setup() {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.updateChain();
-            if (this.chain.length === 0) {
+            const lastBlock = this.getLastBlock();
+            if (!lastBlock) {
                 console.log('Blockchain has no genesis block, will create one now...');
                 yield Block_1.BlockModel.createFirstBlock();
                 console.log('Genesis block was created');
-                yield this.updateChain();
             }
         });
     }
@@ -39,8 +37,13 @@ class Blockchain {
     get difficultyAsZeros() {
         return Array(this.currentDifficulty).fill(0).join('');
     }
-    get lastBlock() {
-        return this.chain[this.chain.length - 1];
+    getLastBlock() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const blocks = yield Block_1.BlockModel.find().skip((yield Block_1.BlockModel.countDocuments({})) - 1);
+            if (blocks.length === 0)
+                return null;
+            return blocks[0];
+        });
     }
     /**
      * Resets the singleton instance to a newly created blockchain instance
@@ -49,36 +52,22 @@ class Blockchain {
         this.instance = new Blockchain();
     }
     /**
-     * Validates if the blockchain is correct
+     * Calculates difficulty depending on users
      */
-    validateBlockChain() {
-        for (let i = 1; i < this.chain.length; i++) {
-            const currentBlock = this.chain[i];
-            const previousBlock = this.chain[i - 1];
-            if (currentBlock.calculateHash() !== currentBlock.hash) {
-                return false;
-            }
-            if (currentBlock.previousHash !== previousBlock.hash) {
-                return false;
-            }
-        }
-        return true;
+    calculateDifficulty(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const points = yield user.getPoints();
+        });
     }
     /**
      * Check if the given block is proper calculated and the hash does not exists in the chain
      * @param block
      */
     blockIsValid(block) {
-        return (block.calculateHash().substring(0, this.currentDifficulty) === this.difficultyAsZeros &&
-            (this.lastBlock ? block.previousHash === this.lastBlock.hash : true));
-    }
-    /**
-     * Updates the chain with new blocks from the database
-     * @param newBlock
-     */
-    updateChain() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.chain = yield Block_1.BlockModel.find();
+            const lastBlock = yield this.getLastBlock();
+            return (block.calculateHash().substring(0, this.currentDifficulty) === this.difficultyAsZeros &&
+                (lastBlock ? block.previousHash === lastBlock.hash : true));
         });
     }
 }

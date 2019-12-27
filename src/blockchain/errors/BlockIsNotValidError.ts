@@ -6,9 +6,9 @@ export default class BlockIsNotValidError extends SchemaError {
   block: Block
   lastBlock: Block
 
-  constructor(block: Block, blockchain: Blockchain) {
+  constructor(block: Block, lastBlock: Block) {
     super(BlockIsNotValidError.name, `Block with hash ${block.hash} is not valid`)
     this.block = block
-    this.lastBlock = blockchain.lastBlock
+    this.lastBlock = lastBlock
   }
 }

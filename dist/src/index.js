@@ -40,6 +40,7 @@ cardsAggregate.addCardsFromJson(BaseJSON);
 function setupDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
         yield mongoose.connect(env_1.MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+        console.log('established connection to mongodb');
     });
 }
 exports.setupDatabase = setupDatabase;
@@ -49,7 +50,7 @@ function startApplication() {
         yield setupDatabase();
         yield UserSetup_1.default.setup();
         yield blockchain.setup();
-        console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`);
+        console.log(`Blockchain is set up`);
         schemas_1.init(exports.server);
         schemas_2.init(exports.server);
         schemas_4.init(exports.server);

@@ -30,13 +30,14 @@ class BlockchainController {
                 const blockchain = Blockchain_1.default.getInstance();
                 const wallet = new Wallet_1.default(request.user);
                 const newBlock = Block_1.BlockModel.createFromRequest(request);
-                if (!blockchain.blockIsValid(newBlock)) {
+                const blockIsValid = yield blockchain.blockIsValid(newBlock);
+                if (!blockIsValid) {
+                    const lastBlock = yield blockchain.getLastBlock();
                     lockfile.unlock(BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK, () => { });
-                    return reply.status(400).send(new BlockIsNotValidError_1.default(newBlock, blockchain));
+                    return reply.status(400).send(new BlockIsNotValidError_1.default(newBlock, lastBlock));
                 }
                 else {
                     yield newBlock.save();
-                    yield blockchain.updateChain();
                     const newTransaction = yield wallet.addReward(newBlock);
                     lockfile.unlock(BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK, () => { });
                     return reply.send({
@@ -55,7 +56,7 @@ class BlockchainController {
     static lastBlock(request, reply) {
         return __awaiter(this, void 0, void 0, function* () {
             const blockchain = Blockchain_1.default.getInstance();
-            const lastBlock = blockchain.lastBlock;
+            const lastBlock = yield blockchain.getLastBlock();
             lastBlock.foundByUser = yield User_1.UserModel.findById(lastBlock.foundByUser);
             return reply.send(lastBlock);
         });

@@ -18,21 +18,21 @@ export default class BlockchainController {
   static async addBlock(request, reply) {
     lockfile.lock(
       BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK, {
-        wait: 1000 * 30,
-      },
+      wait: 1000 * 30,
+    },
       async () => {
         const blockchain = Blockchain.getInstance()
         const wallet = new Wallet(request.user)
         const newBlock = BlockModel.createFromRequest(request)
-
-        if (!blockchain.blockIsValid(newBlock)) {
-          lockfile.unlock(BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK, () => {})
-          return reply.status(400).send(new BlockIsNotValidError(newBlock, blockchain))
+        const blockIsValid = await blockchain.blockIsValid(newBlock);
+        if (!blockIsValid) {
+          const lastBlock = await blockchain.getLastBlock()
+          lockfile.unlock(BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK, () => { })
+          return reply.status(400).send(new BlockIsNotValidError(newBlock, lastBlock))
         } else {
           await newBlock.save()
-          await blockchain.updateChain()
           const newTransaction = await wallet.addReward(newBlock)
-          lockfile.unlock(BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK, () => {})
+          lockfile.unlock(BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK, () => { })
 
           return reply.send({
             block: newBlock,
@@ -50,7 +50,7 @@ export default class BlockchainController {
    */
   static async lastBlock(request, reply) {
     const blockchain = Blockchain.getInstance()
-    const lastBlock = blockchain.lastBlock
+    const lastBlock = await blockchain.getLastBlock()
     lastBlock.foundByUser = await UserModel.findById(lastBlock.foundByUser)
     return reply.send(lastBlock)
   }

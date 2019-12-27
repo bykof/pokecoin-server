@@ -34,7 +34,7 @@ cardsAggregate.addCardsFromJson(BaseJSON)
 
 export async function setupDatabase() {
   await mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
-
+  console.log('established connection to mongodb')
 }
 
 async function startApplication() {
@@ -43,7 +43,7 @@ async function startApplication() {
   await setupDatabase()
   await UserSetup.setup()
   await blockchain.setup()
-  console.log(`Blockchain is setup with ${blockchain.chain.length} blocks`)
+  console.log(`Blockchain is set up`)
 
   userSchemasInit(server)
   cardSchemasInit(server)
