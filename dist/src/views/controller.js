@@ -17,7 +17,11 @@ const __1 = require("..");
 const Block_1 = require("../blockchain/models/Block");
 function blockchainView(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
-        let reversedChain = yield Block_1.BlockModel.find({}).sort({}).populate('foundByUser').limit(100).exec();
+        let skip = (yield Block_1.BlockModel.countDocuments()) - 100;
+        if (skip < 0) {
+            skip = 0;
+        }
+        let reversedChain = yield Block_1.BlockModel.find({}).sort({}).populate('foundByUser').skip(skip).limit(100).exec();
         reversedChain = reversedChain.reverse();
         const html = yield __1.server['view']('blockchain', {
             chain: reversedChain,

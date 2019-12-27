@@ -8,7 +8,11 @@ import { BlockModel } from '../blockchain/models/Block';
 
 
 export async function blockchainView(request, reply) {
-  let reversedChain = await BlockModel.find({}).sort({}).populate('foundByUser').limit(100).exec()
+  let skip = await BlockModel.countDocuments() - 100
+  if (skip < 0) {
+    skip = 0
+  }
+  let reversedChain = await BlockModel.find({}).sort({}).populate('foundByUser').skip(skip).limit(100).exec()
   reversedChain = reversedChain.reverse()
   const html = await server['view'](
     'blockchain',
