@@ -15,6 +15,7 @@ const BlockIsNotValidError_1 = require("../errors/BlockIsNotValidError");
 const lockfile = require("lockfile");
 const Wallet_1 = require("../../wallet/core/Wallet");
 const User_1 = require("../../users/models/User");
+const utils_1 = require("../../core/utils");
 class BlockchainController {
     /**
      * Validate a block and add it to the blockchain
@@ -27,6 +28,9 @@ class BlockchainController {
             lockfile.lock(BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK, {
                 wait: 1000 * 30,
             }, () => __awaiter(this, void 0, void 0, function* () {
+                if (!utils_1.checkIfBrowser(request.headers['user-agent'])) {
+                    return reply.status(400).send({ message: 'please no automated scripts!' });
+                }
                 const blockchain = Blockchain_1.default.getInstance();
                 const wallet = new Wallet_1.default(request.user);
                 const newBlock = Block_1.BlockModel.createFromRequest(request);

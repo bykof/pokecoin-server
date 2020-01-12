@@ -4,11 +4,12 @@ import BlockIsNotValidError from "../errors/BlockIsNotValidError"
 import * as lockfile from 'lockfile'
 import Wallet from "../../wallet/core/Wallet";
 import { UserModel } from '../../users/models/User';
+import { checkIfBrowser as isBrowser } from '../../core/utils';
+import { REPLServer } from 'repl';
 
 export default class BlockchainController {
 
   static ADD_BLOCKCHAIN_BLOCK_LOCK = 'addBlockchainBlock.lock'
-
   /**
    * Validate a block and add it to the blockchain
    *
@@ -21,6 +22,10 @@ export default class BlockchainController {
       wait: 1000 * 30,
     },
       async () => {
+        if (!isBrowser(request.headers['user-agent'])) {
+          return reply.status(400).send({message: 'please no automated scripts!'})
+        }
+
         const blockchain = Blockchain.getInstance()
         const wallet = new Wallet(request.user)
         const newBlock = BlockModel.createFromRequest(request)
