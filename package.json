@@ -23,7 +23,7 @@
     "@types/swagger-schema-official": "^2.0.20",
     "@types/ua-parser-js": "^0.7.33",
     "ejs": "^3.0.1",
-    "fastify": "^2.11.0",
+    "fastify": "^2.15.1",
     "fastify-cors": "^3.0.1",
     "fastify-mongodb": "^2.0.0",
     "fastify-oas": "^2.5.0",
