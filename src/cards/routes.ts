@@ -11,7 +11,7 @@ export default async function routes(fastify) {
       tags: ['Cards'],
       querystring: { $ref: 'PageParameter#' },
       response: {
-        200: { $ref: 'CardResponse#' },
+        200: { $ref: 'CardsResponse#' },
         500: { $ref: 'UnexpectedError#' },
       },
     },
