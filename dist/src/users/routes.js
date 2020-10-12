@@ -9,22 +9,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const unexpectedErrorSchema_1 = require("../core/schemas/unexpectedErrorSchema");
-const unauthorizedSchema_1 = require("../core/schemas/unauthorizedSchema");
 const UserController_1 = require("./controller/UserController");
 const isAuthenticated_1 = require("./decorators/isAuthenticated");
-function routes(fastify, options) {
+function routes(fastify) {
     return __awaiter(this, void 0, void 0, function* () {
         fastify.route({
             method: 'POST',
             url: '/login',
             schema: {
                 tags: ['Users'],
-                body: 'LoginBody#',
+                body: { $ref: 'LoginBody#' },
                 response: {
-                    200: 'LoginResponse#',
-                    400: 'LoginErrorResponse#',
-                    500: unexpectedErrorSchema_1.default,
+                    200: { $ref: 'LoginResponse#' },
+                    400: { $ref: 'LoginErrorResponse#' },
+                    500: { $ref: 'UnexpectedError#' },
                 },
             },
             handler: UserController_1.default.login,
@@ -34,12 +32,12 @@ function routes(fastify, options) {
             url: '/register',
             schema: {
                 tags: ['Users'],
-                body: 'RegisterBody#',
+                body: { $ref: 'RegisterBody#' },
                 response: {
-                    200: 'RegisterResponse#',
-                    400: 'RegisterErrorResponse#',
-                    500: unexpectedErrorSchema_1.default,
-                }
+                    200: { $ref: 'RegisterResponse#' },
+                    400: { $ref: 'RegisterErrorResponse#' },
+                    500: { $ref: 'UnexpectedError#' },
+                },
             },
             handler: UserController_1.default.register,
         });
@@ -49,11 +47,11 @@ function routes(fastify, options) {
             schema: {
                 tags: ['Users'],
                 response: {
-                    200: 'User#',
-                    401: unauthorizedSchema_1.default,
-                    500: unexpectedErrorSchema_1.default,
+                    200: { $ref: 'User#' },
+                    401: { $ref: 'UnauthorizedError#' },
+                    500: { $ref: 'UnexpectedError#' },
                 },
-                security: [{ 'token': [] }],
+                security: [{ token: [] }],
             },
             preHandler: isAuthenticated_1.default,
             handler: UserController_1.default.me,
@@ -63,13 +61,13 @@ function routes(fastify, options) {
             url: '/changePassword',
             schema: {
                 tags: ['Users'],
-                body: 'ChangePasswordBody#',
+                body: { $ref: 'ChangePasswordBody#' },
                 response: {
-                    201: 'ChangePasswordResponse#',
-                    401: unauthorizedSchema_1.default,
-                    500: unexpectedErrorSchema_1.default,
+                    201: { $ref: 'ChangePasswordResponse#' },
+                    401: { $ref: 'UnauthorizedError#' },
+                    500: { $ref: 'UnexpectedError#' },
                 },
-                security: [{ 'token': [] }],
+                security: [{ token: [] }],
             },
             preHandler: isAuthenticated_1.default,
             handler: UserController_1.default.changePassword,

@@ -4,6 +4,6 @@ export default {
   description: 'Buy a default cardpackage and receive an array of bought cards',
   type: 'object',
   properties: {
-    cards: { type: 'array', items: 'PokemonCard#'}
-  }
-}
+    cards: { type: 'array', items: { $ref: 'PokemonCard#' } },
+  },
+};

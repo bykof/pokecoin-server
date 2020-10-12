@@ -9,11 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const unexpectedErrorSchema_1 = require("../core/schemas/unexpectedErrorSchema");
 const isAuthenticated_1 = require("../users/decorators/isAuthenticated");
-const unauthorizedSchema_1 = require("../core/schemas/unauthorizedSchema");
 const WalletController_1 = require("./controllers/WalletController");
-function routes(fastify, options) {
+function routes(fastify) {
     return __awaiter(this, void 0, void 0, function* () {
         fastify.route({
             method: 'GET',
@@ -21,11 +19,11 @@ function routes(fastify, options) {
             schema: {
                 tags: ['Wallet'],
                 response: {
-                    200: 'BalanceResponse#',
-                    401: unauthorizedSchema_1.default,
-                    500: unexpectedErrorSchema_1.default,
+                    200: { $ref: 'BalanceResponse#' },
+                    401: { $ref: 'UnauthorizedError#' },
+                    500: { $ref: 'UnexpectedError#' },
                 },
-                security: [{ 'token': [] }],
+                security: [{ token: [] }],
             },
             preHandler: isAuthenticated_1.default,
             handler: WalletController_1.default.balance,

@@ -1,31 +1,24 @@
-import fastify = require("fastify")
-import { Server, IncomingMessage, ServerResponse } from "http"
-import unexpectedErrorSchema from "../core/schemas/unexpectedErrorSchema"
-import isAuthenticated from "../users/decorators/isAuthenticated"
-import unauthorizedSchema from "../core/schemas/unauthorizedSchema"
-import BlockchainController from "./controller/BlockchainController"
+import isAuthenticated from '../users/decorators/isAuthenticated';
+import BlockchainController from './controller/BlockchainController';
 
-export default async function routes(
-  fastify: fastify.FastifyInstance,
-  options: fastify.RegisterOptions<Server, IncomingMessage, ServerResponse>
-) {
+export default async function routes(fastify) {
   fastify.route({
     method: 'POST',
     url: '/blocks',
     schema: {
       tags: ['Blockchain'],
-      body: 'AddBlockBody#',
+      body: { $ref: 'AddBlockBody#' },
       response: {
-        200: 'AddBlockResponse#',
-        400: 'AddBlockErrorResponse#',
-        401: unauthorizedSchema,
-        500: unexpectedErrorSchema,
+        200: { $ref: 'AddBlockResponse#' },
+        400: { $ref: 'AddBlockErrorResponse#' },
+        401: { $ref: 'UnauthorizedError#' },
+        500: { $ref: 'UnexpectedError#' },
       },
-      security: [{ 'token': [] }],
+      security: [{ token: [] }],
     },
     preHandler: isAuthenticated,
     handler: BlockchainController.addBlock,
-  })
+  });
 
   fastify.route({
     method: 'GET',
@@ -33,13 +26,13 @@ export default async function routes(
     schema: {
       tags: ['Blockchain'],
       response: {
-        200: 'Block#',
-        401: unauthorizedSchema,
-        500: unexpectedErrorSchema,
+        200: { $ref: 'Block#' },
+        401: { $ref: 'UnauthorizedError#' },
+        500: { $ref: 'UnexpectedError#' },
       },
     },
     handler: BlockchainController.lastBlock,
-  })
+  });
 
   fastify.route({
     method: 'GET',
@@ -47,10 +40,10 @@ export default async function routes(
     schema: {
       tags: ['Blockchain'],
       response: {
-        200: 'CurrentDifficultyResponse#',
-        500: unexpectedErrorSchema,
+        200: { $ref: 'CurrentDifficultyResponse#' },
+        500: { $ref: 'UnexpectedError#' },
       },
     },
     handler: BlockchainController.currentDifficulty,
-  })
+  });
 }

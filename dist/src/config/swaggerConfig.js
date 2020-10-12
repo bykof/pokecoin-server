@@ -4,6 +4,7 @@ const packageJSON = require("../../package.json");
 const swaggerConfig = {
     exposeRoute: true,
     routePrefix: '/docs',
+    addModels: true,
     swagger: {
         info: {
             title: 'Pokecoin',
@@ -17,9 +18,9 @@ const swaggerConfig = {
                 type: 'apiKey',
                 name: 'token',
                 in: 'header',
-            }
-        }
-    }
+            },
+        },
+    },
 };
 if (!process.env.PRODUCTION) {
     swaggerConfig.swagger['host'] = '0.0.0.0:3000';

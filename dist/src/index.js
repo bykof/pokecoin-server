@@ -9,12 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const fastify = require("fastify");
+exports.setupDatabase = exports.server = void 0;
+const fastify_1 = require("fastify");
 const oas = require("fastify-oas");
-const fastifyCORS = require("fastify-cors");
 const mongoose = require("mongoose");
-const pointOfView = require("point-of-view");
 const ejs = require("ejs");
+const fastify_cors_1 = require("fastify-cors");
+const point_of_view_1 = require("point-of-view");
 const env_1 = require("./env");
 const routes_1 = require("./users/routes");
 const routes_2 = require("./blockchain/routes");
@@ -27,11 +28,12 @@ const CardsAggregate_1 = require("./cards/core/CardsAggregate");
 const CardPacksAggregate_1 = require("./cards/core/CardPacksAggregate");
 const BaseJSON = require("./json/pokemonCards/Base.json");
 const UserSetup_1 = require("./users/core/UserSetup");
-const schemas_1 = require("./users/schemas");
-const schemas_2 = require("./cards/schemas");
-const schemas_3 = require("./blockchain/schemas");
-const schemas_4 = require("./wallet/schemas");
-exports.server = fastify({ logger: true });
+const schemas_1 = require("./core/schemas");
+const schemas_2 = require("./users/schemas");
+const schemas_3 = require("./cards/schemas");
+const schemas_4 = require("./blockchain/schemas");
+const schemas_5 = require("./wallet/schemas");
+exports.server = fastify_1.default({ logger: true });
 const blockchain = Blockchain_1.default.getInstance();
 const cardPacksAggregate = CardPacksAggregate_1.default.getInstance();
 cardPacksAggregate.addCardPackFromJson('Base', BaseJSON);
@@ -39,7 +41,11 @@ const cardsAggregate = CardsAggregate_1.default.getInstance();
 cardsAggregate.addCardsFromJson(BaseJSON);
 function setupDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield mongoose.connect(env_1.MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+        yield mongoose.connect(env_1.MONGODB_URL, {
+            useNewUrlParser: true,
+            useCreateIndex: true,
+            useUnifiedTopology: true,
+        });
         console.log('established connection to mongodb');
     });
 }
@@ -53,23 +59,33 @@ function startApplication() {
         console.log(`Blockchain is set up`);
         schemas_1.init(exports.server);
         schemas_2.init(exports.server);
-        schemas_4.init(exports.server);
         schemas_3.init(exports.server);
-        exports.server.register(fastifyCORS, {
+        schemas_5.init(exports.server);
+        schemas_4.init(exports.server);
+        exports.server.register(fastify_cors_1.default, {
             origin: '*',
             credentials: true,
             preflightContinue: true,
         });
-        exports.server.register(pointOfView, {
+        exports.server.register(point_of_view_1.default, {
             engine: {
-                ejs: ejs
+                ejs: ejs,
             },
             templates: './src/templates',
             includeViewExtension: true,
         });
-        exports.server.register(oas, swaggerConfig_1.default).register(routes_1.default, { prefix: '/auth' }).register(routes_2.default, { prefix: '/blockchain' }).register(routes_3.default, { prefix: '/wallet' }).register(routes_4.default, { prefix: '/cards' }).register(routes_5.default, { prefix: '/views' }).after((error) => { if (error) {
-            console.log(error);
-        } });
+        exports.server
+            .register(oas, swaggerConfig_1.default)
+            .register(routes_1.default, { prefix: '/auth' })
+            .register(routes_2.default, { prefix: '/blockchain' })
+            .register(routes_3.default, { prefix: '/wallet' })
+            .register(routes_4.default, { prefix: '/cards' })
+            .register(routes_5.default, { prefix: '/views' })
+            .after((error) => {
+            if (error) {
+                console.log(error);
+            }
+        });
         exports.server.ready((err) => __awaiter(this, void 0, void 0, function* () {
             if (err)
                 throw err;

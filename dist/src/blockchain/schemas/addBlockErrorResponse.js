@@ -7,10 +7,10 @@ exports.default = {
     description: 'The error response schema for failed block adding',
     type: 'object',
     properties: {
-        code: { type: 'string', enum: [BlockIsNotValidError_1.default.name,] },
+        code: { type: 'string', enum: [BlockIsNotValidError_1.default.name] },
         message: { type: 'string' },
-        block: 'Block#',
-        lastBlock: 'Block#',
-    }
+        block: { $ref: 'Block#' },
+        lastBlock: { $ref: 'Block#' },
+    },
 };
 //# sourceMappingURL=addBlockErrorResponse.js.map

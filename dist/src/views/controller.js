@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.usersView = exports.dashboardView = exports.blockchainView = void 0;
 const moment = require("moment");
 const User_1 = require("../users/models/User");
 const Wallet_1 = require("../wallet/core/Wallet");

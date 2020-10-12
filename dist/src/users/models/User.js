@@ -18,6 +18,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserModel = exports.User = void 0;
 const typegoose_1 = require("@typegoose/typegoose");
 const crypto = require("crypto");
 const jsonwebtoken_1 = require("jsonwebtoken");

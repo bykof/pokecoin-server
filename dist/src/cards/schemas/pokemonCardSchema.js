@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     $id: "PokemonCard",
     type: "object",
-    title: "Pokemoncard",
+    title: "PokemonCard",
     description: 'A Pokemon card',
     required: ["id", "name"],
     properties: {

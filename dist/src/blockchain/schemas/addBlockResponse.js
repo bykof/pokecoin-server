@@ -6,8 +6,8 @@ exports.default = {
     description: 'The add block response schema if block was added',
     type: 'object',
     properties: {
-        block: 'Block#',
-        transaction: 'Transaction#',
-    }
+        block: { $ref: 'Block#' },
+        transaction: { $ref: 'Transaction#' },
+    },
 };
 //# sourceMappingURL=addBlockResponse.js.map

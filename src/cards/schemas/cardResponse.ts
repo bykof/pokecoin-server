@@ -1,12 +1,10 @@
 export default {
-  $id: "CardResponse",
-  title: "CardResponse",
+  $id: 'CardResponse',
+  title: 'CardResponse',
   description: 'Returns object for one card',
   type: 'object',
-  required: [
-    'card',
-  ],
+  required: ['card'],
   properties: {
-    card: 'PokemonCard#',
-  }
-}
+    card: { $ref: 'PokemonCard#' },
+  },
+};

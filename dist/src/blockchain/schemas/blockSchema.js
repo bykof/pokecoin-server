@@ -11,7 +11,7 @@ exports.default = {
         data: { type: 'string' },
         timestamp: { type: 'integer' },
         nonce: { type: 'integer' },
-        foundByUser: 'User#',
-    }
+        foundByUser: { $ref: 'User#' },
+    },
 };
 //# sourceMappingURL=blockSchema.js.map

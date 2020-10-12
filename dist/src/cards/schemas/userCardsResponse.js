@@ -5,6 +5,6 @@ exports.default = {
     title: 'UserCardResponse',
     description: 'Returns all cards of an user',
     type: 'array',
-    items: 'UserCard#',
+    items: { $ref: 'UserCard#' },
 };
 //# sourceMappingURL=userCardsResponse.js.map

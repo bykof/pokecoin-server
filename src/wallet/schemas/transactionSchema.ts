@@ -1,5 +1,3 @@
-import blockSchema from "../../blockchain/schemas/blockSchema";
-
 export default {
   $id: 'Transaction',
   title: 'Transaction',
@@ -9,7 +7,7 @@ export default {
     amount: { type: 'integer' },
     timestamp: { type: 'integer' },
     // Fix cause of circular import
-    rewardOfBlock: blockSchema,
-    user: 'User#',
+    rewardOfBlock: { $ref: 'Block#' },
+    user: { $ref: 'User#' },
   },
-}
+};

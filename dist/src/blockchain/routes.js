@@ -9,25 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const unexpectedErrorSchema_1 = require("../core/schemas/unexpectedErrorSchema");
 const isAuthenticated_1 = require("../users/decorators/isAuthenticated");
-const unauthorizedSchema_1 = require("../core/schemas/unauthorizedSchema");
 const BlockchainController_1 = require("./controller/BlockchainController");
-function routes(fastify, options) {
+function routes(fastify) {
     return __awaiter(this, void 0, void 0, function* () {
         fastify.route({
             method: 'POST',
             url: '/blocks',
             schema: {
                 tags: ['Blockchain'],
-                body: 'AddBlockBody#',
+                body: { $ref: 'AddBlockBody#' },
                 response: {
-                    200: 'AddBlockResponse#',
-                    400: 'AddBlockErrorResponse#',
-                    401: unauthorizedSchema_1.default,
-                    500: unexpectedErrorSchema_1.default,
+                    200: { $ref: 'AddBlockResponse#' },
+                    400: { $ref: 'AddBlockErrorResponse#' },
+                    401: { $ref: 'UnauthorizedError#' },
+                    500: { $ref: 'UnexpectedError#' },
                 },
-                security: [{ 'token': [] }],
+                security: [{ token: [] }],
             },
             preHandler: isAuthenticated_1.default,
             handler: BlockchainController_1.default.addBlock,
@@ -38,9 +36,9 @@ function routes(fastify, options) {
             schema: {
                 tags: ['Blockchain'],
                 response: {
-                    200: 'Block#',
-                    401: unauthorizedSchema_1.default,
-                    500: unexpectedErrorSchema_1.default,
+                    200: { $ref: 'Block#' },
+                    401: { $ref: 'UnauthorizedError#' },
+                    500: { $ref: 'UnexpectedError#' },
                 },
             },
             handler: BlockchainController_1.default.lastBlock,
@@ -51,8 +49,8 @@ function routes(fastify, options) {
             schema: {
                 tags: ['Blockchain'],
                 response: {
-                    200: 'CurrentDifficultyResponse#',
-                    500: unexpectedErrorSchema_1.default,
+                    200: { $ref: 'CurrentDifficultyResponse#' },
+                    500: { $ref: 'UnexpectedError#' },
                 },
             },
             handler: BlockchainController_1.default.currentDifficulty,

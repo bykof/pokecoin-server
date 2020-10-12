@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.init = void 0;
 const pokemonCardSchema_1 = require("./pokemonCardSchema");
 const cardPackSchema_1 = require("./cardPackSchema");
 const userCardSchema_1 = require("./userCardSchema");

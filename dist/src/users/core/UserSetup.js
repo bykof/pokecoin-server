@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DEFAULT_USERNAME = void 0;
 const User_1 = require("../models/User");
 exports.DEFAULT_USERNAME = 'bykof';
 const DEFAULT_PASSWORD = 'f1910feebe29a55cab5f5b83a204c1c5b0cf0e9adb9218598608aee813a55663';

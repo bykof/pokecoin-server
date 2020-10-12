@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.init = void 0;
 const userSchema_1 = require("./userSchema");
 const changePasswordBody_1 = require("./changePasswordBody");
 const changePasswordResponse_1 = require("./changePasswordResponse");

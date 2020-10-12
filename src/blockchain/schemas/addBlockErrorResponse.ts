@@ -1,4 +1,4 @@
-import BlockIsNotValidError from "../errors/BlockIsNotValidError";
+import BlockIsNotValidError from '../errors/BlockIsNotValidError';
 
 export default {
   $id: 'AddBlockErrorResponse',
@@ -6,9 +6,9 @@ export default {
   description: 'The error response schema for failed block adding',
   type: 'object',
   properties: {
-    code: { type: 'string', enum: [BlockIsNotValidError.name,] },
+    code: { type: 'string', enum: [BlockIsNotValidError.name] },
     message: { type: 'string' },
-    block: 'Block#',
-    lastBlock: 'Block#',
-  }
-}
+    block: { $ref: 'Block#' },
+    lastBlock: { $ref: 'Block#' },
+  },
+};

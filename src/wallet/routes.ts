@@ -1,27 +1,20 @@
-import fastify = require("fastify")
-import { Server, IncomingMessage, ServerResponse } from "http"
-import unexpectedErrorSchema from "../core/schemas/unexpectedErrorSchema"
-import isAuthenticated from "../users/decorators/isAuthenticated"
-import unauthorizedSchema from "../core/schemas/unauthorizedSchema"
-import WalletController from "./controllers/WalletController"
+import isAuthenticated from '../users/decorators/isAuthenticated';
+import WalletController from './controllers/WalletController';
 
-export default async function routes(
-  fastify: fastify.FastifyInstance,
-  options: fastify.RegisterOptions<Server, IncomingMessage, ServerResponse>
-) {
+export default async function routes(fastify) {
   fastify.route({
     method: 'GET',
     url: '/balance',
     schema: {
       tags: ['Wallet'],
       response: {
-        200: 'BalanceResponse#',
-        401: unauthorizedSchema,
-        500: unexpectedErrorSchema,
+        200: { $ref: 'BalanceResponse#' },
+        401: { $ref: 'UnauthorizedError#' },
+        500: { $ref: 'UnexpectedError#' },
       },
-      security: [{ 'token': [] }],
+      security: [{ token: [] }],
     },
     preHandler: isAuthenticated,
     handler: WalletController.balance,
-  })
+  });
 }

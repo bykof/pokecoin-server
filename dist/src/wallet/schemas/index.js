@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.init = void 0;
 const transactionSchema_1 = require("./transactionSchema");
 const balanceResponse_1 = require("./balanceResponse");
 function init(fastify) {

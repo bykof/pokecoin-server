@@ -1,8 +1,9 @@
-import * as packageJSON from '../../package.json'
+import * as packageJSON from '../../package.json';
 
 const swaggerConfig = {
   exposeRoute: true,
   routePrefix: '/docs',
+  addModels: true,
   swagger: {
     info: {
       title: 'Pokecoin',
@@ -16,16 +17,16 @@ const swaggerConfig = {
         type: 'apiKey',
         name: 'token',
         in: 'header',
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 
 if (!process.env.PRODUCTION) {
-  swaggerConfig.swagger['host'] = '0.0.0.0:3000'
+  swaggerConfig.swagger['host'] = '0.0.0.0:3000';
 } else {
-  swaggerConfig.swagger['schemes'] = ['https']
-  swaggerConfig.swagger['host'] = 'rocky-lowlands-35145.herokuapp.com'
+  swaggerConfig.swagger['schemes'] = ['https'];
+  swaggerConfig.swagger['host'] = 'rocky-lowlands-35145.herokuapp.com';
 }
 
-export default swaggerConfig
+export default swaggerConfig;

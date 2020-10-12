@@ -1,11 +1,6 @@
-import fastify = require("fastify")
-import { Server, IncomingMessage, ServerResponse } from "http"
-import { blockchainView, usersView, dashboardView } from './controller'
+import { blockchainView, usersView, dashboardView } from './controller';
 
-export default async function routes(
-  fastify: fastify.FastifyInstance,
-  options: fastify.RegisterOptions<Server, IncomingMessage, ServerResponse>
-) {
+export default async function routes(fastify) {
   fastify.route({
     method: 'GET',
     url: '/blockchain',
@@ -13,7 +8,7 @@ export default async function routes(
       tags: ['Views'],
     },
     handler: blockchainView,
-  })
+  });
 
   fastify.route({
     method: 'GET',
@@ -22,7 +17,7 @@ export default async function routes(
       tags: ['Views'],
     },
     handler: usersView,
-  })
+  });
 
   fastify.route({
     method: 'GET',
@@ -31,5 +26,5 @@ export default async function routes(
       tags: ['Views'],
     },
     handler: dashboardView,
-  })
+  });
 }

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.init = void 0;
 const blockSchema_1 = require("./blockSchema");
 const addBlockBody_1 = require("./addBlockBody");
 const addBlockResponse_1 = require("./addBlockResponse");

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const blockSchema_1 = require("../../blockchain/schemas/blockSchema");
 exports.default = {
     $id: 'Transaction',
     title: 'Transaction',
@@ -10,8 +9,8 @@ exports.default = {
         amount: { type: 'integer' },
         timestamp: { type: 'integer' },
         // Fix cause of circular import
-        rewardOfBlock: blockSchema_1.default,
-        user: 'User#',
+        rewardOfBlock: { $ref: 'Block#' },
+        user: { $ref: 'User#' },
     },
 };
 //# sourceMappingURL=transactionSchema.js.map
