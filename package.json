@@ -1,6 +1,6 @@
 {
   "name": "pokecoin-server",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "main": "src/index.js",
   "repository": "https://github.com/bykof/pokecoin-server.git",
   "author": "Michael Bykovski <michael.bykovskii@aoe.com>",
@@ -44,6 +44,6 @@
     "jest": "^26.5.3",
     "ts-jest": "^26.4.1",
     "ts-node": "^9.0.0",
-    "ts-node-dev": "^1.0.0-pre.63"
+    "ts-node-dev": "^1.0.0-pre.64"
   }
 }
