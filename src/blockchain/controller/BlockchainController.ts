@@ -5,7 +5,6 @@ import * as lockfile from 'lockfile'
 import Wallet from "../../wallet/core/Wallet";
 import { UserModel } from '../../users/models/User';
 import { checkIfBrowser as isBrowser } from '../../core/utils';
-import { REPLServer } from 'repl';
 
 export default class BlockchainController {
 

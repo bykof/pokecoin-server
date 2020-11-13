@@ -88,7 +88,7 @@ async function startApplication() {
 
   server.listen(PORT, '0.0.0.0', (error, address) => {
     if (error) {
-      server.log.error(error);
+      server.log.error(error.message);
       process.exit(1);
     }
     console.log('Server running:', address);
