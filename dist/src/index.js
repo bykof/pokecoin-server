@@ -93,7 +93,7 @@ function startApplication() {
         }));
         exports.server.listen(env_1.PORT, '0.0.0.0', (error, address) => {
             if (error) {
-                exports.server.log.error(error);
+                exports.server.log.error(error.message);
                 process.exit(1);
             }
             console.log('Server running:', address);
