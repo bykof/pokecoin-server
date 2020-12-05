@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     $id: 'RegisterBody',
     title: 'RegisterBody',
-    decription: 'The body schema to register',
+    description: 'The register body to send',
     type: 'object',
     required: ['username', 'password'],
     properties: {

@@ -4,7 +4,6 @@ const packageJSON = require("../../package.json");
 const swaggerConfig = {
     exposeRoute: true,
     routePrefix: '/docs',
-    addModels: true,
     swagger: {
         info: {
             title: 'Pokecoin',

@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.setupDatabase = exports.server = void 0;
 const fastify_1 = require("fastify");
-const oas = require("fastify-oas");
+const fastify_swagger_1 = require("fastify-swagger");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
 const fastify_cors_1 = require("fastify-cors");
@@ -65,7 +65,6 @@ function startApplication() {
         exports.server.register(fastify_cors_1.default, {
             origin: '*',
             credentials: true,
-            preflightContinue: true,
         });
         exports.server.register(point_of_view_1.default, {
             engine: {
@@ -75,7 +74,7 @@ function startApplication() {
             includeViewExtension: true,
         });
         exports.server
-            .register(oas, swaggerConfig_1.default)
+            .register(fastify_swagger_1.default, swaggerConfig_1.default)
             .register(routes_1.default, { prefix: '/auth' })
             .register(routes_2.default, { prefix: '/blockchain' })
             .register(routes_3.default, { prefix: '/wallet' })
@@ -89,7 +88,7 @@ function startApplication() {
         exports.server.ready((err) => __awaiter(this, void 0, void 0, function* () {
             if (err)
                 throw err;
-            yield exports.server.oas();
+            yield exports.server.swagger();
         }));
         exports.server.listen(env_1.PORT, '0.0.0.0', (error, address) => {
             if (error) {
