@@ -1,9 +1,9 @@
+import { SwaggerOptions } from 'fastify-swagger';
 import * as packageJSON from '../../package.json';
 
-const swaggerConfig = {
+const swaggerConfig: SwaggerOptions = {
   exposeRoute: true,
   routePrefix: '/docs',
-  addModels: true,
   swagger: {
     info: {
       title: 'Pokecoin',

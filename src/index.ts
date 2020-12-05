@@ -1,5 +1,5 @@
 import fastify, { FastifyInstance } from 'fastify';
-import * as oas from 'fastify-oas';
+import swagger from 'fastify-swagger';
 import * as mongoose from 'mongoose';
 import * as ejs from 'ejs';
 import fastifyCORS from 'fastify-cors';
@@ -68,7 +68,7 @@ async function startApplication() {
     includeViewExtension: true,
   });
   server
-    .register(oas, swaggerConfig)
+    .register(swagger, swaggerConfig)
     .register(authenticationRoutes, { prefix: '/auth' })
     .register(blockchainRoutes, { prefix: '/blockchain' })
     .register(walletRoutes, { prefix: '/wallet' })
@@ -82,7 +82,7 @@ async function startApplication() {
 
   server.ready(async (err) => {
     if (err) throw err;
-    await server.oas();
+    await server.swagger();
   });
 
   server.listen(PORT, '0.0.0.0', (error, address) => {
