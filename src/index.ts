@@ -58,7 +58,6 @@ async function startApplication() {
   server.register(fastifyCORS, {
     origin: '*',
     credentials: true,
-    preflightContinue: true,
   });
 
   server.register(pointOfView, {
