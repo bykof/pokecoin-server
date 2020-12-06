@@ -38,9 +38,11 @@ export class Block {
     while (this.calculateHash().substring(0, difficulty) !== difficultyAsZeros) {
       this.nonce++
 
-      // If we have gone through all nonce so we get to 0 than we update the timestamp
+      // If we have gone through all nonce so we get to 0
+      // than we reset the timestamp and nonce
       if (this.nonce === Number.MAX_SAFE_INTEGER) {
         this.timestamp = Date.now()
+        this.nonce = 0
       }
     }
     return this.calculateHash()
