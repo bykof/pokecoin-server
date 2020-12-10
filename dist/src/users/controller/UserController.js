@@ -32,7 +32,9 @@ class UserController {
             catch (error) {
                 // Duplicate entry
                 if (error.code === 11000)
-                    return reply.status(400).send(new UserAlreadyExistsError_1.default(request.body.username));
+                    return reply
+                        .status(400)
+                        .send(new UserAlreadyExistsError_1.default(request.body.username));
                 return reply.status(500).send(error);
             }
         });
@@ -52,11 +54,15 @@ class UserController {
                         return reply.send({ token: user.generateJSONWebToken() });
                     }
                     else {
-                        return reply.status(400).send(new PasswordIncorrectError_1.default(request.body.username));
+                        return reply
+                            .status(400)
+                            .send(new PasswordIncorrectError_1.default(request.body.username));
                     }
                 }
                 else {
-                    return reply.status(400).send(new UserNotFoundError_1.default(request.body.username));
+                    return reply
+                        .status(400)
+                        .send(new UserNotFoundError_1.default(request.body.username));
                 }
             }
             catch (error) {
@@ -89,7 +95,9 @@ class UserController {
                 yield request.user.save();
                 return reply.status(201).send();
             }
-            return reply.status(400).send(new PasswordIncorrectError_1.default(request.user.username));
+            return reply
+                .status(400)
+                .send(new PasswordIncorrectError_1.default(request.user.username));
         });
     }
 }

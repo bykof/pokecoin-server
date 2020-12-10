@@ -14,14 +14,14 @@ const WalletController_1 = require("./controllers/WalletController");
 function routes(fastify) {
     return __awaiter(this, void 0, void 0, function* () {
         fastify.route({
-            method: 'GET',
-            url: '/balance',
+            method: "GET",
+            url: "/balance",
             schema: {
-                tags: ['Wallet'],
+                tags: ["Wallet"],
                 response: {
-                    200: { $ref: 'BalanceResponse#' },
-                    401: { $ref: 'UnauthorizedError#' },
-                    500: { $ref: 'UnexpectedError#' },
+                    200: { $ref: "BalanceResponse#" },
+                    401: { $ref: "UnauthorizedError#" },
+                    500: { $ref: "UnexpectedError#" },
                 },
                 security: [{ token: [] }],
             },

@@ -16,49 +16,49 @@ const UserCardController_1 = require("./controller/UserCardController");
 function routes(fastify) {
     return __awaiter(this, void 0, void 0, function* () {
         fastify.route({
-            method: 'GET',
-            url: '/',
+            method: "GET",
+            url: "/",
             schema: {
-                tags: ['Cards'],
-                querystring: { $ref: 'PageParameter#' },
+                tags: ["Cards"],
+                querystring: { $ref: "PageParameter#" },
                 response: {
-                    200: { $ref: 'CardsResponse#' },
-                    500: { $ref: 'UnexpectedError#' },
+                    200: { $ref: "CardsResponse#" },
+                    500: { $ref: "UnexpectedError#" },
                 },
             },
             handler: CardController_1.default.list,
         });
         fastify.route({
-            method: 'GET',
-            url: '/:cardId',
+            method: "GET",
+            url: "/:cardId",
             schema: {
-                tags: ['Cards'],
+                tags: ["Cards"],
                 params: {
-                    type: 'object',
+                    type: "object",
                     properties: {
                         cardId: {
-                            type: 'string',
-                            description: 'card id',
+                            type: "string",
+                            description: "card id",
                         },
                     },
                 },
                 response: {
-                    200: { $ref: 'CardResponse#' },
-                    404: { $ref: 'NotFoundError#' },
-                    500: { $ref: 'UnexpectedError#' },
+                    200: { $ref: "CardResponse#" },
+                    404: { $ref: "NotFoundError#" },
+                    500: { $ref: "UnexpectedError#" },
                 },
             },
             handler: CardController_1.default.get,
         });
         fastify.route({
-            method: 'GET',
-            url: '/usercards',
+            method: "GET",
+            url: "/usercards",
             schema: {
-                tags: ['Cards'],
+                tags: ["Cards"],
                 response: {
-                    200: { $ref: 'UserCardResponse#' },
-                    401: { $ref: 'UnauthorizedError#' },
-                    500: { $ref: 'UnexpectedError#' },
+                    200: { $ref: "UserCardResponse#" },
+                    401: { $ref: "UnauthorizedError#" },
+                    500: { $ref: "UnexpectedError#" },
                 },
                 security: [{ token: [] }],
             },
@@ -66,58 +66,58 @@ function routes(fastify) {
             handler: UserCardController_1.default.getCards,
         });
         fastify.route({
-            method: 'GET',
-            url: '/packages',
+            method: "GET",
+            url: "/packages",
             schema: {
-                tags: ['Cards'],
+                tags: ["Cards"],
                 response: {
-                    200: { $ref: 'PackagesResponse#' },
-                    500: { $ref: 'UnexpectedError#' },
+                    200: { $ref: "PackagesResponse#" },
+                    500: { $ref: "UnexpectedError#" },
                 },
             },
             handler: CardPackController_1.default.getCardPackages,
         });
         fastify.route({
-            method: 'GET',
-            url: '/packages/:cardPackName',
+            method: "GET",
+            url: "/packages/:cardPackName",
             schema: {
-                tags: ['Cards'],
+                tags: ["Cards"],
                 params: {
-                    type: 'object',
+                    type: "object",
                     properties: {
                         cardPackName: {
-                            type: 'string',
-                            description: 'name of the cardpack',
+                            type: "string",
+                            description: "name of the cardpack",
                         },
                     },
                 },
                 response: {
-                    200: { $ref: 'CardPack#' },
-                    404: { $ref: 'NotFoundError#' },
-                    500: { $ref: 'UnexpectedError#' },
+                    200: { $ref: "CardPack#" },
+                    404: { $ref: "NotFoundError#" },
+                    500: { $ref: "UnexpectedError#" },
                 },
             },
             handler: CardPackController_1.default.getCardPack,
         });
         fastify.route({
-            method: 'GET',
-            url: '/packages/:cardPackName/buyDefaultPackage',
+            method: "GET",
+            url: "/packages/:cardPackName/buyDefaultPackage",
             schema: {
-                tags: ['Cards'],
+                tags: ["Cards"],
                 params: {
-                    type: 'object',
+                    type: "object",
                     properties: {
                         cardPackName: {
-                            type: 'string',
-                            description: 'name of the cardpack',
+                            type: "string",
+                            description: "name of the cardpack",
                         },
                     },
                 },
                 response: {
-                    200: { $ref: 'BuyDefaultPackageSchemaResponse#' },
-                    404: { $ref: 'NotFoundError#' },
-                    401: { $ref: 'UnauthorizedError#' },
-                    500: { $ref: 'UnexpectedError#' },
+                    200: { $ref: "BuyDefaultPackageSchemaResponse#" },
+                    404: { $ref: "NotFoundError#" },
+                    401: { $ref: "UnauthorizedError#" },
+                    500: { $ref: "UnexpectedError#" },
                 },
                 security: [{ token: [] }],
             },
@@ -125,12 +125,12 @@ function routes(fastify) {
             handler: CardPackController_1.default.buyDefaultPackage,
         });
         fastify.route({
-            method: 'GET',
-            url: '/packages/currentPackageCost',
+            method: "GET",
+            url: "/packages/currentPackageCost",
             schema: {
-                tags: ['Cards'],
+                tags: ["Cards"],
                 response: {
-                    200: { $ref: 'BuyDefaultPackageSchemaResponse#' },
+                    200: { $ref: "BuyDefaultPackageSchemaResponse#" },
                 },
             },
             handler: CardPackController_1.default.currentPackageCost,

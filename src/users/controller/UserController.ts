@@ -1,7 +1,7 @@
-import { UserModel } from '../models/User'
-import UserAlreadyExistsError from '../errors/UserAlreadyExistsError'
-import UserNotFoundError from '../errors/UserNotFoundError'
-import PasswordIncorrectError from '../errors/PasswordIncorrectError'
+import { UserModel } from "../models/User";
+import UserAlreadyExistsError from "../errors/UserAlreadyExistsError";
+import UserNotFoundError from "../errors/UserNotFoundError";
+import PasswordIncorrectError from "../errors/PasswordIncorrectError";
 
 export default class UserController {
   /**
@@ -15,12 +15,15 @@ export default class UserController {
       const user = await new UserModel({
         username: request.body.username,
         password: UserModel.hashPassword(request.body.password),
-      }).save()
-      return reply.send(user)
+      }).save();
+      return reply.send(user);
     } catch (error) {
       // Duplicate entry
-      if (error.code === 11000) return reply.status(400).send(new UserAlreadyExistsError(request.body.username))
-      return reply.status(500).send(error)
+      if (error.code === 11000)
+        return reply
+          .status(400)
+          .send(new UserAlreadyExistsError(request.body.username));
+      return reply.status(500).send(error);
     }
   }
 
@@ -32,19 +35,23 @@ export default class UserController {
    */
   static async login(request, reply) {
     try {
-      const user = await UserModel.findOne({ username: request.body.username })
+      const user = await UserModel.findOne({ username: request.body.username });
 
       if (user) {
         if (user.password === UserModel.hashPassword(request.body.password)) {
-          return reply.send({ token: user.generateJSONWebToken() })
+          return reply.send({ token: user.generateJSONWebToken() });
         } else {
-          return reply.status(400).send(new PasswordIncorrectError(request.body.username))
+          return reply
+            .status(400)
+            .send(new PasswordIncorrectError(request.body.username));
         }
       } else {
-        return reply.status(400).send(new UserNotFoundError(request.body.username))
+        return reply
+          .status(400)
+          .send(new UserNotFoundError(request.body.username));
       }
     } catch (error) {
-      return reply.status(500).send(error)
+      return reply.status(500).send(error);
     }
   }
 
@@ -55,7 +62,7 @@ export default class UserController {
    * @param reply
    */
   static async me(request, reply) {
-    return reply.send(request.user)
+    return reply.send(request.user);
   }
 
   /**
@@ -65,13 +72,15 @@ export default class UserController {
    * @param reply
    */
   static async changePassword(request, reply) {
-    const hashedPassword = UserModel.hashPassword(request.body.password)
+    const hashedPassword = UserModel.hashPassword(request.body.password);
     if (hashedPassword === request.user.password) {
-        request.user.password = UserModel.hashPassword(request.body.newPassword)
-        await request.user.save()
-        return reply.status(201).send()
+      request.user.password = UserModel.hashPassword(request.body.newPassword);
+      await request.user.save();
+      return reply.status(201).send();
     }
 
-    return reply.status(400).send(new PasswordIncorrectError(request.user.username))
+    return reply
+      .status(400)
+      .send(new PasswordIncorrectError(request.user.username));
   }
 }

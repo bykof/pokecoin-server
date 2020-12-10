@@ -8,6 +8,7 @@
     "scripts": {
         "clean": "rm -rf dist",
         "build": "yarn clean && tsc --sourceMap --experimentalDecorators true --emitDecoratorMetadata true --resolveJsonModule true --module CommonJS --target ES6 --outDir dist/ src/index",
+        "newblock": "ts-node ./src/newBlock.ts",
         "dev": "ts-node-dev ./src/index.ts",
         "start": "node dist/src/index.js",
         "test": "jest",

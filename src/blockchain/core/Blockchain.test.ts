@@ -1,14 +1,14 @@
-import Blockchain from './Blockchain'
-import { BlockModel } from '../models/Block'
+import Blockchain from "./Blockchain";
+import { BlockModel } from "../models/Block";
 
 afterEach(() => {
-  Blockchain.resetInstance()
-})
+  Blockchain.resetInstance();
+});
 
-test('test blockchain singleton', () => {
-  const blockchain = Blockchain.getInstance()
-  blockchain._currentDifficulty = -1
+test("test blockchain singleton", () => {
+  const blockchain = Blockchain.getInstance();
+  blockchain._currentDifficulty = -1;
 
-  const blockchain2 = Blockchain.getInstance()
-  expect(blockchain2._currentDifficulty).toBe(-1)
-})
+  const blockchain2 = Blockchain.getInstance();
+  expect(blockchain2._currentDifficulty).toBe(-1);
+});

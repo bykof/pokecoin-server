@@ -2,81 +2,81 @@ export default {
   $id: "PokemonCard",
   type: "object",
   title: "PokemonCard",
-  description: 'A Pokemon card',
+  description: "A Pokemon card",
   required: ["id", "name"],
   properties: {
     id: {
       $id: "#/properties/id",
       type: "string",
       title: "The Id Schema",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     name: {
       $id: "#/properties/name",
       type: "string",
       title: "The Name Schema",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     imageUrl: {
       $id: "#/properties/imageUrl",
       type: "string",
       title: "The Imageurl Schema",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     subtype: {
       $id: "#/properties/subtype",
       type: "string",
       title: "The Subtype Schema",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     supertype: {
       $id: "#/properties/supertype",
       type: "string",
       title: "The Supertype Schema",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     number: {
       $id: "#/properties/number",
       type: "string",
       title: "The Number Schema",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     artist: {
       $id: "#/properties/artist",
       type: "string",
       title: "The Artist Schema",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     rarity: {
       $id: "#/properties/rarity",
       type: "string",
       title: "The Rarity Schema",
       default: "",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     series: {
       $id: "#/properties/series",
       type: "string",
       title: "The Series Schema",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     set: {
       $id: "#/properties/set",
       type: "string",
       title: "The Set Schema",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     setCode: {
       $id: "#/properties/setCode",
       type: "string",
       title: "The Setcode Schema",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     imageUrlHiRes: {
       $id: "#/properties/imageUrlHiRes",
       type: "string",
       title: "The Imageurlhires Schema",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     text: {
       $id: "#/properties/text",
@@ -85,20 +85,20 @@ export default {
       items: {
         $id: "#/properties/text/items",
         type: "string",
-        title: "The Text Items Schema"
-      }
+        title: "The Text Items Schema",
+      },
     },
     level: {
       $id: "#/properties/level",
       type: "string",
       title: "The Level Schema",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     evolvesFrom: {
       $id: "#/properties/evolvesFrom",
       type: "string",
       title: "The Evolvesfrom Schema",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     ability: {
       $id: "#/properties/ability",
@@ -109,27 +109,27 @@ export default {
           $id: "#/properties/ability/properties/name",
           type: "string",
           title: "The Name Schema",
-          pattern: "^(.*)$"
+          pattern: "^(.*)$",
         },
         text: {
           $id: "#/properties/ability/properties/text",
           type: "string",
           title: "The Text Schema",
-          pattern: "^(.*)$"
+          pattern: "^(.*)$",
         },
         type: {
           $id: "#/properties/ability/properties/type",
           type: "string",
           title: "The Type Schema",
-          pattern: "^(.*)$"
-        }
-      }
+          pattern: "^(.*)$",
+        },
+      },
     },
     hp: {
       $id: "#/properties/hp",
       type: "string",
       title: "The Hp Schema",
-      pattern: "^(.*)$"
+      pattern: "^(.*)$",
     },
     retreatCost: {
       $id: "#/properties/retreatCost",
@@ -139,8 +139,8 @@ export default {
         $id: "#/properties/retreatCost/items",
         type: "string",
         title: "The Items Schema",
-        pattern: "^(.*)$"
-      }
+        pattern: "^(.*)$",
+      },
     },
     convertedRetreatCost: {
       $id: "#/properties/convertedRetreatCost",
@@ -155,8 +155,8 @@ export default {
         $id: "#/properties/types/items",
         type: "string",
         title: "The Items Schema",
-        pattern: "^(.*)$"
-      }
+        pattern: "^(.*)$",
+      },
     },
     attacks: {
       $id: "#/properties/attacks",
@@ -173,7 +173,7 @@ export default {
             type: "string",
             title: "The Name Schema",
             default: "",
-            pattern: "^(.*)$"
+            pattern: "^(.*)$",
           },
           cost: {
             $id: "#/properties/attacks/items/properties/cost",
@@ -183,8 +183,8 @@ export default {
               $id: "#/properties/attacks/items/properties/cost/items",
               type: "string",
               title: "The Items Schema",
-              pattern: "^(.*)$"
-            }
+              pattern: "^(.*)$",
+            },
           },
           convertedEnergyCost: {
             $id: "#/properties/attacks/items/properties/convertedEnergyCost",
@@ -196,16 +196,16 @@ export default {
             $id: "#/properties/attacks/items/properties/damage",
             type: "string",
             title: "The Damage Schema",
-            pattern: "^(.*)$"
+            pattern: "^(.*)$",
           },
           text: {
             $id: "#/properties/attacks/items/properties/text",
             type: "string",
             title: "The Text Schema",
-            pattern: "^(.*)$"
-          }
-        }
-      }
+            pattern: "^(.*)$",
+          },
+        },
+      },
     },
     weaknesses: {
       $id: "#/properties/weaknesses",
@@ -221,21 +221,21 @@ export default {
             $id: "#/properties/weaknesses/items/properties/type",
             type: "string",
             title: "The Type Schema",
-            pattern: "^(.*)$"
+            pattern: "^(.*)$",
           },
           value: {
             $id: "#/properties/weaknesses/items/properties/value",
             type: "string",
             title: "The Value Schema",
-            pattern: "^(.*)$"
-          }
-        }
-      }
+            pattern: "^(.*)$",
+          },
+        },
+      },
     },
     nationalPokedexNumber: {
       $id: "#/properties/nationalPokedexNumber",
       type: "integer",
       title: "The Nationalpokedexnumber Schema",
-    }
-  }
+    },
+  },
 };

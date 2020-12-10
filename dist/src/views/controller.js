@@ -22,13 +22,18 @@ function blockchainView(request, reply) {
         if (skip < 0) {
             skip = 0;
         }
-        let reversedChain = yield Block_1.BlockModel.find({}).sort({}).populate('foundByUser').skip(skip).limit(100).exec();
+        let reversedChain = yield Block_1.BlockModel.find({})
+            .sort({})
+            .populate("foundByUser")
+            .skip(skip)
+            .limit(100)
+            .exec();
         reversedChain = reversedChain.reverse();
-        const html = yield __1.server['view']('blockchain', {
+        const html = yield __1.server["view"]("blockchain", {
             chain: reversedChain,
             moment: moment,
         });
-        reply.type('text/html').send(html);
+        reply.type("text/html").send(html);
     });
 }
 exports.blockchainView = blockchainView;
@@ -37,12 +42,12 @@ function dashboardView(request, reply) {
         const blockChainCount = yield Block_1.BlockModel.count({});
         const usersCount = yield User_1.UserModel.count({});
         const userCardsCount = yield UserCardTransaction_1.UserCardTransactionModel.count({});
-        const html = yield __1.server['view']('dashboard', {
+        const html = yield __1.server["view"]("dashboard", {
             blockChainCount: blockChainCount,
             usersCount: usersCount,
             userCardsCount: userCardsCount,
         });
-        reply.type('text/html').send(html);
+        reply.type("text/html").send(html);
     });
 }
 exports.dashboardView = dashboardView;
@@ -54,19 +59,19 @@ function usersView(request, reply) {
             const wallet = new Wallet_1.default(user);
             wallets[user.username] = {
                 cardsCount: yield UserCardTransaction_1.UserCardTransactionModel.count({ user: user }),
-                balance: yield wallet.getBalance()
+                balance: yield wallet.getBalance(),
             };
-            user['points'] = yield user.getPoints();
+            user["points"] = yield user.getPoints();
         })));
         users.sort((a, b) => {
-            return b['points'] - a['points'];
+            return b["points"] - a["points"];
         });
-        const html = yield __1.server['view']('users', {
+        const html = yield __1.server["view"]("users", {
             users: users,
             wallets: wallets,
             moment: moment,
         });
-        reply.type('text/html').send(html);
+        reply.type("text/html").send(html);
     });
 }
 exports.usersView = usersView;

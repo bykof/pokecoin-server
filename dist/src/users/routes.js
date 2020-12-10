@@ -14,42 +14,42 @@ const isAuthenticated_1 = require("./decorators/isAuthenticated");
 function routes(fastify) {
     return __awaiter(this, void 0, void 0, function* () {
         fastify.route({
-            method: 'POST',
-            url: '/login',
+            method: "POST",
+            url: "/login",
             schema: {
-                tags: ['Users'],
-                body: { $ref: 'LoginBody#' },
+                tags: ["Users"],
+                body: { $ref: "LoginBody#" },
                 response: {
-                    200: { $ref: 'LoginResponse#' },
-                    400: { $ref: 'LoginErrorResponse#' },
-                    500: { $ref: 'UnexpectedError#' },
+                    200: { $ref: "LoginResponse#" },
+                    400: { $ref: "LoginErrorResponse#" },
+                    500: { $ref: "UnexpectedError#" },
                 },
             },
             handler: UserController_1.default.login,
         });
         fastify.route({
-            method: 'POST',
-            url: '/register',
+            method: "POST",
+            url: "/register",
             schema: {
-                tags: ['Users'],
-                body: { $ref: 'RegisterBody#' },
+                tags: ["Users"],
+                body: { $ref: "RegisterBody#" },
                 response: {
-                    200: { $ref: 'RegisterResponse#' },
-                    400: { $ref: 'RegisterErrorResponse#' },
-                    500: { $ref: 'UnexpectedError#' },
+                    200: { $ref: "RegisterResponse#" },
+                    400: { $ref: "RegisterErrorResponse#" },
+                    500: { $ref: "UnexpectedError#" },
                 },
             },
             handler: UserController_1.default.register,
         });
         fastify.route({
-            method: 'GET',
-            url: '/me',
+            method: "GET",
+            url: "/me",
             schema: {
-                tags: ['Users'],
+                tags: ["Users"],
                 response: {
-                    200: { $ref: 'User#' },
-                    401: { $ref: 'UnauthorizedError#' },
-                    500: { $ref: 'UnexpectedError#' },
+                    200: { $ref: "User#" },
+                    401: { $ref: "UnauthorizedError#" },
+                    500: { $ref: "UnexpectedError#" },
                 },
                 security: [{ token: [] }],
             },
@@ -57,15 +57,15 @@ function routes(fastify) {
             handler: UserController_1.default.me,
         });
         fastify.route({
-            method: 'POST',
-            url: '/changePassword',
+            method: "POST",
+            url: "/changePassword",
             schema: {
-                tags: ['Users'],
-                body: { $ref: 'ChangePasswordBody#' },
+                tags: ["Users"],
+                body: { $ref: "ChangePasswordBody#" },
                 response: {
-                    201: { $ref: 'ChangePasswordResponse#' },
-                    401: { $ref: 'UnauthorizedError#' },
-                    500: { $ref: 'UnexpectedError#' },
+                    201: { $ref: "ChangePasswordResponse#" },
+                    401: { $ref: "UnauthorizedError#" },
+                    500: { $ref: "UnexpectedError#" },
                 },
                 security: [{ token: [] }],
             },

@@ -1,14 +1,14 @@
-import { DocumentType } from '@typegoose/typegoose'
-import { User } from "../../users/models/User"
-import { TransactionModel, Transaction } from "../models/Transaction"
-import { Block } from "../../blockchain/models/Block"
+import { DocumentType } from "@typegoose/typegoose";
+import { User } from "../../users/models/User";
+import { TransactionModel, Transaction } from "../models/Transaction";
+import { Block } from "../../blockchain/models/Block";
 
 export default class Wallet {
-  DEFAULT_REWARD: number = parseInt(process.env.DEFAULT_REWARD) || 1
-  user: DocumentType<User>
+  DEFAULT_REWARD: number = parseInt(process.env.DEFAULT_REWARD) || 1;
+  user: DocumentType<User>;
 
   constructor(user: DocumentType<User>) {
-    this.user = user
+    this.user = user;
   }
 
   /**
@@ -16,19 +16,17 @@ export default class Wallet {
    * It will sum the amount of all transactions
    */
   async getBalance() {
-    const transactions = await TransactionModel.aggregate(
-      [
-        { $match: { user: this.user._id } },
-        {
-          $group: {
-            _id: null,
-            total: {
-              $sum: "$amount"
-            }
-          }
+    const transactions = await TransactionModel.aggregate([
+      { $match: { user: this.user._id } },
+      {
+        $group: {
+          _id: null,
+          total: {
+            $sum: "$amount",
+          },
         },
-      ]
-    )
+      },
+    ]);
     if (transactions.length === 0) return 0;
     return transactions[0].total;
   }
@@ -43,8 +41,8 @@ export default class Wallet {
       timestamp: Date.now(),
       rewardOfBlock: block,
       user: this.user,
-    }).save()
-    return newTransaction
+    }).save();
+    return newTransaction;
   }
 
   /**
@@ -57,7 +55,7 @@ export default class Wallet {
       amount: -amount,
       timestamp: Date.now(),
       user: this.user,
-    }).save()
-    return newTransaction
+    }).save();
+    return newTransaction;
   }
 }

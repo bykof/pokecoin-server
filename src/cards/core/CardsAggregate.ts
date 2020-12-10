@@ -1,43 +1,47 @@
-import Card from "../models/base/Card"
-import {SUPERTYPE_POKEMON, SUPERTYPE_ENERGY, SUPERTYPE_TRAINER} from './constants'
-import JsonCardParser from "./JsonCardParser"
+import Card from "../models/base/Card";
+import {
+  SUPERTYPE_POKEMON,
+  SUPERTYPE_ENERGY,
+  SUPERTYPE_TRAINER,
+} from "./constants";
+import JsonCardParser from "./JsonCardParser";
 
 export default class CardsAggregate {
-  static instance: CardsAggregate = null
+  static instance: CardsAggregate = null;
 
-  cards: Card[] = []
+  cards: Card[] = [];
 
-  private constructor() { }
+  private constructor() {}
 
   static getInstance() {
     if (!this.instance) {
-      this.instance = new CardsAggregate()
+      this.instance = new CardsAggregate();
     }
 
-    return this.instance
+    return this.instance;
   }
 
   addCardsFromJson(cards) {
-    this.cards = this.cards.concat(cards.map(JsonCardParser.parseJsonCard))
+    this.cards = this.cards.concat(cards.map(JsonCardParser.parseJsonCard));
   }
 
   filterBySuperType(superType: String): Card[] {
-    return this.cards.filter((card) => card.supertype === superType)
+    return this.cards.filter((card) => card.supertype === superType);
   }
 
   getPokemonCards(): Card[] {
-    return this.filterBySuperType(SUPERTYPE_POKEMON)
+    return this.filterBySuperType(SUPERTYPE_POKEMON);
   }
 
   getEnergyCards(): Card[] {
-    return this.filterBySuperType(SUPERTYPE_ENERGY)
+    return this.filterBySuperType(SUPERTYPE_ENERGY);
   }
 
   getTrainerCards(): Card[] {
-    return this.filterBySuperType(SUPERTYPE_TRAINER)
+    return this.filterBySuperType(SUPERTYPE_TRAINER);
   }
 
   getCardById(id: String): Card | undefined {
-    return this.cards.find((card) => card.id === id)
+    return this.cards.find((card) => card.id === id);
   }
 }

@@ -1,29 +1,31 @@
-import CardPack from "../models/CardPack"
-import JsonCardParser from "./JsonCardParser"
+import CardPack from "../models/CardPack";
+import JsonCardParser from "./JsonCardParser";
 
 export default class CardPacksAggregate {
-  static object: CardPacksAggregate
+  static object: CardPacksAggregate;
 
-  cardPacks: CardPack[] = []
+  cardPacks: CardPack[] = [];
 
-  private constructor() { }
+  private constructor() {}
 
   static getInstance(): CardPacksAggregate {
     if (!this.object) {
-      this.object = new CardPacksAggregate()
+      this.object = new CardPacksAggregate();
     }
-    return this.object
+    return this.object;
   }
 
   cardPackNames() {
-    return this.cardPacks.map((cardPack) => cardPack.name)
+    return this.cardPacks.map((cardPack) => cardPack.name);
   }
 
   addCardPackFromJson(name, cardsJson) {
-    this.cardPacks.push(new CardPack(name, cardsJson.map(JsonCardParser.parseJsonCard)))
+    this.cardPacks.push(
+      new CardPack(name, cardsJson.map(JsonCardParser.parseJsonCard))
+    );
   }
 
   getCardPackByName(name): CardPack | undefined {
-    return this.cardPacks.find((cardPack) => cardPack.name === name)
+    return this.cardPacks.find((cardPack) => cardPack.name === name);
   }
 }

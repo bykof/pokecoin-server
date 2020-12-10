@@ -1,20 +1,19 @@
-import { prop, Ref, getModelForClass } from '@typegoose/typegoose'
+import { prop, Ref, getModelForClass } from "@typegoose/typegoose";
 
-import { User } from '../../users/models/User'
+import { User } from "../../users/models/User";
 
 export class UserCardTransaction {
+  @prop()
+  cardId: string;
 
   @prop()
-  cardId: string
+  cardPack: string;
 
   @prop()
-  cardPack: string
-
-  @prop()
-  timestamp: number
+  timestamp: number;
 
   @prop({ ref: "User" })
-  user: Ref<User>
+  user: Ref<User>;
 }
 
-export const UserCardTransactionModel = getModelForClass(UserCardTransaction)
+export const UserCardTransactionModel = getModelForClass(UserCardTransaction);

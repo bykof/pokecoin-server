@@ -13,26 +13,26 @@ const controller_1 = require("./controller");
 function routes(fastify) {
     return __awaiter(this, void 0, void 0, function* () {
         fastify.route({
-            method: 'GET',
-            url: '/blockchain',
+            method: "GET",
+            url: "/blockchain",
             schema: {
-                tags: ['Views'],
+                tags: ["Views"],
             },
             handler: controller_1.blockchainView,
         });
         fastify.route({
-            method: 'GET',
-            url: '/users',
+            method: "GET",
+            url: "/users",
             schema: {
-                tags: ['Views'],
+                tags: ["Views"],
             },
             handler: controller_1.usersView,
         });
         fastify.route({
-            method: 'GET',
-            url: '/dashboard',
+            method: "GET",
+            url: "/dashboard",
             schema: {
-                tags: ['Views'],
+                tags: ["Views"],
             },
             handler: controller_1.dashboardView,
         });

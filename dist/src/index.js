@@ -36,7 +36,7 @@ const schemas_5 = require("./wallet/schemas");
 exports.server = fastify_1.default({ logger: true });
 const blockchain = Blockchain_1.default.getInstance();
 const cardPacksAggregate = CardPacksAggregate_1.default.getInstance();
-cardPacksAggregate.addCardPackFromJson('Base', BaseJSON);
+cardPacksAggregate.addCardPackFromJson("Base", BaseJSON);
 const cardsAggregate = CardsAggregate_1.default.getInstance();
 cardsAggregate.addCardsFromJson(BaseJSON);
 function setupDatabase() {
@@ -46,13 +46,13 @@ function setupDatabase() {
             useCreateIndex: true,
             useUnifiedTopology: true,
         });
-        console.log('established connection to mongodb');
+        console.log("established connection to mongodb");
     });
 }
 exports.setupDatabase = setupDatabase;
 function startApplication() {
     return __awaiter(this, void 0, void 0, function* () {
-        process.on('SIGTERM', () => process.exit());
+        process.on("SIGTERM", () => process.exit());
         yield setupDatabase();
         yield UserSetup_1.default.setup();
         yield blockchain.setup();
@@ -63,23 +63,23 @@ function startApplication() {
         schemas_5.init(exports.server);
         schemas_4.init(exports.server);
         exports.server.register(fastify_cors_1.default, {
-            origin: '*',
+            origin: "*",
             credentials: true,
         });
         exports.server.register(point_of_view_1.default, {
             engine: {
                 ejs: ejs,
             },
-            templates: './src/templates',
+            templates: "./src/templates",
             includeViewExtension: true,
         });
         exports.server
             .register(fastify_swagger_1.default, swaggerConfig_1.default)
-            .register(routes_1.default, { prefix: '/auth' })
-            .register(routes_2.default, { prefix: '/blockchain' })
-            .register(routes_3.default, { prefix: '/wallet' })
-            .register(routes_4.default, { prefix: '/cards' })
-            .register(routes_5.default, { prefix: '/views' })
+            .register(routes_1.default, { prefix: "/auth" })
+            .register(routes_2.default, { prefix: "/blockchain" })
+            .register(routes_3.default, { prefix: "/wallet" })
+            .register(routes_4.default, { prefix: "/cards" })
+            .register(routes_5.default, { prefix: "/views" })
             .after((error) => {
             if (error) {
                 console.log(error);
@@ -90,12 +90,12 @@ function startApplication() {
                 throw err;
             yield exports.server.swagger();
         }));
-        exports.server.listen(env_1.PORT, '0.0.0.0', (error, address) => {
+        exports.server.listen(env_1.PORT, "0.0.0.0", (error, address) => {
             if (error) {
                 exports.server.log.error(error.message);
                 process.exit(1);
             }
-            console.log('Server running:', address);
+            console.log("Server running:", address);
         });
     });
 }

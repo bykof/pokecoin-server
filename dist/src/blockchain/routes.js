@@ -14,16 +14,16 @@ const BlockchainController_1 = require("./controller/BlockchainController");
 function routes(fastify) {
     return __awaiter(this, void 0, void 0, function* () {
         fastify.route({
-            method: 'POST',
-            url: '/blocks',
+            method: "POST",
+            url: "/blocks",
             schema: {
-                tags: ['Blockchain'],
-                body: { $ref: 'AddBlockBody#' },
+                tags: ["Blockchain"],
+                body: { $ref: "AddBlockBody#" },
                 response: {
-                    200: { $ref: 'AddBlockResponse#' },
-                    400: { $ref: 'AddBlockErrorResponse#' },
-                    401: { $ref: 'UnauthorizedError#' },
-                    500: { $ref: 'UnexpectedError#' },
+                    200: { $ref: "AddBlockResponse#" },
+                    400: { $ref: "AddBlockErrorResponse#" },
+                    401: { $ref: "UnauthorizedError#" },
+                    500: { $ref: "UnexpectedError#" },
                 },
                 security: [{ token: [] }],
             },
@@ -31,26 +31,26 @@ function routes(fastify) {
             handler: BlockchainController_1.default.addBlock,
         });
         fastify.route({
-            method: 'GET',
-            url: '/lastBlock',
+            method: "GET",
+            url: "/lastBlock",
             schema: {
-                tags: ['Blockchain'],
+                tags: ["Blockchain"],
                 response: {
-                    200: { $ref: 'Block#' },
-                    401: { $ref: 'UnauthorizedError#' },
-                    500: { $ref: 'UnexpectedError#' },
+                    200: { $ref: "Block#" },
+                    401: { $ref: "UnauthorizedError#" },
+                    500: { $ref: "UnexpectedError#" },
                 },
             },
             handler: BlockchainController_1.default.lastBlock,
         });
         fastify.route({
-            method: 'GET',
-            url: '/currentDifficulty',
+            method: "GET",
+            url: "/currentDifficulty",
             schema: {
-                tags: ['Blockchain'],
+                tags: ["Blockchain"],
                 response: {
-                    200: { $ref: 'CurrentDifficultyResponse#' },
-                    500: { $ref: 'UnexpectedError#' },
+                    200: { $ref: "CurrentDifficultyResponse#" },
+                    500: { $ref: "UnexpectedError#" },
                 },
             },
             handler: BlockchainController_1.default.currentDifficulty,

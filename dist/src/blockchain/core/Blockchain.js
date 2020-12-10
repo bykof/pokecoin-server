@@ -23,11 +23,11 @@ class Blockchain {
     }
     setup() {
         return __awaiter(this, void 0, void 0, function* () {
-            const lastBlock = this.getLastBlock();
+            const lastBlock = yield this.getLastBlock();
             if (!lastBlock) {
-                console.log('Blockchain has no genesis block, will create one now...');
+                console.log("Blockchain has no genesis block, will create one now...");
                 yield Block_1.BlockModel.createFirstBlock();
-                console.log('Genesis block was created');
+                console.log("Genesis block was created");
             }
         });
     }
@@ -35,11 +35,12 @@ class Blockchain {
         return this._currentDifficulty;
     }
     get difficultyAsZeros() {
-        return Array(this.currentDifficulty).fill(0).join('');
+        return Array(this.currentDifficulty).fill(0).join("");
     }
     getLastBlock() {
         return __awaiter(this, void 0, void 0, function* () {
-            const blocks = yield Block_1.BlockModel.find().skip((yield Block_1.BlockModel.countDocuments({})) - 1);
+            const blocks = yield Block_1.BlockModel.find().sort({ $natural: -1 }).limit(1);
+            console.log(blocks);
             if (blocks.length === 0)
                 return null;
             return blocks[0];
@@ -66,7 +67,9 @@ class Blockchain {
     blockIsValid(block) {
         return __awaiter(this, void 0, void 0, function* () {
             const lastBlock = yield this.getLastBlock();
-            return (block.calculateHash().substring(0, this.currentDifficulty) === this.difficultyAsZeros &&
+            console.log(lastBlock);
+            return (block.calculateHash().substring(0, this.currentDifficulty) ===
+                this.difficultyAsZeros &&
                 (lastBlock ? block.previousHash === lastBlock.hash : true));
         });
     }

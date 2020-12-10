@@ -10,16 +10,16 @@ import registerResponse from "./registerResponse";
 import registerErrorResponse from "./registerErrorResponse";
 
 export function init(fastify: FastifyInstance) {
-  fastify.addSchema(userSchema)
+  fastify.addSchema(userSchema);
 
-  fastify.addSchema(changePasswordBody)
-  fastify.addSchema(changePasswordResponse)
+  fastify.addSchema(changePasswordBody);
+  fastify.addSchema(changePasswordResponse);
 
-  fastify.addSchema(loginBody)
-  fastify.addSchema(loginResponse)
-  fastify.addSchema(loginErrorResponse)
+  fastify.addSchema(loginBody);
+  fastify.addSchema(loginResponse);
+  fastify.addSchema(loginErrorResponse);
 
-  fastify.addSchema(registerBody)
-  fastify.addSchema(registerResponse)
-  fastify.addSchema(registerErrorResponse)
+  fastify.addSchema(registerBody);
+  fastify.addSchema(registerResponse);
+  fastify.addSchema(registerErrorResponse);
 }

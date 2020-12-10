@@ -1,13 +1,13 @@
-import { UserModel } from '../models/User'
-import UnauthorizedError from '../../core/errors/UnauthorizedError';
+import { UserModel } from "../models/User";
+import UnauthorizedError from "../../core/errors/UnauthorizedError";
 
 export default async function isAuthenticated(request, reply) {
-  const token = request.headers['token']
-  const user = await UserModel.getUserByJSONWebToken(token)
+  const token = request.headers["token"];
+  const user = await UserModel.getUserByJSONWebToken(token);
   if (!token || !user!) {
-    return reply.status(401).send(new UnauthorizedError())
+    return reply.status(401).send(new UnauthorizedError());
   } else {
-    request.user = user
-    return
+    request.user = user;
+    return;
   }
 }

@@ -13,7 +13,7 @@ const User_1 = require("../models/User");
 const UnauthorizedError_1 = require("../../core/errors/UnauthorizedError");
 function isAuthenticated(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
-        const token = request.headers['token'];
+        const token = request.headers["token"];
         const user = yield User_1.UserModel.getUserByJSONWebToken(token);
         if (!token || !user) {
             return reply.status(401).send(new UnauthorizedError_1.default());

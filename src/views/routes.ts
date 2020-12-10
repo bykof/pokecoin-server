@@ -1,29 +1,29 @@
-import { blockchainView, usersView, dashboardView } from './controller';
+import { blockchainView, usersView, dashboardView } from "./controller";
 
 export default async function routes(fastify) {
   fastify.route({
-    method: 'GET',
-    url: '/blockchain',
+    method: "GET",
+    url: "/blockchain",
     schema: {
-      tags: ['Views'],
+      tags: ["Views"],
     },
     handler: blockchainView,
   });
 
   fastify.route({
-    method: 'GET',
-    url: '/users',
+    method: "GET",
+    url: "/users",
     schema: {
-      tags: ['Views'],
+      tags: ["Views"],
     },
     handler: usersView,
   });
 
   fastify.route({
-    method: 'GET',
-    url: '/dashboard',
+    method: "GET",
+    url: "/dashboard",
     schema: {
-      tags: ['Views'],
+      tags: ["Views"],
     },
     handler: dashboardView,
   });

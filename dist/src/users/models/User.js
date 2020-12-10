@@ -27,12 +27,12 @@ const Wallet_1 = require("../../wallet/core/Wallet");
 const UserCardTransaction_1 = require("../../cards/models/UserCardTransaction");
 class User {
     static hashPassword(password) {
-        return crypto.createHash('sha256').update(password).digest('hex');
+        return crypto.createHash("sha256").update(password).digest("hex");
     }
     static decodeJSONWebToken(token) {
         try {
             // TODO: change secret
-            return jsonwebtoken_1.verify(token, 'secret');
+            return jsonwebtoken_1.verify(token, "secret");
         }
         catch (error) {
             // Since I know that the error will be an unverified jwt token
@@ -45,20 +45,24 @@ class User {
         return __awaiter(this, void 0, void 0, function* () {
             const decodedToken = this.decodeJSONWebToken(token);
             if (decodedToken) {
-                return yield this.findOne({ username: decodedToken['username'] });
+                return yield this.findOne({ username: decodedToken["username"] });
             }
         });
     }
     generateJSONWebToken() {
         // TODO: change secret
-        return jsonwebtoken_1.sign({ username: this.username }, env_1.JWT_SECRET, { expiresIn: 60 * 60 * 24 });
+        return jsonwebtoken_1.sign({ username: this.username }, env_1.JWT_SECRET, {
+            expiresIn: 60 * 60 * 24,
+        });
     }
     getPoints() {
         return __awaiter(this, void 0, void 0, function* () {
             const wallet = new Wallet_1.default(this);
-            const userCardTransactionsCount = yield UserCardTransaction_1.UserCardTransactionModel.count({ user: this });
+            const userCardTransactionsCount = yield UserCardTransaction_1.UserCardTransactionModel.count({
+                user: this,
+            });
             const balance = yield wallet.getBalance();
-            return balance + (userCardTransactionsCount * 6);
+            return balance + userCardTransactionsCount * 6;
         });
     }
 }

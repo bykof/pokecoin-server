@@ -28,19 +28,21 @@ class Block {
         this.nonce = 1;
     }
     calculateHash() {
-        const information = (this.previousHash +
+        const information = this.previousHash +
             this.timestamp.toString() +
             this.data +
-            this.nonce.toString());
-        return crypto.createHash('sha256').update(information).digest('hex');
+            this.nonce.toString();
+        return crypto.createHash("sha256").update(information).digest("hex");
     }
     mineHash(difficulty) {
-        const difficultyAsZeros = new Array(difficulty).fill(0).join('');
+        const difficultyAsZeros = new Array(difficulty).fill(0).join("");
         while (this.calculateHash().substring(0, difficulty) !== difficultyAsZeros) {
             this.nonce++;
-            // If we have gone through all nonce so we get to 0 than we update the timestamp
+            // If we have gone through all nonce so we get to 0
+            // than we reset the timestamp and nonce
             if (this.nonce === Number.MAX_SAFE_INTEGER) {
                 this.timestamp = Date.now();
+                this.nonce = 0;
             }
         }
         return this.calculateHash();
@@ -58,12 +60,14 @@ class Block {
     static createFirstBlock() {
         return __awaiter(this, void 0, void 0, function* () {
             const newBlock = new this();
-            newBlock.previousHash = '';
-            newBlock.data = 'Genesis Block #1';
+            newBlock.previousHash = "";
+            newBlock.data = "Genesis Block #1";
             newBlock.timestamp = Date.now();
             newBlock.nonce = 0;
             newBlock.hash = newBlock.calculateHash();
-            newBlock.foundByUser = yield User_1.UserModel.findOne({ username: UserSetup_1.DEFAULT_USERNAME });
+            newBlock.foundByUser = yield User_1.UserModel.findOne({
+                username: UserSetup_1.DEFAULT_USERNAME,
+            });
             yield newBlock.save();
             return newBlock;
         });

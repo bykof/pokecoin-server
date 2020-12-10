@@ -28,8 +28,10 @@ class BlockchainController {
             lockfile.lock(BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK, {
                 wait: 1000 * 30,
             }, () => __awaiter(this, void 0, void 0, function* () {
-                if (!utils_1.checkIfBrowser(request.headers['user-agent'])) {
-                    return reply.status(400).send({ message: 'please no automated scripts!' });
+                if (!utils_1.checkIfBrowser(request.headers["user-agent"])) {
+                    return reply
+                        .status(400)
+                        .send({ message: "please no automated scripts!" });
                 }
                 const blockchain = Blockchain_1.default.getInstance();
                 const wallet = new Wallet_1.default(request.user);
@@ -38,7 +40,9 @@ class BlockchainController {
                 if (!blockIsValid) {
                     const lastBlock = yield blockchain.getLastBlock();
                     lockfile.unlock(BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK, () => { });
-                    return reply.status(400).send(new BlockIsNotValidError_1.default(newBlock, lastBlock));
+                    return reply
+                        .status(400)
+                        .send(new BlockIsNotValidError_1.default(newBlock, lastBlock));
                 }
                 else {
                     yield newBlock.save();
@@ -46,7 +50,7 @@ class BlockchainController {
                     lockfile.unlock(BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK, () => { });
                     return reply.send({
                         block: newBlock,
-                        transaction: newTransaction
+                        transaction: newTransaction,
                     });
                 }
             }));
@@ -78,5 +82,5 @@ class BlockchainController {
     }
 }
 exports.default = BlockchainController;
-BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK = 'addBlockchainBlock.lock';
+BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK = "addBlockchainBlock.lock";
 //# sourceMappingURL=BlockchainController.js.map

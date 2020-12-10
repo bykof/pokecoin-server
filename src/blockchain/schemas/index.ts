@@ -1,9 +1,9 @@
-import { FastifyInstance } from 'fastify';
-import blockSchema from './blockSchema';
-import addBlockBody from './addBlockBody';
-import addBlockResponse from './addBlockResponse';
-import addBlockErrorResponse from './addBlockErrorResponse';
-import currentDifficultyResponse from './currentDifficultyResponse';
+import { FastifyInstance } from "fastify";
+import blockSchema from "./blockSchema";
+import addBlockBody from "./addBlockBody";
+import addBlockResponse from "./addBlockResponse";
+import addBlockErrorResponse from "./addBlockErrorResponse";
+import currentDifficultyResponse from "./currentDifficultyResponse";
 
 export function init(fastify: FastifyInstance) {
   fastify.addSchema(blockSchema);

@@ -27,9 +27,9 @@ class Wallet {
                     $group: {
                         _id: null,
                         total: {
-                            $sum: "$amount"
-                        }
-                    }
+                            $sum: "$amount",
+                        },
+                    },
                 },
             ]);
             if (transactions.length === 0)

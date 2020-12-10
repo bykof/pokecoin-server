@@ -1,7 +1,7 @@
-import { Block, BlockModel } from '../models/Block';
-import { POW_DIFFICULTY } from '../../env';
-import { DocumentType } from '@typegoose/typegoose';
-import { User } from '../../users/models/User';
+import { Block, BlockModel } from "../models/Block";
+import { POW_DIFFICULTY } from "../../env";
+import { DocumentType } from "@typegoose/typegoose";
+import { User } from "../../users/models/User";
 
 export default class Blockchain {
   private static instance;
@@ -23,9 +23,9 @@ export default class Blockchain {
     const lastBlock = await this.getLastBlock();
 
     if (!lastBlock) {
-      console.log('Blockchain has no genesis block, will create one now...');
+      console.log("Blockchain has no genesis block, will create one now...");
       await BlockModel.createFirstBlock();
-      console.log('Genesis block was created');
+      console.log("Genesis block was created");
     }
   }
 
@@ -34,7 +34,7 @@ export default class Blockchain {
   }
 
   get difficultyAsZeros(): String {
-    return Array(this.currentDifficulty).fill(0).join('');
+    return Array(this.currentDifficulty).fill(0).join("");
   }
 
   async getLastBlock(): Promise<DocumentType<Block> | null> {

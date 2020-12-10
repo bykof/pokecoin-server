@@ -1,1 +1,1 @@
-{"version":3,"file":"notFoundSchema.js","sourceRoot":"","sources":["../../../../src/core/schemas/notFoundSchema.ts"],"names":[],"mappings":";;AAAA,kBAAe;IACb,GAAG,EAAE,eAAe;IACpB,KAAK,EAAE,eAAe;IACtB,WAAW,EAAE,sCAAsC;IACnD,IAAI,EAAE,QAAQ;CACf,CAAA"}
+{"version":3,"file":"notFoundSchema.js","sourceRoot":"","sources":["../../../../src/core/schemas/notFoundSchema.ts"],"names":[],"mappings":";;AAAA,kBAAe;IACb,GAAG,EAAE,eAAe;IACpB,KAAK,EAAE,eAAe;IACtB,WAAW,EAAE,sCAAsC;IACnD,IAAI,EAAE,QAAQ;CACf,CAAC"}

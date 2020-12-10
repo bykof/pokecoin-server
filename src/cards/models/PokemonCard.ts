@@ -1,34 +1,36 @@
-import Card from "./base/Card"
-import Ability from "./base/Ability"
-import Attack from "./base/Attack"
+import Card from "./base/Card";
+import Ability from "./base/Ability";
+import Attack from "./base/Attack";
 import Weakness from "./base/Weakness";
 
 export default class PokemonCard extends Card {
-  level: String
-  evolvesFrom: String
-  ability: Ability
-  hp: String
-  retreatCost: String[]
-  convertedRetreatCost: Number
-  types: String[]
-  attacks: Attack[]
-  weaknesses: Weakness[]
-  nationalPokedexNumber: Number
-  evolvesTo: String[]
+  level: String;
+  evolvesFrom: String;
+  ability: Ability;
+  hp: String;
+  retreatCost: String[];
+  convertedRetreatCost: Number;
+  types: String[];
+  attacks: Attack[];
+  weaknesses: Weakness[];
+  nationalPokedexNumber: Number;
+  evolvesTo: String[];
 
   constructor(data) {
-    super(data)
+    super(data);
 
     if (data.ability) {
-      this.ability = new Ability(data.ability)
+      this.ability = new Ability(data.ability);
     }
 
     if (data.attacks) {
-      this.attacks = data.attacks.map((attack) => new Attack(attack))
+      this.attacks = data.attacks.map((attack) => new Attack(attack));
     }
 
     if (data.weaknesses) {
-      this.weaknesses = data.weaknesses.map((weakness) => new Weakness(weakness))
+      this.weaknesses = data.weaknesses.map(
+        (weakness) => new Weakness(weakness)
+      );
     }
   }
 }
