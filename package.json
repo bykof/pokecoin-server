@@ -30,7 +30,7 @@
     "fastify-swagger": "^3.5.0",
     "jsonwebtoken": "^8.5.1",
     "lockfile": "^1.0.4",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "mongodb": "3.x.x",
     "mongoose": "5.10.0 - 5.10.18",
     "openapi3-ts": "^2.0.0",
