@@ -1,9 +1,9 @@
 import fastify, { FastifyInstance } from "fastify";
-import swagger from "fastify-swagger";
 import * as mongoose from "mongoose";
 import * as ejs from "ejs";
-import fastifyCORS from "fastify-cors";
-import pointOfView from "point-of-view";
+import fastifyCORS from "@fastify/cors";
+import fastifySwagger from "@fastify/swagger";
+import fastifyView from "@fastify/view";
 import { MONGODB_URL, PORT } from "./env";
 import authenticationRoutes from "./users/routes";
 import blockchainRoutes from "./blockchain/routes";
@@ -33,11 +33,7 @@ const cardsAggregate = CardsAggregate.getInstance();
 cardsAggregate.addCardsFromJson(BaseJSON);
 
 export async function setupDatabase() {
-  await mongoose.connect(MONGODB_URL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-  });
+  await mongoose.connect(MONGODB_URL);
   console.log("established connection to mongodb");
 }
 
@@ -60,7 +56,7 @@ async function startApplication() {
     credentials: true,
   });
 
-  server.register(pointOfView, {
+  server.register(fastifyView, {
     engine: {
       ejs: ejs,
     },
@@ -68,7 +64,7 @@ async function startApplication() {
     includeViewExtension: true,
   });
   server
-    .register(swagger, swaggerConfig)
+    .register(fastifySwagger, swaggerConfig)
     .register(authenticationRoutes, { prefix: "/auth" })
     .register(blockchainRoutes, { prefix: "/blockchain" })
     .register(walletRoutes, { prefix: "/wallet" })
@@ -82,10 +78,10 @@ async function startApplication() {
 
   server.ready(async (err) => {
     if (err) throw err;
-    await server.swagger();
+    server.swagger();
   });
 
-  server.listen(PORT, "0.0.0.0", (error, address) => {
+  server.listen({ port: PORT, host: "0.0.0.0" }, (error, address) => {
     if (error) {
       server.log.error(error.message);
       process.exit(1);

@@ -1,1 +1,0 @@
-{"version":3,"file":"registerResponse.js","sourceRoot":"","sources":["../../../../src/users/schemas/registerResponse.ts"],"names":[],"mappings":";;AAAA,kBAAe;IACb,GAAG,EAAE,kBAAkB;IACvB,KAAK,EAAE,kBAAkB;IACzB,WAAW,EAAE,6CAA6C;IAC1D,IAAI,EAAE,QAAQ;IACd,QAAQ,EAAE,CAAC,UAAU,CAAC;IACtB,UAAU,EAAE;QACV,QAAQ,EAAE,EAAE,IAAI,EAAE,QAAQ,EAAE;KAC7B;CACF,CAAC"}
