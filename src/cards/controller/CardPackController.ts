@@ -13,7 +13,7 @@ export default class CardPackController {
     if (cardPack) {
       return reply.send(cardPack);
     } else {
-      return reply.status(404).send();
+      return reply.code(404).send();
     }
   }
 
@@ -25,7 +25,7 @@ export default class CardPackController {
       );
       return reply.send({ cards: cardPackage });
     } catch (error) {
-      return reply.status(400).send(error);
+      return reply.code(400).send(error);
     }
   }
 

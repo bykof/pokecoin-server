@@ -15,46 +15,41 @@ export default class BlockchainController {
    * @param reply
    */
   static async addBlock(request, reply) {
-    lockfile.lock(
-      BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK,
-      {
-        wait: 1000 * 30,
-      },
-      async () => {
-        if (!isBrowser(request.headers["user-agent"])) {
-          return reply
-            .status(400)
-            .send({ message: "please no automated scripts!" });
-        }
-
-        const blockchain = Blockchain.getInstance();
-        const wallet = new Wallet(request.user);
-        const newBlock = BlockModel.createFromRequest(request);
-        const blockIsValid = await blockchain.blockIsValid(newBlock);
-        if (!blockIsValid) {
-          const lastBlock = await blockchain.getLastBlock();
-          lockfile.unlock(
-            BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK,
-            () => {}
-          );
-          return reply
-            .status(400)
-            .send(new BlockIsNotValidError(newBlock, lastBlock));
-        } else {
-          await newBlock.save();
-          const newTransaction = await wallet.addReward(newBlock);
-          lockfile.unlock(
-            BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK,
-            () => {}
-          );
-
-          return reply.send({
-            block: newBlock,
-            transaction: newTransaction,
-          });
-        }
+    lockfile.lockSync(BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK);
+    try {
+      if (!isBrowser(request.headers["user-agent"])) {
+        console.log("not a browser");
+        return reply
+          .code(400)
+          .send({ message: "please no automated scripts!" });
       }
-    );
+
+      const blockchain = Blockchain.getInstance();
+      const wallet = new Wallet(request.user);
+      const newBlock = BlockModel.createFromRequest(request);
+      const blockIsValid = await blockchain.blockIsValid(newBlock);
+
+      if (!blockIsValid) {
+        console.log("block is not valid");
+        const lastBlock = await blockchain.getLastBlock();
+
+        console.log("reply 400");
+        return reply
+          .code(400)
+          .send(new BlockIsNotValidError(newBlock, lastBlock));
+      } else {
+        await newBlock.save();
+        const newTransaction = await wallet.addReward(newBlock);
+
+        console.log("send block");
+        return reply.send({
+          block: newBlock,
+          transaction: newTransaction,
+        });
+      }
+    } finally {
+      lockfile.unlockSync(BlockchainController.ADD_BLOCKCHAIN_BLOCK_LOCK);
+    }
   }
 
   /**

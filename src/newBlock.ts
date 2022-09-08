@@ -5,14 +5,10 @@ import { UserModel } from "./users/models/User";
 import { MONGODB_URL } from "./env";
 
 (async () => {
-  const CURRENT_DIFFICULTY = 3;
+  const CURRENT_DIFFICULTY = 6;
   const blockchain = Blockchain.getInstance();
   blockchain._currentDifficulty = CURRENT_DIFFICULTY;
-  await mongoose.connect(MONGODB_URL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-  });
+  await mongoose.connect(MONGODB_URL);
   console.log("established connection to mongodb");
   await blockchain.setup();
   let block = new BlockModel({

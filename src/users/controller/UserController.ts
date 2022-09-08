@@ -19,11 +19,12 @@ export default class UserController {
       return reply.send(user);
     } catch (error) {
       // Duplicate entry
-      if (error.code === 11000)
+      if (error.code === 11000) {
         return reply
-          .status(400)
+          .code(400)
           .send(new UserAlreadyExistsError(request.body.username));
-      return reply.status(500).send(error);
+      }
+      return reply.code(500).send(error);
     }
   }
 
@@ -42,16 +43,16 @@ export default class UserController {
           return reply.send({ token: user.generateJSONWebToken() });
         } else {
           return reply
-            .status(400)
+            .code(400)
             .send(new PasswordIncorrectError(request.body.username));
         }
       } else {
         return reply
-          .status(400)
+          .code(400)
           .send(new UserNotFoundError(request.body.username));
       }
     } catch (error) {
-      return reply.status(500).send(error);
+      return reply.code(500).send(error);
     }
   }
 
@@ -76,11 +77,11 @@ export default class UserController {
     if (hashedPassword === request.user.password) {
       request.user.password = UserModel.hashPassword(request.body.newPassword);
       await request.user.save();
-      return reply.status(201).send();
+      return reply.code(201).send();
     }
 
     return reply
-      .status(400)
+      .code(400)
       .send(new PasswordIncorrectError(request.user.username));
   }
 }

@@ -16,7 +16,7 @@ export default class CardController {
     if (card) {
       return reply.send({ card: card });
     } else {
-      return reply.status(404).send();
+      return reply.code(404).send();
     }
   }
 }
