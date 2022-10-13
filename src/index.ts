@@ -3,6 +3,7 @@ import * as mongoose from "mongoose";
 import * as ejs from "ejs";
 import fastifyCORS from "@fastify/cors";
 import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUi from "@fastify/swagger-ui";
 import fastifyView from "@fastify/view";
 import { MONGODB_URL, PORT } from "./env";
 import authenticationRoutes from "./users/routes";
@@ -63,8 +64,12 @@ async function startApplication() {
     templates: "./src/templates",
     includeViewExtension: true,
   });
+
   server
     .register(fastifySwagger, swaggerConfig)
+    .register(fastifySwaggerUi, {
+      routePrefix: "/docs",
+    })
     .register(authenticationRoutes, { prefix: "/auth" })
     .register(blockchainRoutes, { prefix: "/blockchain" })
     .register(walletRoutes, { prefix: "/wallet" })
