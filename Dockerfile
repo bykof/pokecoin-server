@@ -1,4 +1,4 @@
-FROM node:16-alpine3.16
+FROM node:18-alpine
 
 ENV PRODUCTION=true
 
