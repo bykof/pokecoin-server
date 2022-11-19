@@ -1,5 +1,5 @@
 # multi-stage docker-build for building the typescript project
-FROM node:16-alpine3.16 AS builder
+FROM node:18-alpine AS builder
 
 WORKDIR /build
 
