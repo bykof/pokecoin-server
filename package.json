@@ -40,7 +40,6 @@
     "@types/jest": "^29.1.2",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/lockfile": "^1.0.2",
-    "@types/mongoose": "^5.11.97",
     "@types/node": "^18.8.5",
     "@types/swagger-schema-official": "^2.0.22",
     "@types/ua-parser-js": "^0.7.36",
