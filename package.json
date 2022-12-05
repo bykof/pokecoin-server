@@ -24,7 +24,7 @@
     "@fastify/view": "^7.1.0",
     "@typegoose/typegoose": "^9.12.1",
     "ejs": "^3.1.5",
-    "fastify": "^4.8.1",
+    "fastify": "^4.10.2",
     "jsonwebtoken": "^8.5.1",
     "lockfile": "^1.0.4",
     "moment": "^2.29.1",
