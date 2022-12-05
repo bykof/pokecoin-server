@@ -63,3 +63,5 @@ typings/
 
 dist
 .mongo
+# git folder for git repository to be not included in the docker build
+.git/
