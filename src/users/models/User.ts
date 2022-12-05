@@ -23,8 +23,7 @@ export class User {
 
   static decodeJSONWebToken(token: string): Object | null {
     try {
-      // TODO: change secret
-      return verifyJWT(token, "secret");
+      return verifyJWT(token, JWT_SECRET);
     } catch (error) {
       // Since I know that the error will be an unverified jwt token
       // i can return null and don't log an error
@@ -44,7 +43,6 @@ export class User {
   }
 
   generateJSONWebToken(this: DocumentType<User>): string {
-    // TODO: change secret
     return signJWT({ username: this.username }, JWT_SECRET, {
       expiresIn: 60 * 60 * 24,
     });
