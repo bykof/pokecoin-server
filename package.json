@@ -1,6 +1,6 @@
 {
   "name": "pokecoin-server",
-  "version": "1.4.2",
+  "version": "1.5.2",
   "main": "src/index.js",
   "repository": "https://github.com/bykof/pokecoin-server.git",
   "author": "Michael Bykovski <bykof@me.com>",
