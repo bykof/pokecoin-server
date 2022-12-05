@@ -25,6 +25,8 @@ RUN yarn install --frozen-lockfile --prod && yarn cache clean
 
 # copy compiled files from previous docker-build-stage
 COPY --from=builder /build/dist /app/dist
+# copy template files to render views
+COPY --from=builder /build/src/templates/users.ejs /app/src/templates/users.ejs
 
 EXPOSE 3000
 
