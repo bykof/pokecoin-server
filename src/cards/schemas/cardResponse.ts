@@ -5,6 +5,6 @@ export default {
   type: "object",
   required: ["card"],
   properties: {
-    card: { $ref: "PokemonCard#" },
+    card: { $ref: "PokemonCard" },
   },
 };

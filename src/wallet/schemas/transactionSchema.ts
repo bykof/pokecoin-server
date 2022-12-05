@@ -7,7 +7,7 @@ export default {
     amount: { type: "integer" },
     timestamp: { type: "integer" },
     // Fix cause of circular import
-    rewardOfBlock: { $ref: "Block#" },
-    user: { $ref: "User#" },
+    rewardOfBlock: { $ref: "Block" },
+    user: { $ref: "User" },
   },
 };

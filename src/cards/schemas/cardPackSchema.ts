@@ -8,7 +8,7 @@ export default {
     name: { type: "string" },
     cards: {
       type: "array",
-      items: { $ref: "PokemonCard#" },
+      items: { $ref: "PokemonCard" },
     },
   },
 };

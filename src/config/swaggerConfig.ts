@@ -18,6 +18,11 @@ const swaggerConfig = {
       },
     },
   },
+  refResolver: {
+    buildLocalReference(json, baseUri, fragment, i) {
+      return json.$id || `my-fragment-${i}`;
+    },
+  },
 } as SwaggerOptions;
 
 export default swaggerConfig;

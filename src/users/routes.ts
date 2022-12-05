@@ -7,11 +7,11 @@ export default async function routes(fastify) {
     url: "/login",
     schema: {
       tags: ["Users"],
-      body: { $ref: "LoginBody#" },
+      body: { $ref: "LoginBody" },
       response: {
-        200: { $ref: "LoginResponse#" },
-        400: { $ref: "LoginErrorResponse#" },
-        500: { $ref: "UnexpectedError#" },
+        200: { $ref: "LoginResponse" },
+        400: { $ref: "LoginErrorResponse" },
+        500: { $ref: "UnexpectedError" },
       },
     },
     handler: UserController.login,
@@ -22,11 +22,11 @@ export default async function routes(fastify) {
     url: "/register",
     schema: {
       tags: ["Users"],
-      body: { $ref: "RegisterBody#" },
+      body: { $ref: "RegisterBody" },
       response: {
-        200: { $ref: "RegisterResponse#" },
-        400: { $ref: "RegisterErrorResponse#" },
-        500: { $ref: "UnexpectedError#" },
+        200: { $ref: "RegisterResponse" },
+        400: { $ref: "RegisterErrorResponse" },
+        500: { $ref: "UnexpectedError" },
       },
     },
     handler: UserController.register,
@@ -38,9 +38,9 @@ export default async function routes(fastify) {
     schema: {
       tags: ["Users"],
       response: {
-        200: { $ref: "User#" },
-        401: { $ref: "UnauthorizedError#" },
-        500: { $ref: "UnexpectedError#" },
+        200: { $ref: "User" },
+        401: { $ref: "UnauthorizedError" },
+        500: { $ref: "UnexpectedError" },
       },
       security: [{ token: [] }],
     },
@@ -53,11 +53,11 @@ export default async function routes(fastify) {
     url: "/changePassword",
     schema: {
       tags: ["Users"],
-      body: { $ref: "ChangePasswordBody#" },
+      body: { $ref: "ChangePasswordBody" },
       response: {
-        201: { $ref: "ChangePasswordResponse#" },
-        401: { $ref: "UnauthorizedError#" },
-        500: { $ref: "UnexpectedError#" },
+        201: { $ref: "ChangePasswordResponse" },
+        401: { $ref: "UnauthorizedError" },
+        500: { $ref: "UnexpectedError" },
       },
       security: [{ token: [] }],
     },

@@ -7,7 +7,7 @@ export default {
   properties: {
     cards: {
       type: "array",
-      items: { $ref: "PokemonCard#" },
+      items: { $ref: "PokemonCard" },
     },
   },
 };

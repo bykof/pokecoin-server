@@ -3,5 +3,5 @@ export default {
   title: "UserCardResponse",
   description: "Returns all cards of an user",
   type: "array",
-  items: { $ref: "UserCard#" },
+  items: { $ref: "UserCard" },
 };

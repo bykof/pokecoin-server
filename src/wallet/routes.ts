@@ -8,9 +8,9 @@ export default async function routes(fastify) {
     schema: {
       tags: ["Wallet"],
       response: {
-        200: { $ref: "BalanceResponse#" },
-        401: { $ref: "UnauthorizedError#" },
-        500: { $ref: "UnexpectedError#" },
+        200: { $ref: "BalanceResponse" },
+        401: { $ref: "UnauthorizedError" },
+        500: { $ref: "UnexpectedError" },
       },
       security: [{ token: [] }],
     },

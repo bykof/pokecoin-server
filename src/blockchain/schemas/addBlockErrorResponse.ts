@@ -8,7 +8,7 @@ export default {
   properties: {
     code: { type: "string", enum: [BlockIsNotValidError.name] },
     message: { type: "string" },
-    block: { $ref: "Block#" },
-    lastBlock: { $ref: "Block#" },
+    block: { $ref: "Block" },
+    lastBlock: { $ref: "Block" },
   },
 };

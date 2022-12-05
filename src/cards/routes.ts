@@ -9,10 +9,10 @@ export default async function routes(fastify) {
     url: "/",
     schema: {
       tags: ["Cards"],
-      querystring: { $ref: "PageParameter#" },
+      querystring: { $ref: "PageParameter" },
       response: {
-        200: { $ref: "CardsResponse#" },
-        500: { $ref: "UnexpectedError#" },
+        200: { $ref: "CardsResponse" },
+        500: { $ref: "UnexpectedError" },
       },
     },
     handler: CardController.list,
@@ -33,9 +33,9 @@ export default async function routes(fastify) {
         },
       },
       response: {
-        200: { $ref: "CardResponse#" },
-        404: { $ref: "NotFoundError#" },
-        500: { $ref: "UnexpectedError#" },
+        200: { $ref: "CardResponse" },
+        404: { $ref: "NotFoundError" },
+        500: { $ref: "UnexpectedError" },
       },
     },
     handler: CardController.get,
@@ -47,9 +47,9 @@ export default async function routes(fastify) {
     schema: {
       tags: ["Cards"],
       response: {
-        200: { $ref: "UserCardResponse#" },
-        401: { $ref: "UnauthorizedError#" },
-        500: { $ref: "UnexpectedError#" },
+        200: { $ref: "UserCardResponse" },
+        401: { $ref: "UnauthorizedError" },
+        500: { $ref: "UnexpectedError" },
       },
       security: [{ token: [] }],
     },
@@ -63,8 +63,8 @@ export default async function routes(fastify) {
     schema: {
       tags: ["Cards"],
       response: {
-        200: { $ref: "PackagesResponse#" },
-        500: { $ref: "UnexpectedError#" },
+        200: { $ref: "PackagesResponse" },
+        500: { $ref: "UnexpectedError" },
       },
     },
     handler: CardPackController.getCardPackages,
@@ -85,9 +85,9 @@ export default async function routes(fastify) {
         },
       },
       response: {
-        200: { $ref: "CardPack#" },
-        404: { $ref: "NotFoundError#" },
-        500: { $ref: "UnexpectedError#" },
+        200: { $ref: "CardPack" },
+        404: { $ref: "NotFoundError" },
+        500: { $ref: "UnexpectedError" },
       },
     },
     handler: CardPackController.getCardPack,
@@ -108,10 +108,10 @@ export default async function routes(fastify) {
         },
       },
       response: {
-        200: { $ref: "BuyDefaultPackageSchemaResponse#" },
-        404: { $ref: "NotFoundError#" },
-        401: { $ref: "UnauthorizedError#" },
-        500: { $ref: "UnexpectedError#" },
+        200: { $ref: "BuyDefaultPackageSchemaResponse" },
+        404: { $ref: "NotFoundError" },
+        401: { $ref: "UnauthorizedError" },
+        500: { $ref: "UnexpectedError" },
       },
       security: [{ token: [] }],
     },
@@ -125,7 +125,7 @@ export default async function routes(fastify) {
     schema: {
       tags: ["Cards"],
       response: {
-        200: { $ref: "BuyDefaultPackageSchemaResponse#" },
+        200: { $ref: "BuyDefaultPackageSchemaResponse" },
       },
     },
     handler: CardPackController.currentPackageCost,

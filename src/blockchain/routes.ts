@@ -7,12 +7,12 @@ export default async function routes(fastify) {
     url: "/blocks",
     schema: {
       tags: ["Blockchain"],
-      body: { $ref: "AddBlockBody#" },
+      body: { $ref: "AddBlockBody" },
       response: {
-        200: { $ref: "AddBlockResponse#" },
-        400: { $ref: "AddBlockErrorResponse#" },
-        401: { $ref: "UnauthorizedError#" },
-        500: { $ref: "UnexpectedError#" },
+        200: { $ref: "AddBlockResponse" },
+        400: { $ref: "AddBlockErrorResponse" },
+        401: { $ref: "UnauthorizedError" },
+        500: { $ref: "UnexpectedError" },
       },
       security: [{ token: [] }],
     },
@@ -26,9 +26,9 @@ export default async function routes(fastify) {
     schema: {
       tags: ["Blockchain"],
       response: {
-        200: { $ref: "Block#" },
-        401: { $ref: "UnauthorizedError#" },
-        500: { $ref: "UnexpectedError#" },
+        200: { $ref: "Block" },
+        401: { $ref: "UnauthorizedError" },
+        500: { $ref: "UnexpectedError" },
       },
     },
     handler: BlockchainController.lastBlock,
@@ -40,8 +40,8 @@ export default async function routes(fastify) {
     schema: {
       tags: ["Blockchain"],
       response: {
-        200: { $ref: "CurrentDifficultyResponse#" },
-        500: { $ref: "UnexpectedError#" },
+        200: { $ref: "CurrentDifficultyResponse" },
+        500: { $ref: "UnexpectedError" },
       },
     },
     handler: BlockchainController.currentDifficulty,

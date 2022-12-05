@@ -9,6 +9,6 @@ export default {
     data: { type: "string" },
     timestamp: { type: "integer" },
     nonce: { type: "integer" },
-    foundByUser: { $ref: "User#" },
+    foundByUser: { $ref: "User" },
   },
 };
