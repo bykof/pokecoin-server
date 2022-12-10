@@ -1,0 +1,6 @@
+all:
+  hosts:
+    prod:
+      ansible_host: 172.26.43.250
+      ansible_user: root
+      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q bykovski@login1.mi.hs-rm.de"'

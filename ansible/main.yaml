@@ -1,0 +1,24 @@
+---
+- name: Test Ping
+  hosts: all
+  tasks:
+    - name: Install apt deps
+      apt:
+        pkg:
+          - python3-pip
+        state: latest
+        update_cache: yes
+      
+    - name: Install pip deps
+      ansible.builtin.pip:
+        name:
+          - docker
+          - docker-compose
+
+    - name: Pull new images and up docker
+      community.docker.docker_compose:
+        project_src: /opt/pokecoin
+        state: present
+        remove_orphans: true
+
+        pull: true
