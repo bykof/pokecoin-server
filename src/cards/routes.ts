@@ -125,7 +125,7 @@ export default async function routes(fastify) {
     schema: {
       tags: ["Cards"],
       response: {
-        200: { $ref: "BuyDefaultPackageSchemaResponse" },
+        200: { $ref: "CurrentPackageCostResponse" },
       },
     },
     handler: CardPackController.currentPackageCost,
