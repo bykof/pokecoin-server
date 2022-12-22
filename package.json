@@ -25,7 +25,7 @@
     "@typegoose/typegoose": "^9.12.1",
     "ejs": "^3.1.5",
     "fastify": "^4.10.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lockfile": "^1.0.4",
     "moment": "^2.29.1",
     "mongodb": "4.10.0",
